@@ -1,0 +1,278 @@
+body {
+    height: 100vh;
+background: linear-gradient(45deg,#257bcf,#5088bf,#75a7d9);
+background-size: 300% 600%;
+animation: gradientAnimation 2s ease infinite;
+  }
+  @keyframes gradientAnimation {
+0% {
+    background-position: 0% 50%;
+}
+50% {
+    background-position: 100% 50%;
+}
+100% {
+    background-position: 0% 50%;
+}
+}
+
+  form {
+    margin-top: 80px;
+    margin-left: 25%;
+
+  }
+
+  label {
+    color: white;
+  }
+    #zoom:hover {
+    transform: scale(1.1, 1.1);
+  }
+
+
+
+ 
+
+
+
+
+  .form-row .form-group {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .custom-file-input {
+    width: 100%;
+  }
+
+  select.form-control {
+    bottom: auto;
+  }
+
+
+  #custom-alert {
+    position: fixed;
+    top: 300px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+    padding: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 500;
+    border: 2px solid #fff;
+  }
+
+  #custom-alert p {
+    margin-bottom: 10px;
+  }
+
+  #ok-button {
+
+    background-color: #fff;
+font-size: 13px;
+width: 100px; /* Reduzi a largura para ajustar melhor */
+cursor: pointer;
+color: #000000;
+border: none;
+margin-left: 5px;
+border-radius: 20px;
+padding: 6px;
+
+transition: .2s;
+box-shadow: 0px 2px 4px rgba(0, 174, 255, 0.3);
+
+font-weight: normal;
+text-align: center;
+
+  }
+
+  #ok-button:hover {
+    width: 99px;
+margin-left:6px;
+box-shadow: 0px 4px 8px rgba(7, 95, 136, 0.3);
+transition: .2s;
+
+  }
+
+  
+.divItemA {
+    margin-top:10px;
+    position: fixed;
+    margin-left:250px;
+
+  }
+
+  .w3-bar-item{
+    color: #fff !important;
+    font-weight: 700px;
+    background: rgba(255, 255, 255, 0.5) !important;
+    padding: 3px;
+    border-radius:20px;
+    text-align: center;
+    font-size: 15px;
+     font-weight: bold;
+     padding:5px;
+      margin-top:5px ;
+      justify-content:space-between;
+      margin-left:5px;
+      margin-top:20px;
+      border: 2px #fff solid;
+      text-decoration: none;
+  }
+
+  .w3-button:hover {
+    color: #fff !important;
+    font-weight: 700px;
+    background: rgba(255, 255, 255, 0.5) !important;
+    padding: 3px;
+    border-radius:20px;
+    text-align: center;
+    font-size: 15px;
+     font-weight: bold;
+     padding:5px;
+      margin-top:5px ;
+      justify-content:space-between;
+      border: 2px #fff solid;
+      text-decoration: none;
+
+  }
+
+
+
+  #form1 {
+
+    background: rgba(255, 255, 255, 0.5);
+border-radius: 20px;
+justify-content: center;
+align-items: center;
+height: 500px;
+width: 450px;
+color: #fff;
+left: 450px;
+top:270px;
+transform: translate(-50%, -50%); /* Centraliza horizontal e verticalmente */
+
+margin-top: 10px;
+position: fixed;
+border: 2px #fff solid;
+   
+
+
+  }
+
+  #form2 {
+background: rgba(255, 255, 255, 0.5);
+border-radius: 20px;
+justify-content: center;
+align-items: center;
+height: 500px;
+width: 450px;
+color: #fff;
+left: 450px;
+top:270px;
+transform: translate(-50%, -50%); /* Centraliza horizontal e verticalmente */
+
+margin-top: 10px;
+position: fixed;
+border: 2px #fff solid;
+   
+  }
+
+
+  #form3 {
+
+    background: rgba(255, 255, 255, 0.5);
+border-radius: 20px;
+justify-content: center;
+align-items: center;
+height: 500px;
+width: 450px;
+color: #fff;
+left: 450px;
+top:270px;
+transform: translate(-50%, -50%); /* Centraliza horizontal e verticalmente */
+
+margin-top: 10px;
+position: fixed;
+border: 2px #fff solid;
+
+
+  }
+
+  #form4 {
+
+   
+    background: rgba(255, 255, 255, 0.5);
+border-radius: 20px;
+justify-content: center;
+align-items: center;
+height: 500px;
+width: 450px;
+color: #fff;
+left: 450px;
+top:270px;
+transform: translate(-50%, -50%); /* Centraliza horizontal e verticalmente */
+
+margin-top: 10px;
+position: fixed;
+border: 2px #fff solid;
+   
+
+  }
+
+
+  .form-content {
+    background-color: #000;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  #content {
+    display: none;
+  }
+
+  body {
+    margin: 0;
+
+  }
+
+  .unicamp {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    height: 400px;
+    width: 500px;
+    z-index: 2;
+  }
+  .button-container {
+display: flex;
+justify-content: center; 
+margin-top: 450px; 
+margin-left:70px;
+position: fixed;
+
+}
+
+.button-container button {
+margin: 0 5px; 
+}
+.button-container {
+display: flex;
+justify-content: center; 
+margin-top: 450px; 
+margin-left:70px;
+position: fixed;
+
+}
+.iconeBuscar{
+margin-right: 200px;
+
+}
+
+.button-container button {
+margin: 0 5px; 
+}
