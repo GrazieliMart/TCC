@@ -161,7 +161,7 @@ body{
     justify-content: center;
     align-items: center;
     height: 400px;
-    width: 400px;
+    width: 800px;
     color: #fff;
     left: 50%;
     top:280px;
@@ -252,8 +252,8 @@ body{
     padding: 20px;
     font-size: 15px;
     font-weight: bold;
-    top: 120px;
-    margin-left: 80px;
+    top: 23px;
+    margin-left: 209px;
 
 }
 .divTextRelatorio {
@@ -357,7 +357,7 @@ body{
     cursor: pointer;
     color: #000000;
     border: none;
-    margin-left: 40px;
+    margin-left: 10px;
     border-radius: 20px;
     padding: 6px;
     margin-top: 25px;

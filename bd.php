@@ -210,5 +210,98 @@ function cadUnid($name){
     }
 
 }
+function consultar()
+{
+    $pdo = conexaoBD();
+    if (isset($_POST["name"]) && ($_POST["nome"] != "")) {
+        $nome = $_POST["nome"];
+        $stmt = $pdo->prepare("select * from produtoTCC where nome= :nome");
+        $stmt->bindParam(':nome', $nome);
+    } else {
+        $stmt = $pdo->prepare("select * from produtoTCC");
+    }
+    $stmt->execute();
+    return $stmt;
+}
+
+function buscar()
+{
+    if ($_SERVER["REQUEST_METHOD"] === 'POST') {
+        try {
+              if (isset($_POST['name']) && isset($_POST['op'])) {
+                $name = $_POST['name'];
+                $op = $_POST['op'];
+                switch ($op) {
+                    case 'Excluir':
+                        excluir($name);
+                        break;
+                    case 'Editar':
+                        include('edicao.php'); // Implemente a lógica de edição
+                        break;
+                }
+            }
+            if(!isset($_POST['op'])){
+            $stmt = consultar();
+            echo '<form>
+                    <label>
+                        <input type="radio" name="ordenacao" value="alfabetica" onchange="ordenarTabela(\'alfabetica\')"> Ordenar Alfabeticamente
+                        </label>';
+                echo '<label>';
+                echo '<input type="radio" name="ordenacao" value="numerica" onchange="ordenarTabela(\'numerica\')"> Ordenar Numericamente';
+                echo '</label>';
+            echo '</form>';
+
+            echo "<form method='POST'><table id='tabela'>";
+            echo "<thead>
+                     <tr>
+                        <th>Código</th>
+                         <th>Nome</th>
+                         <th>Categoria</th>
+                         <th>Unidade Medida</th>
+                         <th>Quantidade</th>
+                         <th>Foto</th>
+                         <th>Ações</th>
+                     </tr>
+                 </thead>";
+
+            while ($row = $stmt->fetch()) {
+                echo "<tr>";
+
+                echo "<td>" . $row['code'] . "</td>";
+                echo "<td>" . $row['nome'] . "</td>";
+                echo "<td>" . $row['category'] . "</td>";
+                echo "<td>" . $row['unidadeMedida'] . "</td>";
+                echo "<td>" . $row['quantidade'] . "</td>";
+
+                if ($row["arquivoFoto"] == null) {
+                    echo "<td align='center'><img src='upload/patinha.png' width='50px' height='50px'></td>";
+
+                } else {
+                    echo "<td align='center'><img src=" . $row['arquivoFoto'] . " width='50px' height='50px'></td>";
+
+                }
+                echo "
+                        <td>
+                            <form method='POST'>
+                                <input type='hidden' name='id' value='" . $row['code'] . "'>
+                                <button type='submit' class='btn btn-edit' formaction='edicao.php'>Editar</button>
+                                <input type='submit' class='btn btn-delete' value='Excluir' name='op'>
+                            </form>
+                        </td>
+                    </tr>
+                    ";
+            }
+
+            echo "</table>";
+            echo '</form>';
+        }
+          
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+
+    }
+}
+
 
 ?>
