@@ -25,17 +25,23 @@ echo '
             include ('menuLateral/itemPedidos.php');
 
         };
+       echo' <li class="item-menu">
+        <a href="logout.php">
+            <span class="icon"><i class="bi bi-arrow-bar-left"></i></span>
+            <span class="txt-link">SAIR</span>
+        </a>
+    </li>';
     
 '</ul>
 </nav>';
 
 
-echo '
+/*echo '
 <div class="navSup">
 <button class="btnLogOut" onclick="window.location.href=\'logout.php\'">Sair</button>
 </div>
 
-';
+';*/
 
 }else if($level==2){
         

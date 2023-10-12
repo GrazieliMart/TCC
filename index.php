@@ -3,7 +3,7 @@ session_start();
 
 if (!isset($_SESSION['username']) || !isset($_SESSION['level'])) {
   // Se o usuário não estiver logado ou não tiver um nível definido, redirecione para a página de login
-  header("Location: loginTeste.php");
+  header("Location: login.php");
   exit();
 }
 
@@ -34,7 +34,7 @@ $level = $_SESSION['level'];
     <form>
       <div class="divWelcome">
         <img src="logo/1.png" alt="Logo da UNICAMP" id="logo">
-        <h1 class="textWelcome">Bem Vindo,
+        <h1 class="textWelcome">Bem-vindo,
           <?php echo $username ?>!
         </h1>
       </div>

@@ -1,44 +1,46 @@
 <?php
-function conexaoBd(){
-    try {        
+function conexaoBd()
+{
+    try {
         // conexão PDO    // IP, nomeBD, usuario, senha   
         $db = 'mysql:host=143.106.241.3;dbname=cl201272;charset=utf8';
         $user = 'cl201272';
         $passwd = 'cl*26082005';
         $pdo = new PDO($db, $user, $passwd);
-    
+
         // ativar o depurador de erros para gerar exceptions em caso de erros
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     } catch (PDOException $e) {
         $output = 'Impossível conectar BD : ' . $e . '<br>';
         echo $output;
-    }    
+    }
     return $pdo;
 }
-function login(){
+function login()
+{
     session_start();
     try {
         $pdo = conexaoBd();
-        
+
         if (isset($_POST['submit'])) {
             $usuario = $_POST['username'];
             $senha_inserida = $_POST['password'];
-    
+
             // Consulta para obter o hash da senha e o username armazenados no banco de dados
             $stmt = $pdo->prepare("SELECT usuario, level, senha_hash FROM login WHERE usuario = :usuario");
             $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
             $stmt->execute();
-    
+
             if ($stmt->rowCount() > 0) {
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
                 // Verificar se a senha inserida corresponde ao hash armazenado
                 if (password_verify($senha_inserida, $result['senha_hash'])) {
                     // Credenciais válidas
                     $_SESSION['level'] = $result["level"];
                     $_SESSION['username'] = $result["usuario"];
-    
+
                     header("Location: index.php");
                     exit();
                 } else {
@@ -53,21 +55,23 @@ function login(){
         // Tratar qualquer erro de conexão com o banco de dados
         echo "Erro de banco de dados: " . $e->getMessage();
     }
-    
+
     $pdo = null;
-    }
-     function buscarLogin($code, $pdo){
-        
-        $stmt = $pdo->prepare("select * from login where id = :code");
-        $stmt->bindParam(':id', $code);
-        $stmt->execute();
-        $rows = $stmt->rowCount();
-        return $rows;
-    
-     }
+}
+function buscarLogin($code, $pdo)
+{
+
+    $stmt = $pdo->prepare("select * from login where id = :code");
+    $stmt->bindParam(':id', $code);
+    $stmt->execute();
+    $rows = $stmt->rowCount();
+    return $rows;
+
+}
 
 
-function cadProd($foto){
+function cadProd($foto)
+{
     $pdo = conexaoBd();
     try {
 
@@ -80,14 +84,14 @@ function cadProd($foto){
         $uploadDir = 'upload/produtos/';
         $uploadfile = "";
 
-       
-    
+
+
 
         if ($foto === null || $foto['error'] !== UPLOAD_ERR_OK) {
             echo '<script>Swal.fire("Erro", "Erro no upload da imagem.", "error");</script>';
         } else if (!preg_match('/^image\/(jpeg|png|gif)$/', $foto['type'])) {
             echo '<script>Swal.fire("Erro", "Isso não é uma imagem válida.", "error");</script>';
-        }  else {
+        } else {
             $stmt = $pdo->prepare("SELECT * FROM produtoTCC WHERE nome = :nome");
             $stmt->bindParam(':nome', $nome);
             $stmt->execute();
@@ -102,14 +106,14 @@ function cadProd($foto){
                 } else {
                     $uploadfile = "";
                 }
-                
+
                 $stmt = $pdo->prepare("INSERT INTO produtoTCC (nome, code, category, unidadeMedida, arquivoFoto, quantidade) VALUES (:nome, :code, :category, :unidadeMedida, :arquivoFoto, :quantidade)");
-      
+
                 $stmt->bindParam(':nome', $nome);
                 $stmt->bindParam(':code', $code);
                 $stmt->bindParam(':category', $category);
                 $stmt->bindParam(':unidadeMedida', $unidadeMedida);
-              
+
                 $stmt->bindParam(':arquivoFoto', $uploadfile);
 
 
@@ -127,10 +131,11 @@ function cadProd($foto){
     }
 
 }
-function cadUsuario($name,$code,$level,$senha){
+function cadUsuario($name, $code, $level, $senha)
+{
     $pdo = conexaoBd();
-    
-    if (empty($name) || empty($code) || empty($level)||empty($senha)) {
+
+    if (empty($name) || empty($code) || empty($level) || empty($senha)) {
         die("Por favor, preencha todos os campos.");
     }
 
@@ -162,7 +167,8 @@ function cadUsuario($name,$code,$level,$senha){
 
 }
 
-function cadCat($name){
+function cadCat($name)
+{
     try {
         $pdo = conexaoBd();
         $stmt = $pdo->prepare("select * from categoria where name = :name ");
@@ -173,20 +179,21 @@ function cadCat($name){
 
         if ($rows <= 0) {
             $stmt = $pdo->prepare("insert into categoria (name) values (:name)");
-    
+
             $stmt->bindParam(':name', $name);
-            
+
             $stmt->execute();
             echo '<script>Swal.fire("Sucesso", "Categoria cadastrada!", "success");</script>';
         } else {
             echo '<script>Swal.fire("Erro", "Categoria já existe.", "error");</script>';
         }
-    } catch(PDOException $e) {
+    } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
     }
 
 }
-function cadUnid($name){
+function cadUnid($name)
+{
     try {
         $pdo = conexaoBd();
         $stmt = $pdo->prepare("select * from unidadeMedida where name = :name ");
@@ -197,15 +204,15 @@ function cadUnid($name){
 
         if ($rows <= 0) {
             $stmt = $pdo->prepare("insert into unidadeMedida (name) values (:name)");
-    
+
             $stmt->bindParam(':name', $name);
-            
+
             $stmt->execute();
             echo '<script>Swal.fire("Sucesso", "Unidade cadastrada!", "success");</script>';
         } else {
             echo '<script>Swal.fire("Erro", "Unidade já existe.", "error");</script>';
         }
-    } catch(PDOException $e) {
+    } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
     }
 
@@ -228,7 +235,7 @@ function buscar()
 {
     if ($_SERVER["REQUEST_METHOD"] === 'POST') {
         try {
-              if (isset($_POST['name']) && isset($_POST['op'])) {
+            if (isset($_POST['name']) && isset($_POST['op'])) {
                 $name = $_POST['name'];
                 $op = $_POST['op'];
                 switch ($op) {
@@ -240,19 +247,19 @@ function buscar()
                         break;
                 }
             }
-            if(!isset($_POST['op'])){
-            $stmt = consultar();
-            echo '<form>
+            if (!isset($_POST['op'])) {
+                $stmt = consultar();
+                echo '<form>
                     <label>
                         <input type="radio" name="ordenacao" value="alfabetica" onchange="ordenarTabela(\'alfabetica\')"> Ordenar Alfabeticamente
                         </label>';
                 echo '<label>';
                 echo '<input type="radio" name="ordenacao" value="numerica" onchange="ordenarTabela(\'numerica\')"> Ordenar Numericamente';
                 echo '</label>';
-            echo '</form>';
+                echo '</form>';
 
-            echo "<form method='POST'><table id='tabela'>";
-            echo "<thead>
+                echo "<form method='POST'><table id='tabela'>";
+                echo "<thead>
                      <tr>
                         <th>Código</th>
                          <th>Nome</th>
@@ -264,23 +271,23 @@ function buscar()
                      </tr>
                  </thead>";
 
-            while ($row = $stmt->fetch()) {
-                echo "<tr>";
+                while ($row = $stmt->fetch()) {
+                    echo "<tr>";
 
-                echo "<td>" . $row['code'] . "</td>";
-                echo "<td>" . $row['nome'] . "</td>";
-                echo "<td>" . $row['category'] . "</td>";
-                echo "<td>" . $row['unidadeMedida'] . "</td>";
-                echo "<td>" . $row['quantidade'] . "</td>";
+                    echo "<td>" . $row['code'] . "</td>";
+                    echo "<td>" . $row['nome'] . "</td>";
+                    echo "<td>" . $row['category'] . "</td>";
+                    echo "<td>" . $row['unidadeMedida'] . "</td>";
+                    echo "<td>" . $row['quantidade'] . "</td>";
 
-                if ($row["arquivoFoto"] == null) {
-                    echo "<td align='center'><img src='upload/patinha.png' width='50px' height='50px'></td>";
+                    if ($row["arquivoFoto"] == null) {
+                        echo "<td align='center'><img src='upload/patinha.png' width='50px' height='50px'></td>";
 
-                } else {
-                    echo "<td align='center'><img src=" . $row['arquivoFoto'] . " width='50px' height='50px'></td>";
+                    } else {
+                        echo "<td align='center'><img src=" . $row['arquivoFoto'] . " width='50px' height='50px'></td>";
 
-                }
-                echo "
+                    }
+                    echo "
                         <td>
                             <form method='POST'>
                                 <input type='hidden' name='id' value='" . $row['code'] . "'>
@@ -290,12 +297,12 @@ function buscar()
                         </td>
                     </tr>
                     ";
+                }
+
+                echo "</table>";
+                echo '</form>';
             }
 
-            echo "</table>";
-            echo '</form>';
-        }
-          
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
         }
@@ -303,5 +310,37 @@ function buscar()
     }
 }
 
+
+function consultaUnid()
+{
+    try {
+        $pdo = conexaoBD();
+        $stmt = $pdo->prepare('SELECT * FROM unidadeMedida');
+        $stmt->execute();
+        while ($row = $stmt->fetch()) {
+
+            echo " <option value='" . $row["name"] . "'>" . $row['name'] . "</option>";
+        }
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+    $pdo=null;
+}
+
+function consultaCat()
+{
+    try {
+        $pdo = conexaoBD();
+        $stmt = $pdo->prepare('SELECT * FROM categoria');
+        $stmt->execute();
+        while ($row = $stmt->fetch()) {
+
+            echo " <option value='" . $row["name"] . "'>" . $row['name'] . "</option>";
+        }
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+    $pdo=null;
+}
 
 ?>

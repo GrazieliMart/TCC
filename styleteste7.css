@@ -473,12 +473,12 @@ body{
     transition: .3s;
 } nav.menu-lateral{
     width: 60px;
-    height:360px;
+    height:423px;
 
     background: rgba(255, 255, 255, 0.5); 
     padding: 40px 0 40px 1%; 
-    border-top-right-radius: 45px;
-    border-bottom-right-radius: 45px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
     box-shadow: 3px 0 0 #00aeff;
     position: fixed;
     display: flex;
@@ -488,7 +488,7 @@ body{
     transition: .3s;
 }
 nav.menu-lateral:hover{
-    width: 100px;
+    width: 70px;
     transition: .3s;
 }
  nav.menu-lateral1{

@@ -58,9 +58,11 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         <input class="btnRelatorio3" type="submit" value="Consultar">
 
       </form>
+      <?php 
+include("bd.php");
+buscar();
 
-
-
+?>
     </div>
 
   </div>
@@ -77,8 +79,3 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 </body>
 
 </html>
-<?php 
-include("bd.php");
-buscar();
-
-?>

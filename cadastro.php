@@ -59,9 +59,10 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
       <label for="category">Categoria</label>
 		  <select class="formaticRelatorio" id="category" required name="category">
               <option selected disabled>Selecione uma categoria</option>
-              <option value="categoria1">Hidráulica</option>
-              <option value="categoria2">Finalização</option>
-              <option value="categoria3">Tintas</option>
+              <?php 
+              include('bd.php');
+            consultaCat();
+              ?>
       </select>
       <label for="qnt">Quantidade</label>
       <input type="code" id="code" name="quantidade" placeholder="Digite a quantidade" required  class="formaticTextRelatorio">
@@ -69,21 +70,11 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
       <label for="unidadeMedida">Unidade de Medida</label>
       <select class="formaticRelatorio" id="unit" required name="unidadeMedida">
               <option selected disabled>Selecione uma unidade de medida</option>
-              <option value="média">Bobina</option>
-              <option value="alta">Caixa com 10 sachês com 1 grama</option>
-              <option value="alta">Cartela com 1 cartela</option>
-              <option value="alta">Caixa 50 pares</option>
-              <option value="alta">Centena</option>
-              <option value="alta">Dezena</option>
-              <option value="alta">Fardo</option>
-              <option value="alta">Frasco</option>
-              <option value="alta">Galão</option>
-              <option value="alta">Quilograma</option>
-              <option value="alta">Litro</option>
-              <option value="alta">Milheiro</option>
-              <option value="alta">Peça</option>
-              <option value="alta">Pacote (500 folhas)</option>
-              <option value="alta">Pacote com 4 blocos com 50 folhas</option>
+             
+              <?php
+              
+              consultaUnid();
+              ?>
             </select>
            <label for="formFile">Insira a imagem referente</label>
            <input type="file" name="arquivoFoto" id="arquivoFoto" accept="image/*" required>
@@ -185,7 +176,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
       <p><?php echo $username ?>, clique no item com o qual deseja trabalhar</p>
       <br>
       <a onclick="trocarFormulario('form1')"><button id="ok-button" aria-required="click">Produtos</button></a>
-      <a onclick="trocarFormulario('form2')"><button id="ok-button" aria-required="click">Usuarios</button></a>
+      <a onclick="trocarFormulario('form2')"><button id="ok-button" aria-required="click">Usuários</button></a>
       <a onclick="trocarFormulario('form3')"><button id="ok-button" aria-required="click">Medidas</button></a>
       <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click">Categorias</button></a>
     </div>
