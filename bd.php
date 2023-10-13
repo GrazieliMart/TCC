@@ -217,19 +217,164 @@ function cadUnid($name)
     }
 
 }
-function consultar()
+
+function consultar($offset, $itensPorPagina)
 {
     $pdo = conexaoBD();
-    if (isset($_POST["name"]) && ($_POST["nome"] != "")) {
-        $nome = $_POST["nome"];
-        $stmt = $pdo->prepare("select * from produtoTCC where nome= :nome");
-        $stmt->bindParam(':nome', $nome);
+    if (isset($_POST["name"]) && ($_POST["name"] != "")) {
+        $nome = $_POST["name"];
+        $stmt = $pdo->prepare("SELECT * FROM produtoTCC WHERE nome LIKE :nome LIMIT $itensPorPagina OFFSET $offset");
+        $nome = '%' . $nome . '%'; // Adicione % antes e depois do valor de pesquisa
+        $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
+        
     } else {
-        $stmt = $pdo->prepare("select * from produtoTCC");
+        $stmt = $pdo->prepare("select * from produtoTCC LIMIT $itensPorPagina OFFSET $offset");
     }
     $stmt->execute();
     return $stmt;
 }
+function obterTotalRegistros() {
+  $pdo = conexaoBd(); // Certifique-se de que a conexão com o banco de dados esteja disponível
+
+    $sql = "SELECT COUNT(*) as total FROM produtoTCC";
+    $stmt = $pdo->query($sql);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['total'];
+    }
+
+    function excluir($id)
+    {
+        try {
+            $pdo = conexaoBD();
+            $stmt = $pdo->prepare('DELETE FROM produtoTCC WHERE code = :id');
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+    
+            
+            echo "Os dados do pet de código $id foram excluídos!";
+            
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+
+function buscarTeste() {
+    
+   
+        try {
+            // Defina o número de itens por página
+            $itensPorPagina = 4;
+            
+            if (isset($_POST['id']) && isset($_POST['op'])) {
+                $id = $_POST['id'];
+                $name = $_POST['name'];
+                $op = $_POST['op'];
+                switch ($op) {
+                    case 'Excluir':
+                        
+                        excluir($id);
+                        break;
+                    case 'Editar':
+                        include('edicao.php'); // Implemente a lógica de edição
+                        break;
+                }
+            }
+
+            // Consulta SQL para obter o número total de registros
+            $totalRegistros = obterTotalRegistros(); // Implemente a função obterTotalRegistros()
+
+            if (!isset($_POST['op'])) {
+                
+                // Receba o número da página atual
+                $paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+
+
+                // Calcule o número de páginas
+                $totalPaginas = ceil($totalRegistros / $itensPorPagina);
+
+                // Calcule o offset
+                $offset = ($paginaAtual - 1) * $itensPorPagina;
+
+                // Consulta SQL para obter os registros da página atual
+                $stmt = consultar($offset, $itensPorPagina); // Implemente a função consultarComPaginacao()
+
+                // Inicie a tabela fora do loop
+                echo "<form method='POST'><table id='tabela' class=' table table-secondary table-striped' >";
+                echo "<thead>
+                     <tr>
+                        <th  class='table-secondary'>Código</th>
+                         <th>Nome</th>
+                         <th>Categoria</th>
+                         <th>Unidade Medida</th>
+                         <th>Quantidade</th>
+                         <th>Foto</th>
+                         <th>Ações</th>
+                     </tr>
+                 </thead>";
+
+                while ($row = $stmt->fetch()) {
+                    echo "<tr>";
+
+                    echo "<td>" . $row['code'] . "</td>";
+                    echo "<td>" . $row['nome'] . "</td>";
+                    echo "<td>" . $row['category'] . "</td>";
+                    echo "<td>" . $row['unidadeMedida'] . "</td>";
+                    echo "<td>" . $row['quantidade'] . "</td>";
+
+                    if ($row["arquivoFoto"] == null) {
+                        echo "<td align='center'><img src='upload/patinha.png' width='50px' height='50px'></td>";
+
+                    } else {
+                        echo "<td align='center'><img src=" . $row['arquivoFoto'] . " width='50px' height='50px'></td>";
+
+                    }
+                 
+                echo "
+                <td>
+                    <form method='POST'>
+                        <input type='hidden' name='id' value='" . $row['code'] . "'>
+                        <button type='button' class='btn btn-edit edit-button' data-product-code='" . $row["code"] . "'>Editar</button>
+                        <input type='submit' class='btn btn-delete' value='Excluir' name='op'>
+                    </form>
+                </td>
+            </tr>";
+        
+                }
+
+                // Encerre a tabela
+                echo "</table>";
+                echo '</form>';
+
+                // Crie links de paginação
+                echo '<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>';
+    for ($i = 1; $i <= $totalPaginas; $i++) {
+                 
+        echo " <li class='page-item'><a class='page-link' href='estoque.php?pagina=$i'>$i</a> </li>";
+    }
+    echo'
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>';
+                
+            }
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    
+}
+?>
+
+<?php
 
 function buscar()
 {
@@ -258,7 +403,7 @@ function buscar()
                 echo '</label>';
                 echo '</form>';
 
-                echo "<form method='POST'><table id='tabela'>";
+                echo "<form method='POST'><table id='tabela' class='table table-dark table-striped'>";
                 echo "<thead>
                      <tr>
                         <th>Código</th>

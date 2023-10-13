@@ -8,7 +8,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="logo/1.png"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="loginStyle.css">
+    <link rel="stylesheet" href="style/loginStyle.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <div class="container d-flex justify-content-center align-items-center vh-100">

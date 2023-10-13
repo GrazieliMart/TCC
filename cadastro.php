@@ -27,8 +27,8 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
     <title>Cadastro | AlmoxariSars</title>
     <link rel="icon" type="image/png" href="logo/1.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="styleteste7.css">
-    <link rel="stylesheet" href="formsCadastro.css">
+    <link rel="stylesheet" href="style/styleteste7.css">
+    <link rel="stylesheet" href="style/formsCadastro.css">
    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -81,8 +81,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
           </div> 
                 <div class="button-container">
                  <input id="ok-button" name="cadProduto" aria-required="click" type="submit" value="Cadastrar"></input>
-                 <button id="ok-button" aria-required="click">ATUALIZAR</button>
-                 <button id="ok-button" aria-required="click">EXCLUIR</button>
+             
                 </div>   
       </form>
     </div>
@@ -117,8 +116,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
   </div>
   <div class="button-container">
                  <input id="ok-button" name="cadUsuario" type="submit" aria-required="click" value="CADASTRAR"></input>
-                 <button id="ok-button" aria-required="click">ATUALIZAR</button>
-                 <button id="ok-button" aria-required="click">EXCLUIR</button>
+               
                 </div>   
 </form>
 
@@ -141,8 +139,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         
           <div class="button-container">
           <input id="ok-button" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
-                 <button id="ok-button" aria-required="click">ATUALIZAR</button>
-                 <button id="ok-button" aria-required="click">EXCLUIR</button>
+                
                 </div> 
       </form>
     <!--CATEGORIA-->
@@ -165,8 +162,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         </div>
         <div class="button-container">
         <input id="ok-button" name="cadCat" type="submit" aria-required="click" value="CADASTRAR"></input>
-                 <button id="ok-button" aria-required="click">ATUALIZAR</button>
-                 <button id="ok-button" aria-required="click">EXCLUIR</button>
+             
                 </div> 
       </form>
 
