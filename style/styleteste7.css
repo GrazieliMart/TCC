@@ -245,6 +245,7 @@ body{
     margin-left: 130px;
 }
 .divTextRelatorio2 {
+    width: 100%;
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -474,11 +475,13 @@ body{
 } 
 nav.menu-lateral{
     width: 60px;
-    height: 470px;
+    /* height: 470px; */
     background: rgba(255, 255, 255, 0.5); 
     padding: 40px 0 40px 1%; 
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    /* border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px; */
     box-shadow: 3px 0 0 #00aeff;
     position: fixed;
     display: flex;
@@ -550,12 +553,15 @@ ul{
 }
 ul li.item-menu{
     transition: .3s;
+    /* sem borda */
+    border-radius: 10px;
     padding-left: 10px;
     padding-top: 5px;
 }
 ul li.item-menu:hover{
     background: #00aeff;
-    width: 220px;
+    /* width: 220px; */
+    width: 180px;
    
 }
 ul li.item-menu a{
@@ -569,12 +575,12 @@ ul li.item-menu a{
         margin-top: 10px;
       
 }
-ul li.item-menu:first-child {
+/* ul li.item-menu:first-child {
     
      
     padding-top: 15px; 
  
-}
+} */
 
 ul li.item-menu a .txt-link{
     margin-left: 25px;

@@ -234,7 +234,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
 
 <?php 
-include("bd.php");
+
 if($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadUsuario'])){
 
 $name = $_POST['name'];

@@ -40,7 +40,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
   include 'menuLateral.php';
   
   ?>
-
+<!--
   <br><br>
   <div class="divRelatorio1">
 	<form>
@@ -78,7 +78,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 </div>
 	</form>
 </div>
-
+-->
 
 <footer class="footer">
 <footer>    

@@ -1,4 +1,5 @@
-<?php if (isset($_GET['code'])) {
+<?php 
+if (isset($_GET['code'])) {
     include('bd.php');
     $pdo = conexaoBD();
     $code = $_GET['code'];
@@ -19,4 +20,4 @@
 } else {
     echo json_encode(['error' => 'Código do produto não especificado']);
 }
-?>
+?>  

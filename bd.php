@@ -226,81 +226,89 @@ function consultar($offset, $itensPorPagina)
         $stmt = $pdo->prepare("SELECT * FROM produtoTCC WHERE nome LIKE :nome LIMIT $itensPorPagina OFFSET $offset");
         $nome = '%' . $nome . '%'; // Adicione % antes e depois do valor de pesquisa
         $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
-        
+
     } else {
         $stmt = $pdo->prepare("select * from produtoTCC LIMIT $itensPorPagina OFFSET $offset");
     }
     $stmt->execute();
     return $stmt;
 }
-function obterTotalRegistros() {
-  $pdo = conexaoBd(); // Certifique-se de que a conexão com o banco de dados esteja disponível
+function consultarNormal($id)
+{
+    $pdo = conexaoBD();
+    $stmt = $pdo->prepare("SELECT * FROM produtoTCC WHERE code = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    return $stmt;
+}
+function obterTotalRegistros()
+{
+    $pdo = conexaoBd(); // Certifique-se de que a conexão com o banco de dados esteja disponível
 
     $sql = "SELECT COUNT(*) as total FROM produtoTCC";
     $stmt = $pdo->query($sql);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $row['total'];
-    }
+    return $row['total'];
+}
 
-    function excluir($id)
-    {
-        try {
-            $pdo = conexaoBD();
-            $stmt = $pdo->prepare('DELETE FROM produtoTCC WHERE code = :id');
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-    
-            
-            echo "Os dados do pet de código $id foram excluídos!";
-            
-        } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
-        }
-    }
+function excluir($id)
+{
+    try {
+        $pdo = conexaoBD();
+        $stmt = $pdo->prepare('DELETE FROM produtoTCC WHERE code = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
 
-function buscarTeste() {
-    
-   
-        try {
-            // Defina o número de itens por página
-            $itensPorPagina = 4;
-            
-            if (isset($_POST['id']) && isset($_POST['op'])) {
-                $id = $_POST['id'];
-                $name = $_POST['name'];
-                $op = $_POST['op'];
-                switch ($op) {
-                    case 'Excluir':
-                        
-                        excluir($id);
-                        break;
-                    case 'Editar':
-                        include('edicao.php'); // Implemente a lógica de edição
-                        break;
-                }
+
+       
+        echo '<script>Swal.fire("Sucesso", "Os dados do produto'.$id.'", "success");</script>';
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+    }
+}
+
+function buscarTeste()
+{
+
+    try {
+        // Defina o número de itens por página
+        $itensPorPagina = 4;
+
+        if (isset($_POST['code']) && isset($_POST['op'])) {
+            $id = $_POST['code'];
+
+            $op = $_POST['op'];
+            switch ($op) {
+                case 'Excluir':
+                    excluir($id);
+                    break;
+                case 'Editar':
+                    editarTeste($id); // Implemente a lógica de edição
+                    break;
             }
+        }
 
-            // Consulta SQL para obter o número total de registros
-            $totalRegistros = obterTotalRegistros(); // Implemente a função obterTotalRegistros()
+        // Consulta SQL para obter o número total de registros
+        $totalRegistros = obterTotalRegistros(); // Implemente a função obterTotalRegistros()
 
-            if (!isset($_POST['op'])) {
-                
-                // Receba o número da página atual
-                $paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+        if (!isset($_POST['op'])) {
+
+            // Receba o número da página atual
+            $paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
 
-                // Calcule o número de páginas
-                $totalPaginas = ceil($totalRegistros / $itensPorPagina);
+            // Calcule o número de páginas
+            $totalPaginas = ceil($totalRegistros / $itensPorPagina);
 
-                // Calcule o offset
-                $offset = ($paginaAtual - 1) * $itensPorPagina;
+            // Calcule o offset
+            $offset = ($paginaAtual - 1) * $itensPorPagina;
 
-                // Consulta SQL para obter os registros da página atual
-                $stmt = consultar($offset, $itensPorPagina); // Implemente a função consultarComPaginacao()
+            // Consulta SQL para obter os registros da página atual
+            $stmt = consultar($offset, $itensPorPagina); // Implemente a função consultarComPaginacao()
 
-                // Inicie a tabela fora do loop
-                echo "<form method='POST'><table id='tabela' class=' table table-secondary table-striped' >";
-                echo "<thead>
+            // Inicie a tabela fora do loop
+            echo "<form method='POST'><table id='tabela' class=' table table-secondary table-striped' >";
+            echo "<thead>
                      <tr>
                         <th  class='table-secondary'>Código</th>
                          <th>Nome</th>
@@ -312,69 +320,90 @@ function buscarTeste() {
                      </tr>
                  </thead>";
 
-                while ($row = $stmt->fetch()) {
-                    echo "<tr>";
+            while ($row = $stmt->fetch()) {
+                echo "<tr>";
 
-                    echo "<td>" . $row['code'] . "</td>";
-                    echo "<td>" . $row['nome'] . "</td>";
-                    echo "<td>" . $row['category'] . "</td>";
-                    echo "<td>" . $row['unidadeMedida'] . "</td>";
-                    echo "<td>" . $row['quantidade'] . "</td>";
+                echo "<td>" . $row['code'] . "</td>";
+                echo "<td>" . $row['nome'] . "</td>";
+                echo "<td>" . $row['category'] . "</td>";
+                echo "<td>" . $row['unidadeMedida'] . "</td>";
+                echo "<td>" . $row['quantidade'] . "</td>";
 
-                    if ($row["arquivoFoto"] == null) {
-                        echo "<td align='center'><img src='upload/patinha.png' width='50px' height='50px'></td>";
+                if ($row["arquivoFoto"] == null) {
+                    echo "<td align='center'><img src='upload/patinha.png' width='50px' height='50px'></td>";
 
-                    } else {
-                        echo "<td align='center'><img src=" . $row['arquivoFoto'] . " width='50px' height='50px'></td>";
+                } else {
+                    echo "<td align='center'><img src=" . $row['arquivoFoto'] . " width='50px' height='50px'></td>";
 
-                    }
-                 
+                }
+
                 echo "
                 <td>
                     <form method='POST'>
-                        <input type='hidden' name='id' value='" . $row['code'] . "'>
-                        <button type='button' class='btn btn-edit edit-button' data-product-code='" . $row["code"] . "'>Editar</button>
+                        <input type='hidden' name='code' value='" . $row['code'] . "'>
+                        <input type='submit' class='btn btn-edit edit-button' value='Editar' name='op'>
                         <input type='submit' class='btn btn-delete' value='Excluir' name='op'>
                     </form>
                 </td>
             </tr>";
-        
-                }
 
-                // Encerre a tabela
-                echo "</table>";
-                echo '</form>';
-
-                // Crie links de paginação
-                echo '<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>';
-    for ($i = 1; $i <= $totalPaginas; $i++) {
-                 
-        echo " <li class='page-item'><a class='page-link' href='estoque.php?pagina=$i'>$i</a> </li>";
-    }
-    echo'
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>';
-                
             }
-        } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
-        }
-    
-}
-?>
 
-<?php
+            // Encerre a tabela
+            echo "</table>";
+            echo '</form>';
+
+            // Crie links de paginação
+            echo '<nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                        </li>';
+            for ($i = 1; $i <= $totalPaginas; $i++) {
+
+                echo " <li class='page-item'><a class='page-link' href='estoque.php?pagina=$i'>$i</a> </li>";
+            }
+            echo '
+                    <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    </li>
+                </ul>
+                </nav>';
+
+        }
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+    }
+
+}
+
+function editarTeste($id) {
+    $stmt = consultarNormal($id);
+    $row = $stmt->fetch();
+    echo '
+    <div class="modal">
+    <div class="modal-content">
+        <h2>Editar Produto</h2>
+        <form method="post" action="editar_produto.php">
+            <input type="hidden" name="code" value="'.$row['code'].'" id="edit-code">
+            <label for="edit-nome">Nome:</label>
+            <input value="'.$row['nome'].'" type="text" name="edit-nome" id="edit-nome">
+            <label for="edit-category">Categoria:</label>
+            <input value="'.$row['category'].'" type="text" name="edit-category" id="edit-category">
+            <label for="edit-unidadeMedida">Unidade de Medida:</label>
+            <input value="'.$row['unidadeMedida'].'" type="text" name="edit-unidadeMedida" id="edit-unidadeMedida">
+            <label for="edit-quantidade">Quantidade:</label>
+            <input value="'.$row['quantidade'].'" type="text" name="edit-quantidade" id="edit-quantidade">
+            <input type="submit" name="editar_produto" value="Salvar">
+        </form>
+    </div>
+</div>
+    ';
+}
 
 function buscar()
 {
@@ -469,7 +498,7 @@ function consultaUnid()
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
-    $pdo=null;
+    $pdo = null;
 }
 
 function consultaCat()
@@ -485,7 +514,7 @@ function consultaCat()
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
-    $pdo=null;
+    $pdo = null;
 }
 
 ?>

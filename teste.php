@@ -57,15 +57,25 @@
                     echo "<td>" . $row["category"] . "</td>";
                     echo "<td>" . $row["unidadeMedida"] . "</td>";
                     echo "<td>" . $row["quantidade"] . "</td>";
-                    echo '<td>
-                    <button class="edit-button" data-product-code="' . $row["code"] . '">Editar</button>
-                  </td>';
+                    echo '<td>';
+                 
+                  echo "
+                  <td>
+                      <form method='POST'>
+                          <input type='hidden' name='code' value='" . $row['code'] . "'>
+                          <button type='submit' class='btn btn-edit' formaction='edicao.php'>Editar</button>
+                          <input type='submit' class='btn btn-delete' value='Excluir' name='op'>
+                      </form>
+                  </td>
+              </tr>
+              ";
                     echo "</tr>";
                 }
             } else {
                 echo "Nenhum produto encontrado no banco de dados.";
             }
             $pdo = null;
+            buscarTeste();
             ?>
         </tbody>
     </table>
@@ -89,50 +99,5 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        const editButtons = document.querySelectorAll('.edit-button');
-        const editModal = document.getElementById('edit-modal');
-        const editCode = document.getElementById('edit-code');
-        const editNome = document.getElementById('edit-nome');
-        const editCategory = document.getElementById('edit-category');
-        const editUnidadeMedida = document.getElementById('edit-unidadeMedida');
-        const editQuantidade = document.getElementById('edit-quantidade');
-
-        editButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const productCode = button.getAttribute('data-product-code');
-
-                // Realiza a solicitação AJAX para buscar os dados do produto
-                $.ajax({
-                    url: 'buscar_dados_produto.php',
-                    type: 'GET',
-                    data: { code: productCode },
-                    dataType: 'json',
-                    success: function (data) {
-                        // Preenche os campos do modal com os dados do produto
-                        editCode.value = productCode;
-                        editNome.value = data.nome;
-                        editCategory.value = data.category;
-                        editUnidadeMedida.value = data.unidadeMedida;
-                        editQuantidade.value = data.quantidade;
-
-                        // Abre o modal
-                        editModal.style.display = 'block';
-                    },
-                    error: function () {
-                        alert('Erro ao buscar os dados do produto');
-                    }
-                });
-            });
-        });
-
-        // Fecha o modal ao clicar fora dele
-        editModal.addEventListener('click', (event) => {
-            if (event.target === editModal) {
-                editModal.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 </html>
