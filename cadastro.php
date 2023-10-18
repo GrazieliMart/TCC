@@ -110,8 +110,9 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         
       </select>
 
-      <label for="senha">Senha</label>
-      <input type="text" class="formaticTextRelatorio" id="senha" name="senha" placeholder="Insira a senha" required>
+      <label for="senha">Senha</label> 
+      <input class="formaticTextRelatorio" id="senha" name="senha" placeholder="Insira a senha"  
+      type="password">
 
   </div>
   <div class="button-container">

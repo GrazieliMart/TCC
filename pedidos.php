@@ -7,6 +7,7 @@ ini_set('display_errors', 0);
 set_error_handler('tratarAviso');
 function tratarAviso($errno, $errstr, $errfile, $errline)
 {
+    //badge notificação para o adm de novo pedido
 
     include 'login.php';
     exit();
