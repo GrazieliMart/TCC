@@ -10,7 +10,6 @@ function conexaoBd()
 
         // ativar o depurador de erros para gerar exceptions em caso de erros
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     } catch (PDOException $e) {
         $output = 'Impossível conectar BD : ' . $e . '<br>';
         echo $output;
@@ -66,9 +65,7 @@ function buscarLogin($code, $pdo)
     $stmt->execute();
     $rows = $stmt->rowCount();
     return $rows;
-
 }
-
 
 function cadProd($foto)
 {
@@ -129,7 +126,6 @@ function cadProd($foto)
     } catch (PDOException $ex) {
         echo '<script>Swal.fire("Erro", "Erro: ' . $ex->getMessage() . '", "error");</script>';
     }
-
 }
 function cadUsuario($name, $code, $level, $senha)
 {
@@ -164,7 +160,6 @@ function cadUsuario($name, $code, $level, $senha)
     } else {
         echo '<script>Swal.fire("Erro", "Usuário já existe.", "error");</script>';
     }
-
 }
 
 function cadCat($name)
@@ -190,7 +185,6 @@ function cadCat($name)
     } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
     }
-
 }
 function cadUnid($name)
 {
@@ -215,7 +209,6 @@ function cadUnid($name)
     } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
     }
-
 }
 
 function consultar($offset, $itensPorPagina)
@@ -226,7 +219,6 @@ function consultar($offset, $itensPorPagina)
         $stmt = $pdo->prepare("SELECT * FROM produtoTCC WHERE nome LIKE :nome LIMIT $itensPorPagina OFFSET $offset");
         $nome = '%' . $nome . '%'; // Adicione % antes e depois do valor de pesquisa
         $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
-
     } else {
         $stmt = $pdo->prepare("select * from produtoTCC LIMIT $itensPorPagina OFFSET $offset");
     }
@@ -250,7 +242,6 @@ function obterTotalRegistros()
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     return $row['total'];
 }
-
 function excluir($id)
 {
     try {
@@ -260,8 +251,8 @@ function excluir($id)
         $stmt->execute();
 
 
-       
-        echo '<script>Swal.fire("Sucesso", "Os dados do produto'.$id.'", "success");</script>';
+
+        echo '<script>Swal.fire("Sucesso", "Os dados do produto' . $id . '", "success");</script>';
     } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
     }
@@ -274,19 +265,7 @@ function buscarTeste()
         // Defina o número de itens por página
         $itensPorPagina = 4;
 
-        if (isset($_POST['code']) && isset($_POST['op'])) {
-            $id = $_POST['code'];
 
-            $op = $_POST['op'];
-            switch ($op) {
-                case 'Excluir':
-                    excluir($id);
-                    break;
-                case 'Editar':
-                    editarTeste($id); // Implemente a lógica de edição
-                    break;
-            }
-        }
 
         // Consulta SQL para obter o número total de registros
         $totalRegistros = obterTotalRegistros(); // Implemente a função obterTotalRegistros()
@@ -307,7 +286,7 @@ function buscarTeste()
             $stmt = consultar($offset, $itensPorPagina); // Implemente a função consultarComPaginacao()
 
             // Inicie a tabela fora do loop
-            echo "<form method='POST'><table id='tabela' class=' table table-secondary table-striped' >";
+            echo "<table id='tabela' class=' table table-secondary table-striped' >";
             echo "<thead>
                      <tr>
                         <th  class='table-secondary'>Código</th>
@@ -331,27 +310,25 @@ function buscarTeste()
 
                 if ($row["arquivoFoto"] == null) {
                     echo "<td align='center'><img src='upload/patinha.png' width='50px' height='50px'></td>";
-
                 } else {
                     echo "<td align='center'><img src=" . $row['arquivoFoto'] . " width='50px' height='50px'></td>";
-
                 }
 
-                echo "
+                echo '
                 <td>
-                    <form method='POST'>
-                        <input type='hidden' name='code' value='" . $row['code'] . "'>
-                        <input type='submit' class='btn btn-edit edit-button' value='Editar' name='op'>
-                        <input type='submit' class='btn btn-delete' value='Excluir' name='op'>
-                    </form>
+                <button class="edit-button" data-product-code="' . $row["code"] . '" >Editar</button>
+                
+                <form method="POST">
+                    <input type="hidden" name="id" value="' . $row["code"] . '">
+                    <input type="submit" class="btn btn-delete" formaction="teste_excluir.php" value="Excluir" name="op">
+                </form>
                 </td>
-            </tr>";
-
+            </tr>
+            ';
             }
 
             // Encerre a tabela
             echo "</table>";
-            echo '</form>';
 
             // Crie links de paginação
             echo '<nav aria-label="Page navigation example">
@@ -373,116 +350,70 @@ function buscarTeste()
                     </li>
                 </ul>
                 </nav>';
+        }
 
+        if (isset($_SESSION['mensagem'])) {
+            echo '<script>Swal.fire("Sucesso", "' . $_SESSION['mensagem'] . '", "success");</script>';
+
+            // Limpe a variável de sessão após exibir a mensagem
+            unset($_SESSION['mensagem']);
+        }       // Inicie a sessão se ainda não estiver iniciada
+
+        if (isset($_SESSION['mensagem'])) {
+            echo '<script>Swal.fire("Sucesso", "' . $_SESSION['mensagem'] . '", "success");</script>';
+
+            // Limpe a variável de sessão após exibir a mensagem
+            unset($_SESSION['mensagem']);
         }
     } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
     }
-
 }
 
-function editarTeste($id) {
-    $stmt = consultarNormal($id);
-    $row = $stmt->fetch();
-    echo '
-    <div class="modal">
-    <div class="modal-content">
-        <h2>Editar Produto</h2>
-        <form method="post" action="editar_produto.php">
-            <input type="hidden" name="code" value="'.$row['code'].'" id="edit-code">
-            <label for="edit-nome">Nome:</label>
-            <input value="'.$row['nome'].'" type="text" name="edit-nome" id="edit-nome">
-            <label for="edit-category">Categoria:</label>
-            <input value="'.$row['category'].'" type="text" name="edit-category" id="edit-category">
-            <label for="edit-unidadeMedida">Unidade de Medida:</label>
-            <input value="'.$row['unidadeMedida'].'" type="text" name="edit-unidadeMedida" id="edit-unidadeMedida">
-            <label for="edit-quantidade">Quantidade:</label>
-            <input value="'.$row['quantidade'].'" type="text" name="edit-quantidade" id="edit-quantidade">
-            <input type="submit" name="editar_produto" value="Salvar">
-        </form>
-    </div>
-</div>
-    ';
-}
-
-function buscar()
+function editarTeste($id)
 {
-    if ($_SERVER["REQUEST_METHOD"] === 'POST') {
-        try {
-            if (isset($_POST['name']) && isset($_POST['op'])) {
-                $name = $_POST['name'];
-                $op = $_POST['op'];
-                switch ($op) {
-                    case 'Excluir':
-                        excluir($name);
-                        break;
-                    case 'Editar':
-                        include('edicao.php'); // Implemente a lógica de edição
-                        break;
-                }
-            }
-            if (!isset($_POST['op'])) {
-                $stmt = consultar();
-                echo '<form>
-                    <label>
-                        <input type="radio" name="ordenacao" value="alfabetica" onchange="ordenarTabela(\'alfabetica\')"> Ordenar Alfabeticamente
-                        </label>';
-                echo '<label>';
-                echo '<input type="radio" name="ordenacao" value="numerica" onchange="ordenarTabela(\'numerica\')"> Ordenar Numericamente';
-                echo '</label>';
-                echo '</form>';
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $pdo = conexaoBD();
 
-                echo "<form method='POST'><table id='tabela' class='table table-dark table-striped'>";
-                echo "<thead>
-                     <tr>
-                        <th>Código</th>
-                         <th>Nome</th>
-                         <th>Categoria</th>
-                         <th>Unidade Medida</th>
-                         <th>Quantidade</th>
-                         <th>Foto</th>
-                         <th>Ações</th>
-                     </tr>
-                 </thead>";
+        $code = $_POST['code'];
+        $nome = $_POST['edit-nome'];
+        $category = $_POST['edit-category'];
+        $unidadeMedida = $_POST['edit-unidadeMedida'];
+        $quantidade = $_POST['edit-quantidade'];
 
-                while ($row = $stmt->fetch()) {
-                    echo "<tr>";
+        $uploaddir = 'upload/produtos/'; //diretorio ondde será gravado a foto
 
-                    echo "<td>" . $row['code'] . "</td>";
-                    echo "<td>" . $row['nome'] . "</td>";
-                    echo "<td>" . $row['category'] . "</td>";
-                    echo "<td>" . $row['unidadeMedida'] . "</td>";
-                    echo "<td>" . $row['quantidade'] . "</td>";
+        //foto
 
-                    if ($row["arquivoFoto"] == null) {
-                        echo "<td align='center'><img src='upload/patinha.png' width='50px' height='50px'></td>";
+        $foto = $_FILES['foto'];
+        $nomeFoto = $foto['name'];
+        $tipoFoto = $foto['type'];
+        $tamanhoFoto = $foto['size'];
 
-                    } else {
-                        echo "<td align='center'><img src=" . $row['arquivoFoto'] . " width='50px' height='50px'></td>";
+        //gerando novo nome para a foto
+        $info = new SplFileInfo($nomeFoto);
+        $extensaoArq = $info->getExtension();
+        $novoNomeFoto = $nome . "." . $extensaoArq;
 
-                    }
-                    echo "
-                        <td>
-                            <form method='POST'>
-                                <input type='hidden' name='id' value='" . $row['code'] . "'>
-                                <button type='submit' class='btn btn-edit' formaction='edicao.php'>Editar</button>
-                                <input type='submit' class='btn btn-delete' value='Excluir' name='op'>
-                            </form>
-                        </td>
-                    </tr>
-                    ";
-                }
+        if (($nomeFoto != "") && (move_uploaded_file($_FILES['foto']['tmp_name'], $uploaddir . $novoNomeFoto))) {
+            $uploadfile = $uploaddir . $novoNomeFoto;
 
-                echo "</table>";
-                echo '</form>';
-            }
 
-        } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            $sql = "UPDATE produtoTCC SET nome = '$nome', category = '$category', unidadeMedida = '$unidadeMedida', quantidade = '$quantidade' , arquivoFoto = '$uploadfile' WHERE code = '$code'";
+            $result = $pdo->query($sql);
+        } else {
+
+            $sql = "UPDATE produtoTCC SET nome = '$nome', category = '$category', unidadeMedida = '$unidadeMedida', quantidade = '$quantidade'  WHERE code = '$code'";
+            $result = $pdo->query($sql);
         }
-
+        if ($result) {
+            echo "<script>alert('Produto editado com sucesso!');</script>";
+        } else {
+            echo "<script>alert('Erro ao editar produto!');</script>";
+        }
     }
 }
+
 
 
 function consultaUnid()
@@ -516,5 +447,3 @@ function consultaCat()
     }
     $pdo = null;
 }
-
-?>

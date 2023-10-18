@@ -116,14 +116,13 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
                 <div class="search-box">
                     <h4>Buscar por Código</h4>
                     <div class="input-group">
-                        <input class="form-control p-2 shadow-2xl glass w-full text-black outline-none" type="text"
-                            id="codigoInput" required />
+                        <input class="form-control p-2 shadow-2xl glass w-full text-black outline-none" type="text" id="codigoInput" required />
                         <button class="btnBuscar" type="button" id="buscarCodigoBtn">Buscar</button>
 
                     </div>
 
                     <script>
-                        document.getElementById('buscarCodigoBtn').addEventListener('click', function () {
+                        document.getElementById('buscarCodigoBtn').addEventListener('click', function() {
                             const codigo = document.getElementById('codigoInput').value;
 
                             // Redireciona o usuário para a página respostaPedido.php com o código como parâmetro na URL
@@ -142,7 +141,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
     <footer class="footer">
         <footer>
             <p class="footer-text">SARS | UNICAMP | COTIL</p>
-            <button class="btnRodape" onclick="abrirFormulario()">Contatar Desenvolvedor</button>
+
 
         </footer>
 
