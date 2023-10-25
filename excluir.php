@@ -24,10 +24,10 @@ try {
     $stmt = $pdo->prepare('DELETE FROM produtoTCC WHERE code = :id');
     $stmt->bindParam(':id', $_POST["id"]);
     $stmt->execute();
-    
+
     // Armazene a mensagem em uma variável de sessão
     $_SESSION['mensagem'] = 'Os dados do produto ' . $id . ' foram excluídos com sucesso.';
-    
+    echo '<script>alert("Produto excluído com sucesso.");</script>';
     header('Location: estoque.php');
 } catch (PDOException $e) {
     echo 'Error: ' . $e->getMessage();

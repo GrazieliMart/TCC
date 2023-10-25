@@ -115,7 +115,7 @@ include("bd.php");
       <div class="modal" id="edit-modal">
         <div class="modal-content">
           <h2>Editar Produto</h2>
-          <form method="post" enctype="multipart/form-data">
+          <form id="edit" method="post" enctype="multipart/form-data">
             <input type="hidden" name="code" id="edit-code">
             <label for="edit-nome">Nome:</label>
             <input type="text" name="edit-nome" id="edit-nome"> <br>
@@ -127,7 +127,6 @@ include("bd.php");
             <input type="text" name="edit-quantidade" id="edit-quantidade"> <br>
             <label for="editfoto">Foto</label>
             <img id="edit-foto" name="edit-foto" style="width: 50px; height:auto;" src=""><br>
-
             <input type="file" name="foto" id="foto">
             <br>
             <input type="submit" name="editar_produto" value="Salvar">
@@ -135,8 +134,9 @@ include("bd.php");
 
         </div>
       </div>
-      <?php
-      if ($_SERVER["REQUEST_METHOD"] === "POST") {
+      <?php /*
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    try {
         $pdo = conexaoBD();
 
         $code = $_POST['code'];
@@ -145,7 +145,7 @@ include("bd.php");
         $unidadeMedida = $_POST['edit-unidadeMedida'];
         $quantidade = $_POST['edit-quantidade'];
 
-        $uploaddir = 'upload/produtos/'; //diretorio ondde será gravado a foto
+        $uploaddir = 'upload/produtos/'; //diretório onde será gravada a foto
 
         //foto
 
@@ -160,22 +160,28 @@ include("bd.php");
         $novoNomeFoto = $nome . "." . $extensaoArq;
 
         if (($nomeFoto != "") && (move_uploaded_file($_FILES['foto']['tmp_name'], $uploaddir . $novoNomeFoto))) {
-          $uploadfile = $uploaddir . $novoNomeFoto;
+            $uploadfile = $uploaddir . $novoNomeFoto;
 
-
-          $sql = "UPDATE produtoTCC SET nome = '$nome', category = '$category', unidadeMedida = '$unidadeMedida', quantidade = '$quantidade' , arquivoFoto = '$uploadfile' WHERE code = '$code'";
-          $result = $pdo->query($sql);
-        } else {
-
-          $sql = "UPDATE produtoTCC SET nome = '$nome', category = '$category', unidadeMedida = '$unidadeMedida', quantidade = '$quantidade'  WHERE code = '$code'";
-          $result = $pdo->query($sql);
+            $sql = "UPDATE produtoTCC SET nome = '$nome', category = '$category', unidadeMedida = '$unidadeMedida', quantidade = '$quantidade' , arquivoFoto = '$uploadfile' WHERE code = '$code'";
+            $result = $pdo->query($sql);
+        } 
+        
+        
+        else {
+            $sql = "UPDATE produtoTCC SET nome = '$nome', category = '$category', unidadeMedida = '$unidadeMedida', quantidade = '$quantidade'  WHERE code = '$code'";
+            $result = $pdo->query($sql);
         }
+
         if ($result) {
-          echo "<script>alert('Produto editado com sucesso!');</script>";
+            echo "<script>alert('Produto editado com sucesso!');</script>";
+            
         } else {
-          echo "<script>alert('Erro ao editar produto!');</script>";
+            echo "<script>alert('Erro ao editar produto!');</script>";
         }
-      }
+    } catch (Exception $e) {
+        echo "Erro: " . $e->getMessage();
+    }
+}*/
       ?>
 
 
@@ -246,7 +252,55 @@ include("bd.php");
         editModal.style.display = 'none';
       }
     });
+
+    $('#edit').submit(function(e) {
+      e.preventDefault(); // Evita o envio tradicional do formulário
+
+      const formData = new FormData(this);
+
+      // Realiza a solicitação AJAX para atualizar os dados do produto
+      $.ajax({
+        url: 'atualizar_produto.php',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function(data) {
+          if (data.success) {
+            // Atualize a tabela com os dados atualizados
+            const productCode = editCode.value;
+            const updatedNome = editNome.value;
+            const updatedCategory = editCategory.value;
+            const updatedUnidadeMedida = editUnidadeMedida.value;
+            const updatedQuantidade = editQuantidade.value;
+
+            // Atualize a linha da tabela com os novos dados
+            const $table = $('#tabela');
+            const $row = $table.find(`tr[data-product-code="${productCode}"]`);
+
+            if ($row.length > 0) {
+              $row.find('td:eq(0)').text(updatedNome);
+              $row.find('td:eq(1)').text(updatedCategory);
+              $row.find('td:eq(2)').text(updatedUnidadeMedida);
+              $row.find('td:eq(3)').text(updatedQuantidade);
+            }
+
+            alert('Produto editado com sucesso!');
+            editModal.style.display = 'none';
+            location.reload(); // Recarregue a página ou atualize a tabela de forma mais eficiente
+          } else {
+
+            alert('Erro ao sdsadsadsaeditar produto!');
+          }
+        },
+        error: function() {
+          alert('Erro ao editar produto11111111!');
+        }
+      });
+    });
   </script>
+
 </body>
 
 </html>

@@ -288,7 +288,7 @@ function buscarTeste()
             // Inicie a tabela fora do loop
             echo "<table id='tabela' class=' table table-secondary table-striped' >";
             echo "<thead>
-                     <tr>
+                            <tr data-product-code='1'>
                         <th  class='table-secondary'>Código</th>
                          <th>Nome</th>
                          <th>Categoria</th>
@@ -316,12 +316,12 @@ function buscarTeste()
 
                 echo '
                 <td>
-                <button class="edit-button" data-product-code="' . $row["code"] . '" >Editar</button>
+                <button  class="edit-button" data-product-code="' . $row["code"] . '" >Editar</button>
                 
                 <form method="POST">
-                    <input type="hidden" name="id" value="' . $row["code"] . '">
-                    <input type="submit" class="btn btn-delete" formaction="teste_excluir.php" value="Excluir" name="op">
-                </form>
+                <input type="hidden" name="id" value="' . $row["code"] . '">
+                <input type="submit" class="btn btn-delete" formaction="excluir.php" value="Excluir" name="op">
+            </form>
                 </td>
             </tr>
             ';
@@ -352,19 +352,14 @@ function buscarTeste()
                 </nav>';
         }
 
-        if (isset($_SESSION['mensagem'])) {
-            echo '<script>Swal.fire("Sucesso", "' . $_SESSION['mensagem'] . '", "success");</script>';
+        // if (isset($_SESSION['mensagem'])) {
+        //     echo '<script>Swal.fire("Sucesso", "' . $_SESSION['mensagem'] . '", "success");</script>';
 
-            // Limpe a variável de sessão após exibir a mensagem
-            unset($_SESSION['mensagem']);
-        }       // Inicie a sessão se ainda não estiver iniciada
+        //     // Limpe a variável de sessão após exibir a mensagem
+        //     unset($_SESSION['mensagem']);
+        // }       // Inicie a sessão se ainda não estiver iniciada
 
-        if (isset($_SESSION['mensagem'])) {
-            echo '<script>Swal.fire("Sucesso", "' . $_SESSION['mensagem'] . '", "success");</script>';
 
-            // Limpe a variável de sessão após exibir a mensagem
-            unset($_SESSION['mensagem']);
-        }
     } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
     }
