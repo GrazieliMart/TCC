@@ -431,10 +431,10 @@ function consultaCat()
 {
     try {
         $pdo = conexaoBD();
+
         $stmt = $pdo->prepare('SELECT * FROM categoria');
         $stmt->execute();
         while ($row = $stmt->fetch()) {
-
             echo " <option value='" . $row["name"] . "'>" . $row['name'] . "</option>";
         }
     } catch (PDOException $e) {

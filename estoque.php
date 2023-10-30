@@ -120,9 +120,17 @@ include("bd.php");
             <label for="edit-nome">Nome:</label>
             <input type="text" name="edit-nome" id="edit-nome"> <br>
             <label for="edit-category">Categoria:</label>
-            <input type="text" name="edit-category" id="edit-category"> <br>
+            <select name="edit-category" id="edit-category">
+              <?php
+              consultaCat();
+              ?>
+            </select>
             <label for="edit-unidadeMedida">Unidade de Medida:</label>
-            <input type="text" name="edit-unidadeMedida" id="edit-unidadeMedida"> <br>
+            <select name="edit-unidadeMedida" id="edit-unidadeMedida">
+              <?php
+              consultaUnid();
+              ?>
+            </select>
             <label for="edit-quantidade">Quantidade:</label>
             <input type="text" name="edit-quantidade" id="edit-quantidade"> <br>
             <label for="editfoto">Foto</label>
