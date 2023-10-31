@@ -207,30 +207,30 @@ body{
     font-size: 15px;
     font-weight: bold;
     top: 80px;
+   
     margin-left: 5%;
 }
 
 .divTextForm1 {
     display: flex;
     flex-direction: column;
-    position: fixed;
+    position: relative;
     justify-content: center;
-    
     font-size: 15px;
     font-weight: bold;
-    top: 200px;
-    margin-left: 130px;
+    top: 130px;
+   
+    margin-left: 5%;
 }
 .divTextForm2 {
     display: flex;
     flex-direction: column;
-    position: fixed;
+    position: relative;
     justify-content: center;
-    
     font-size: 15px;
     font-weight: bold;
-    top: 130px;
-    margin-left: 130px;
+    top: 100px;
+    margin-left: 5%;
 }
 .divTextRelatorio2 {
     width: 100%;
