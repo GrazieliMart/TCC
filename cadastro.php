@@ -146,14 +146,19 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
       <input id="ok-button" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
 
     </div>
-  <div class="divTextForm1">
+    
 
-        <span class="icon"><i class="bi bi-search"></i>
-        
-          <input type="text" class="formaticTextRelatorio" id="search" name='name' placeholder="Buscar" ></span>
-          <button type="button" onclick="performSearch(0)">Buscar</button>
-          <?php 
-                  $pdo = conexaoBD();
+      
+      <div class="BuscarDiv">
+    <div class="search-container">
+        <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
+        <button type="button" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(0)">
+            <i class="fa fa-search"></i>
+        </button>
+       
+    </div>
+    <?php 
+                    $pdo = conexaoBD();
                    $stmt = $pdo->prepare("select * from unidadeMedida");
             
                try {
@@ -200,33 +205,20 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
           
           ?>
-  </div>
-  </form>
-
 </div>
-  
-
-      <input id="ok-button2" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
-      </div>
-
-
-      
-      <div class="BuscarDiv">
-    <div class="search-container">
-        <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
-        <button type="submit" name="cadCategoria" aria-required="click" class="search-button">
-            <i class="fa fa-search"></i>
-        </button>
-    </div>
+<div class="button-container2">
+  <a href="cadastro.php" class="linkVoltar">Voltar</a>
 </div>
      </div>
 
 
-      <div class="button-container2">
-        <a href="cadastro.php" class="linkVoltar">Voltar</a>
-      </div>
   </form>
 </div>
+
+
+
+</div>
+  
 
 
 
@@ -435,7 +427,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadUsuario'])) {
 
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadUnid'])) {
   $name = $_POST['name'];
-  echo $name;
+ 
   cadUnid($name);
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadProduto'])) {
   $foto = isset($_FILES['arquivoFoto']) ? $_FILES['arquivoFoto'] : null;
