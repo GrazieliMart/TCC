@@ -352,18 +352,13 @@ function buscarTeste()
                 </nav>';
         }
 
-        // if (isset($_SESSION['mensagem'])) {
-        //     echo '<script>Swal.fire("Sucesso", "' . $_SESSION['mensagem'] . '", "success");</script>';
-
-        //     // Limpe a variável de sessão após exibir a mensagem
-        //     unset($_SESSION['mensagem']);
-        // }       // Inicie a sessão se ainda não estiver iniciada
-
+    
 
     } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
     }
 }
+
 
 function editarTeste($id)
 {

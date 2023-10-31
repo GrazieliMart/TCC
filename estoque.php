@@ -142,55 +142,6 @@ include("bd.php");
 
         </div>
       </div>
-      <?php /*
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    try {
-        $pdo = conexaoBD();
-
-        $code = $_POST['code'];
-        $nome = $_POST['edit-nome'];
-        $category = $_POST['edit-category'];
-        $unidadeMedida = $_POST['edit-unidadeMedida'];
-        $quantidade = $_POST['edit-quantidade'];
-
-        $uploaddir = 'upload/produtos/'; //diretório onde será gravada a foto
-
-        //foto
-
-        $foto = $_FILES['foto'];
-        $nomeFoto = $foto['name'];
-        $tipoFoto = $foto['type'];
-        $tamanhoFoto = $foto['size'];
-
-        //gerando novo nome para a foto
-        $info = new SplFileInfo($nomeFoto);
-        $extensaoArq = $info->getExtension();
-        $novoNomeFoto = $nome . "." . $extensaoArq;
-
-        if (($nomeFoto != "") && (move_uploaded_file($_FILES['foto']['tmp_name'], $uploaddir . $novoNomeFoto))) {
-            $uploadfile = $uploaddir . $novoNomeFoto;
-
-            $sql = "UPDATE produtoTCC SET nome = '$nome', category = '$category', unidadeMedida = '$unidadeMedida', quantidade = '$quantidade' , arquivoFoto = '$uploadfile' WHERE code = '$code'";
-            $result = $pdo->query($sql);
-        } 
-        
-        
-        else {
-            $sql = "UPDATE produtoTCC SET nome = '$nome', category = '$category', unidadeMedida = '$unidadeMedida', quantidade = '$quantidade'  WHERE code = '$code'";
-            $result = $pdo->query($sql);
-        }
-
-        if ($result) {
-            echo "<script>alert('Produto editado com sucesso!');</script>";
-            
-        } else {
-            echo "<script>alert('Erro ao editar produto!');</script>";
-        }
-    } catch (Exception $e) {
-        echo "Erro: " . $e->getMessage();
-    }
-}*/
-      ?>
 
 
     </div>

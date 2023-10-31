@@ -201,6 +201,24 @@ body {
     background-color: rgb(10, 96, 102);
 
   }
+  #form5 {
+
+    z-index: 5;
+    position: absolute;
+    /* define a largura máxima do formulário */
+    max-width: 800px;
+    /* define a margem esquerda em 15% para alinhar com a sidebar */
+    margin-left: 25%;
+    /* demais estilos */
+    align-items: center;
+    margin-top: 3cm;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    background-color: rgb(10, 96, 102);
+
+
+  }
+
 
 
   .form-content {
