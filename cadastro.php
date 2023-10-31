@@ -141,36 +141,25 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         <span class="icon"><i class="bi bi-search"></i>
         
           <input type="text" class="formaticTextRelatorio" id="search" name='name' placeholder="Buscar" ></span>
-          <input type="submit" value="Buscar" >
-      
+          <button type="button" onclick="performSearch(0)">Buscar</button>
           <?php 
-
-
-
-            if ($_SERVER["REQUEST_METHOD"] === 'POST') {
                   $pdo = conexaoBD();
-            
-               if (isset($_POST["name"]) && ($_POST["name"] != "")) {
-                   $name = $_POST["name"];
-                   $stmt = $pdo->prepare("select * from unidadeMedida where name= :name");
-                   $stmt->bindParam(':name', $name);
-               } else {
                    $stmt = $pdo->prepare("select * from unidadeMedida");
-               }
-      
+            
                try {
                    //buscando dados
                    $stmt->execute();
+                 ?>
+                   <form method='post'>
+                   <div class='table-overflow'>
+                   <table id='myTable' border='1px'>
+                   <tr>
+                   <th></th>
       
-                   echo "<form method='post'>";
-                   echo "<table border='1px'>";
-                   echo "<tr>";
-                   echo "<th></th>";
-      
-                   echo "<th>Nome</th>";
+                   <th>Nome</th>
                    
-                   echo "</tr>";
-      
+                   </tr>
+                  <?php 
                    while ($row = $stmt->fetch()) {
                       
                        echo "<tr>";
@@ -186,18 +175,19 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
                    }
       
                    echo "</table><br>";
+                    echo '</div>';
       
                    echo "<button type='submit' formaction='remove.php'>Excluir Aluno</button>";
                    echo "<button type='submit' formaction='edicao.php'>Editar Aluno</button>";
                    echo "</form>";
+
       
                } catch (PDOException $e) {
                    echo 'Error: ' . $e->getMessage();
                }
       
                $pdo = null;
-           }// fechamento do if do post
-   
+
           
           ?>
   </div>
@@ -217,18 +207,66 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
       <div class="divTextForm1">
         <label for="name">Nova categoria</label>
         <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a categoria" required>
-
+        <input id="ok-button" name="cadCat" type="submit" aria-required="click" value="CADASTRAR"></input>
 
         <div class="iconeBuscar">
           <span class="icon"><i class="bi bi-search"></i>
             <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar"></span>
-        </div>
+            <button type="button" onclick="performSearch(1)">Buscar</button>
+          <?php 
+                  $pdo = conexaoBD();
+                   $stmt = $pdo->prepare("select * from categoria");
+            
+               try {
+                   //buscando dados
+                   $stmt->execute();
+                 ?>
+                   <form method='post'>
+                   <div class='table-overflow'>
+                   <table id='myTable' border='1px'>
+                   <tr>
+                   <th></th>
+      
+                   <th>Nome</th>
+                   
+                   </tr>
+                  <?php 
+                   while ($row = $stmt->fetch()) {
+                      
+                       echo "<tr>";
+                       echo "<td><input type='radio' name='raAluno' 
+                            value='" . $row['id'] . "'>";
+                    
+                       echo "<td>" . $row['name'] . "</td>";
+                      
+                    
+                    
+      
+                       echo "</tr>";
+                   }
+      
+                   echo "</table><br>";
+                    echo '</div>';
+      
+                   echo "<button type='submit' formaction='remove.php'>Excluir Aluno</button>";
+                   echo "<button type='submit' formaction='edicao.php'>Editar Aluno</button>";
+                   echo "</form>";
+
+      
+               } catch (PDOException $e) {
+                   echo 'Error: ' . $e->getMessage();
+               }
+      
+               $pdo = null;
+
+          
+          ?>
+          </div>
 
       </div>
-      <div class="button-container">
-        <input id="ok-button" name="cadCat" type="submit" aria-required="click" value="CADASTRAR"></input>
+     
+       
 
-      </div>
     </form>
 
   </div>
@@ -252,9 +290,38 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
 
 
-</body>
+    <script>
+      
+      function performSearch(i) {
+        const tableRows = document.querySelectorAll("#myTable tr");
+        console.log(tableRows);
+      
+        const search = document.querySelectorAll("#search");
+        const query = search[i].value.toLowerCase();
+
+        tableRows.forEach(row => {
+            const name = row.textContent.toLowerCase();
+
+            if (name.includes(query)) {
+                row.style.display = "table-row";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+
+    function removeItem() {
+        // Adicione sua lógica para remover o aluno aqui
+    }
+
+    function editItem() {
+        // Adicione sua lógica para editar o aluno aqui
+    }
+</script>
 
 
+</body> 
+  
 <script>
   function trocarFormulario(id) {
     // ocultar todos os formulários
@@ -306,8 +373,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadUsuario'])) {
   $senha = $_POST['senha'];
   cadUsuario($name, $code, $level, $senha);
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadCat'])) {
+  
   $name = $_POST['name'];
   cadCat($name);
+
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadUnid'])) {
   $name = $_POST['name'];
   echo $name;

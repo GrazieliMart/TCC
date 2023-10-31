@@ -179,6 +179,7 @@ function cadCat($name)
 
             $stmt->execute();
             echo '<script>Swal.fire("Sucesso", "Categoria cadastrada!", "success");</script>';
+      
         } else {
             echo '<script>Swal.fire("Erro", "Categoria já existe.", "error");</script>';
         }
