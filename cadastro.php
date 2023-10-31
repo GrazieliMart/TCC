@@ -128,17 +128,84 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
   </div>
   <!--UNIDADE DE MEDIDA-->
+
   <div class="col-md-10 ml-sm-auto">
   <form id="form3" class="limpar-campos" method="post" style="display: none;">
+
     <div class="titleRelatorio">
       <h1>Unidade de Medida</h1>
     </div>
 
     <div class="divTextForm2 ">
       <div class="MedDiv">
+
       <label for="name">Nova Medida</label>
 
       <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a unidade de medida" required>
+
+      <input id="ok-button" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
+
+    </div>
+  <div class="divTextForm1">
+
+        <span class="icon"><i class="bi bi-search"></i>
+        
+          <input type="text" class="formaticTextRelatorio" id="search" name='name' placeholder="Buscar" ></span>
+          <button type="button" onclick="performSearch(0)">Buscar</button>
+          <?php 
+                  $pdo = conexaoBD();
+                   $stmt = $pdo->prepare("select * from unidadeMedida");
+            
+               try {
+                   //buscando dados
+                   $stmt->execute();
+                 ?>
+                   <form method='post'>
+                   <div class='table-overflow'>
+                   <table id='myTable' border='1px'>
+                   <tr>
+                   <th></th>
+      
+                   <th>Nome</th>
+                   
+                   </tr>
+                  <?php 
+                   while ($row = $stmt->fetch()) {
+                      
+                       echo "<tr>";
+                       echo "<td><input type='radio' name='raAluno' 
+                            value='" . $row['id'] . "'>";
+                    
+                       echo "<td>" . $row['name'] . "</td>";
+                      
+                    
+                    
+      
+                       echo "</tr>";
+                   }
+      
+                   echo "</table><br>";
+                    echo '</div>';
+      
+                   echo "<button type='submit' formaction='remove.php'>Excluir Aluno</button>";
+                   echo "<button type='submit' formaction='edicao.php'>Editar Aluno</button>";
+                   echo "</form>";
+
+      
+               } catch (PDOException $e) {
+                   echo 'Error: ' . $e->getMessage();
+               }
+      
+               $pdo = null;
+
+          
+          ?>
+  </div>
+  </form>
+
+</div>
+  
+
       <input id="ok-button2" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
       </div>
 
@@ -162,12 +229,73 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 </div>
 
 
+
   <!--CATEGORIA-->
   <div class="col-md-10 ml-sm-auto">
     <form id="form4" class="limpar-campos" method="post" style="display: none;">
       <div class="titleRelatorio">
         <h1>Categoria</h1>
       </div>
+
+
+      <div class="divTextForm1">
+        <label for="name">Nova categoria</label>
+        <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a categoria" required>
+        <input id="ok-button" name="cadCat" type="submit" aria-required="click" value="CADASTRAR"></input>
+
+        <div class="iconeBuscar">
+          <span class="icon"><i class="bi bi-search"></i>
+            <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar"></span>
+            <button type="button" onclick="performSearch(1)">Buscar</button>
+          <?php 
+                  $pdo = conexaoBD();
+                   $stmt = $pdo->prepare("select * from categoria");
+            
+               try {
+                   //buscando dados
+                   $stmt->execute();
+                 ?>
+                   <form method='post'>
+                   <div class='table-overflow'>
+                   <table id='myTable' border='1px'>
+                   <tr>
+                   <th></th>
+      
+                   <th>Nome</th>
+                   
+                   </tr>
+                  <?php 
+                   while ($row = $stmt->fetch()) {
+                      
+                       echo "<tr>";
+                       echo "<td><input type='radio' name='raAluno' 
+                            value='" . $row['id'] . "'>";
+                    
+                       echo "<td>" . $row['name'] . "</td>";
+                      
+                    
+                    
+      
+                       echo "</tr>";
+                   }
+      
+                   echo "</table><br>";
+                    echo '</div>';
+      
+                   echo "<button type='submit' formaction='remove.php'>Excluir Aluno</button>";
+                   echo "<button type='submit' formaction='edicao.php'>Editar Aluno</button>";
+                   echo "</form>";
+
+      
+               } catch (PDOException $e) {
+                   echo 'Error: ' . $e->getMessage();
+               }
+      
+               $pdo = null;
+
+          
+          ?>
+          </div>
 
       <div class="divTextForm">
       <div class="MedDiv">
@@ -185,12 +313,16 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
     </div>
 </div>
 
+
      </div>
 
       <div class="button-container2">
       
         <a href="cadastro.php" class="linkVoltar">Voltar</a>
       </div>
+     
+       
+
     </form>
 
   </div>
@@ -202,6 +334,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
     <a onclick="trocarFormulario('form2')"><button id="ok-button" aria-required="click">Usuários</button></a>
     <a onclick="trocarFormulario('form3')"><button id="ok-button" aria-required="click">Medidas</button></a>
     <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click">Categorias</button></a>
+
   </div>
 
   <footer class="footer">
@@ -213,9 +346,38 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
 
 
-</body>
+    <script>
+      
+      function performSearch(i) {
+        const tableRows = document.querySelectorAll("#myTable tr");
+        console.log(tableRows);
+      
+        const search = document.querySelectorAll("#search");
+        const query = search[i].value.toLowerCase();
+
+        tableRows.forEach(row => {
+            const name = row.textContent.toLowerCase();
+
+            if (name.includes(query)) {
+                row.style.display = "table-row";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+
+    function removeItem() {
+        // Adicione sua lógica para remover o aluno aqui
+    }
+
+    function editItem() {
+        // Adicione sua lógica para editar o aluno aqui
+    }
+</script>
 
 
+</body> 
+  
 <script>
   function trocarFormulario(id) {
     // ocultar todos os formulários
@@ -267,8 +429,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadUsuario'])) {
   $senha = $_POST['senha'];
   cadUsuario($name, $code, $level, $senha);
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadCat'])) {
+  
   $name = $_POST['name'];
   cadCat($name);
+
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadUnid'])) {
   $name = $_POST['name'];
   echo $name;

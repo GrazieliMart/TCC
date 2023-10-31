@@ -6,7 +6,11 @@
     font-family: 'Jost', sans-serif;
 font-family: 'Ubuntu', sans-serif;
 }
-
+  /* mika q esta mexendo nessa tabela*/
+  .table-overflow {
+    max-height:150px;
+    overflow-y:auto;
+}
 body{
     
     margin: 0;

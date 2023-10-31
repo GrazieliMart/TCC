@@ -180,6 +180,7 @@ function cadCat($name)
 
             $stmt->execute();
             echo '<script>Swal.fire("Sucesso", "Categoria cadastrada!", "success");</script>';
+      
         } else {
             echo '<script>Swal.fire("Erro", "Categoria já existe.", "error");</script>';
         }
@@ -353,18 +354,13 @@ function buscarTeste()
                 </nav>';
         }
 
-        // if (isset($_SESSION['mensagem'])) {
-        //     echo '<script>Swal.fire("Sucesso", "' . $_SESSION['mensagem'] . '", "success");</script>';
-
-        //     // Limpe a variável de sessão após exibir a mensagem
-        //     unset($_SESSION['mensagem']);
-        // }       // Inicie a sessão se ainda não estiver iniciada
-
+    
 
     } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
     }
 }
+
 
 function editarTeste($id)
 {
