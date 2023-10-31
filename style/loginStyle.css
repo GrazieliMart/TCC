@@ -10,23 +10,12 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: linear-gradient(45deg,#257bcf,#5088bf,#75a7d9);
+    background-color: #03638C;
     background-size: 300% 600%;
-    animation: gradientAnimation 7s ease infinite;
+   
     font-family: sans-serif;
 }
 
-@keyframes gradientAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
 
 h1 {
     position: absolute;
@@ -37,10 +26,8 @@ h1 {
     font-size: 36px;
     color: white;
 }
-    body {
-      background-color: #e4ebf0;
-      font-family: sans-serif;
-    }
+  
+
 
     #container-geral {
       border-radius: 10px;
@@ -97,7 +84,7 @@ h1 {
     }
 
     .form-container button[type="submit"] {
-      background-color: #00aeff;
+      background-color: #1D79A1;
       border: none;
       border-radius: 30px;
       color: #fff;
@@ -110,8 +97,9 @@ h1 {
     }
 
     .form-container button[type="submit"]:hover {
-      background-color:  #009be3;
+      background-color:  #03638C;
       box-shadow: 0 0 3px black;
+      transition: 0.2s;
     }
 
     .forgot-password {
@@ -127,6 +115,8 @@ h1 {
 
     .forgot-password a:hover {
       text-decoration: underline;
+      color: #fff;
+      transition: 0.2s;
     }
     
 .loginLogo {
@@ -160,8 +150,9 @@ h1 {
 .containerLog{
   position: relative;
   align:center;
-  left:80px;
-  background: white;
+  
+ display: flex;
+ left: 30%;
   border: 2px solid white;
   color: #e4ebf0;
   border-radius:20px;
@@ -235,7 +226,7 @@ input {
  /*bottom: 60px;
  top: 5px;*/
  position: absolute;
- background: #2785e8;
+ background: #1D79A1;
  transition: 0.2s ease all;
  -moz-transition: 0.2s ease all;
  -webkit-transition: 0.2s ease all;

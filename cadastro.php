@@ -95,13 +95,13 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         <h1>Usuário</h1>
       </div>
       <div class="form-row">
-        <div class="divTextForm2">
+        <div class="divTextForm">
           <label for="name">Nome</label>
           <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira o nome" required>
 
 
           <label for="code">Código de funcionário</label>
-          <input type="text" class="formaticTextRelatorio" id="code" name="code" placeholder="Insira o código" required>
+          <input type="text"  class="formaticTextRelatorio" id="code" name="code" placeholder="Insira o código" required>
 
           <label for="unit">Tipo de usuário</label>
           <select class="formaticRelatorio" id="level" name="level" required>
@@ -129,20 +129,22 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
       <h1>Unidade de Medida</h1>
     </div>
 
-    <div class="divTextForm1">
+    <div class="divTextForm">
       <label for="name">Nova Medida</label>
+
       <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a unidade de medida" required>
-      <div class="iconeBuscar">
-        <span class="icon"><i class="bi bi-search"></i>
-          <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar"></span>
-      </div>
-    </div>
-
-
-    <div class="button-container">
       <input id="ok-button" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
 
+        <span class="icon"><i class="bi bi-search"></i></span>
+          <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
+      
+      <input id="ok-button" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
     </div>
+
+
+  
+
+   
   </form>
   <!--CATEGORIA-->
   <div class="col-md-10 ml-sm-auto">
@@ -151,7 +153,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         <h1>Categoria</h1>
       </div>
 
-      <div class="divTextForm1">
+      <div class="divTextForm">
         <label for="name">Nova categoria</label>
         <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a categoria" required>
 
