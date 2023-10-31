@@ -33,21 +33,22 @@ function login()
 
             if ($stmt->rowCount() > 0) {
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
+            
                 // Verificar se a senha inserida corresponde ao hash armazenado
                 if (password_verify($senha_inserida, $result['senha_hash'])) {
                     // Credenciais válidas
                     $_SESSION['level'] = $result["level"];
                     $_SESSION['username'] = $result["usuario"];
-
+            
                     header("Location: index.php");
                     exit();
                 } else {
-                    // Credenciais inválidas
-                    $error = "<span style='color: black;'>Usuário ou senha incorretos!</span>";
+                    // Credenciais inválidas (senha incorreta)
+                    $error = "<span style='color: black;'>Senha incorreta!</span>";
                 }
             } else {
-                echo "<span style='color: black;'>Usuário não encontrado!</span>";
+                // Usuário não encontrado
+                $error = "<span style='color: black;'>Usuário não encontrado!</span>";
             }
         }
     } catch (PDOException $e) {

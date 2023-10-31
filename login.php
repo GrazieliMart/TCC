@@ -1,3 +1,9 @@
+<?php
+
+include("bd.php");
+login();
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,18 +26,25 @@
       </div>
     </div>
     <div class="col-6">
+
       <div class="form-container">
+    
 
         <div class="containerLog">
-
+        <div id="error-message">
+  <?php if (isset($error)) { ?>
+            <p>
+              <?php echo $error; ?>
+            </p>
+          <?php } ?>
         
-          <form method="post">
+         
             <div class="loginLogo">
               <img src="logo/1.png" alt="Logo da UNICAMP" id="logo">
               <h2 id="log"> AlmoxariSars </h2>
 
             </div>
-         
+        <form method="post">
             <!--E-mail-->
             <div class="formC">
               <div class="group">
@@ -79,8 +92,3 @@
 
 
 </html>
-<?php
-include("bd.php");
-login();
-
-?>

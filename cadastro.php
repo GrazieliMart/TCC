@@ -34,6 +34,8 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
   <style>
 
@@ -83,7 +85,8 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
       <div class="button-container">
       
         <input id="ok-button" name="cadProduto" aria-required="click" type="submit" value="Cadastrar"></input>
-        
+      <br>
+        <a href="cadastro.php" class="linkVoltar">Voltar</a>
       </div>
     </form>
   </div>
@@ -95,13 +98,13 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         <h1>Usuário</h1>
       </div>
       <div class="form-row">
-        <div class="divTextForm2">
+        <div class="divTextForm1">
           <label for="name">Nome</label>
           <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira o nome" required>
 
 
           <label for="code">Código de funcionário</label>
-          <input type="text" class="formaticTextRelatorio" id="code" name="code" placeholder="Insira o código" required>
+          <input type="text"  class="formaticTextRelatorio" id="code" name="code" placeholder="Insira o código" required>
 
           <label for="unit">Tipo de usuário</label>
           <select class="formaticRelatorio" id="level" name="level" required>
@@ -116,26 +119,33 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
           <input class="formaticTextRelatorio" id="senha" name="senha" placeholder="Insira a senha" type="password">
 
         </div>
-        <div class="button-container">
-          <input id="ok-button" name="cadUsuario" type="submit" aria-required="click" value="CADASTRAR"></input>
-
-        </div>
+        <div class="button-container1">
+          <input id="ok-button1" name="cadUsuario" type="submit" aria-required="click" value="CADASTRAR"></input>
+          <br>
+        <a href="cadastro.php" class="linkVoltar">Voltar</a>
+      </div>
     </form>
 
   </div>
   <!--UNIDADE DE MEDIDA-->
-  <div>
-  <form id="form3" method="post" style="display: none;">
+
+  <div class="col-md-10 ml-sm-auto">
+  <form id="form3" class="limpar-campos" method="post" style="display: none;">
+
     <div class="titleRelatorio">
       <h1>Unidade de Medida</h1>
     </div>
 
-    <!--<div class="divTextForm1">
+    <div class="divTextForm2 ">
+      <div class="MedDiv">
+
       <label for="name">Nova Medida</label>
+
       <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a unidade de medida" required>
+
       <input id="ok-button" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
 
-    </div>-->
+    </div>
   <div class="divTextForm1">
 
         <span class="icon"><i class="bi bi-search"></i>
@@ -196,6 +206,29 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 </div>
   
 
+      <input id="ok-button2" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
+      </div>
+
+
+      
+      <div class="BuscarDiv">
+    <div class="search-container">
+        <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
+        <button type="submit" name="cadCategoria" aria-required="click" class="search-button">
+            <i class="fa fa-search"></i>
+        </button>
+    </div>
+</div>
+     </div>
+
+
+      <div class="button-container2">
+        <a href="cadastro.php" class="linkVoltar">Voltar</a>
+      </div>
+  </form>
+</div>
+
+
 
   <!--CATEGORIA-->
   <div class="col-md-10 ml-sm-auto">
@@ -203,6 +236,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
       <div class="titleRelatorio">
         <h1>Categoria</h1>
       </div>
+
 
       <div class="divTextForm1">
         <label for="name">Nova categoria</label>
@@ -263,6 +297,28 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
           ?>
           </div>
 
+      <div class="divTextForm">
+      <div class="MedDiv">
+      <label for="name">Nova Categoria</label>
+
+      <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a categoria" required>
+      <input id="ok-button2" name="cadCatehoria" type="submit" aria-required="click" value="CADASTRAR"></input>
+      </div>
+      <div class="BuscarDiv">
+    <div class="search-container">
+        <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
+        <button type="submit" name="cadCategoria" aria-required="click" class="search-button">
+            <i class="fa fa-search"></i>
+        </button>
+    </div>
+</div>
+
+
+     </div>
+
+      <div class="button-container2">
+      
+        <a href="cadastro.php" class="linkVoltar">Voltar</a>
       </div>
      
        

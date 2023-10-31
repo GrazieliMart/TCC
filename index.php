@@ -31,20 +31,26 @@ $level = $_SESSION['level'];
 
 
   <div class="divRelatorio3">
+
     <form>
+      
       <div class="divWelcome">
+
         <img src="logo/1.png" alt="Logo da UNICAMP" id="logo">
+
         <h1 class="textWelcome">Bem-vindo,
+
           <?php echo $username ?>!
+
         </h1>
       </div>
-      <div class="divTextRelatorio">
+     
 
         <div class="divWelcome2">
           <h2 class="textWelcome2">Realize cadastro de produtos, funcionários e confira pedidos
           </h2>
         </div>
-      </div>
+     
     </form>
   </div>
 
