@@ -1,11 +1,6 @@
-<?php
-
-include("bd.php");
-login();
-
-?>
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Login | AlmoxariSars</title>
@@ -28,58 +23,59 @@ login();
     <div class="col-6">
 
       <div class="form-container">
-    
+
 
         <div class="containerLog">
-        <div id="error-message">
-  <?php if (isset($error)) { ?>
-            <p>
-              <?php echo $error; ?>
-            </p>
-          <?php } ?>
-        
-         
+          <div id="error-message">
+            <?php
+
+            include("bd.php");
+            login();
+
+            ?>
+
+
             <div class="loginLogo">
               <img src="logo/1.png" alt="Logo da UNICAMP" id="logo">
               <h2 id="log"> AlmoxariSars </h2>
 
             </div>
-        <form method="post">
-            <!--E-mail-->
-            <div class="formC">
-              <div class="group">
-                <input required="" type="text" class="input" id="username" name="username" autocomplete="off">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label for="username">E-mail</label>
-              </div>
-              <ion-icon name="person-outline" class="iconLogin"></ion-icon>
-
-              <!--Senha-->
-              <div class="group">
-                <input required="" type="password" class="input" id="password" name="password" autocomplete="off">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-
-                <label for="password">Senha</label>
-
-              </div>
-
-              <ion-icon name="lock-closed-outline" class="iconLogin"></ion-icon>
-
-              <div class="formatic">
-                <button type="submit" id="submit" name="submit">Entrar</button>
-                <div class="forgot-password">
-                  <a href="esqueciSenha.php">Esqueci minha senha</a>
+            <form method="post">
+              <!--E-mail-->
+              <div class="formC">
+                <div class="group">
+                  <input required="" type="text" class="input" id="username" name="username" autocomplete="off">
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                  <label for="username">E-mail</label>
                 </div>
-              </div>
-          </form>
+                <ion-icon name="person-outline" class="iconLogin"></ion-icon>
+
+                <!--Senha-->
+                <div class="group">
+                  <input required="" type="password" class="input" id="password" name="password" autocomplete="off">
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+
+                  <label for="password">Senha</label>
+
+                </div>
+
+                <ion-icon name="lock-closed-outline" class="iconLogin"></ion-icon>
+
+                <div class="formatic">
+                  <button type="submit" id="submit" name="submit">Entrar</button>
+                  <div class="forgot-password">
+                    <a href="esqueciSenha.php">Esqueci minha senha</a>
+                  </div>
+                </div>
+            </form>
+
+          </div>
 
         </div>
-
       </div>
     </div>
-  </div>
 
 
   </div>

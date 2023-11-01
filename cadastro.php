@@ -83,9 +83,9 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         <input type="file" name="arquivoFoto" id="arquivoFoto" accept="image/*" required>
       </div>
       <div class="button-container">
-      
+
         <input id="ok-button" name="cadProduto" aria-required="click" type="submit" value="Cadastrar"></input>
-      <br>
+        <br>
         <a href="cadastro.php" class="linkVoltar">Voltar</a>
       </div>
     </form>
@@ -104,7 +104,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
 
           <label for="code">Código de funcionário</label>
-          <input type="text"  class="formaticTextRelatorio" id="code" name="code" placeholder="Insira o código" required>
+          <input type="text" class="formaticTextRelatorio" id="code" name="code" placeholder="Insira o código" required>
 
           <label for="unit">Tipo de usuário</label>
           <select class="formaticRelatorio" id="level" name="level" required>
@@ -122,105 +122,79 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         <div class="button-container1">
           <input id="ok-button1" name="cadUsuario" type="submit" aria-required="click" value="CADASTRAR"></input>
           <br>
-        <a href="cadastro.php" class="linkVoltar">Voltar</a>
-      </div>
+          <a href="cadastro.php" class="linkVoltar">Voltar</a>
+        </div>
     </form>
 
   </div>
   <!--UNIDADE DE MEDIDA-->
 
   <div class="col-md-10 ml-sm-auto">
-  <form id="form3" class="limpar-campos" method="post" style="display: none;">
+    <form id="form3" class="limpar-campos" method="post" style="display: none;">
+      <div class="titleRelatorio">
+        <h1>Unidade de Medida</h1>
+      </div>
+      <div class="divTextForm2">
+        <div class="MedDiv">
+          <label for="name">Nova Medida</label>
+          <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a unidade de medida" required>
+          <input id="ok-button" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
+        </div>
+        <div class="BuscarDiv">
+          <div class="search-container">
+            <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
+            <button type="button" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(0)">
+              <i class="fa fa-search"></i>
+            </button>
 
-    <div class="titleRelatorio">
-      <h1>Unidade de Medida</h1>
-    </div>
+          </div>
+          <?php
+          $pdo = conexaoBD();
+          $stmt = $pdo->prepare("select * from unidadeMedida");
 
-    <div class="divTextForm2 ">
-      <div class="MedDiv">
-
-      <label for="name">Nova Medida</label>
-
-      <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a unidade de medida" required>
-
-      <input id="ok-button" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
-
-    </div>
-    
-
-      
-      <div class="BuscarDiv">
-    <div class="search-container">
-        <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
-        <button type="button" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(0)">
-            <i class="fa fa-search"></i>
-        </button>
-       
-    </div>
-    <?php 
-                    $pdo = conexaoBD();
-                   $stmt = $pdo->prepare("select * from unidadeMedida");
-            
-               try {
-                   //buscando dados
-                   $stmt->execute();
-                 ?>
-                   <form method='post'>
-                   <div class='table-overflow'>
-                   <table id='myTable' border='1px'>
-                   <tr>
-                   <th></th>
-      
-                   <th>Nome</th>
-                   
-                   </tr>
-                  <?php 
-                   while ($row = $stmt->fetch()) {
-                      
-                       echo "<tr>";
-                       echo "<td><input type='radio' name='raAluno' 
-                            value='" . $row['id'] . "'>";
-                    
-                       echo "<td>" . $row['name'] . "</td>";
-                      
-                    
-                    
-      
-                       echo "</tr>";
-                   }
-      
-                   echo "</table><br>";
-                    echo '</div>';
-      
-                   echo "<button type='submit' formaction='remove.php'>Excluir Aluno</button>";
-                   echo "<button type='submit' formaction='edicao.php'>Editar Aluno</button>";
-                   echo "</form>";
-
-      
-               } catch (PDOException $e) {
-                   echo 'Error: ' . $e->getMessage();
-               }
-      
-               $pdo = null;
-
-          
+          try {
+            //buscando dados
+            $stmt->execute();
           ?>
-</div>
-<div class="button-container2">
-  <a href="cadastro.php" class="linkVoltar">Voltar</a>
-</div>
-     </div>
+            <form method='post'>
+              <div class='table-overflow'>
+                <table id='myTable' border='1px'>
+                  <tr>
+                    <th></th>
+
+                    <th>Nome</th>
+
+                  </tr>
+                <?php
+                while ($row = $stmt->fetch()) {
+
+                  echo "<tr>";
+                  echo "<td><input type='radio' name='raAluno' 
+                            value='" . $row['id'] . "'>";
+                  echo "<td>" . $row['name'] . "</td>";
+                  echo "</tr>";
+                }
+                echo "</table><br>";
+                echo '</div>';
+
+                echo "<button type='submit' formaction='remove.php'>Excluir</button>";
+                echo "<button type='submit' formaction='edicao.php'>Editar</button>";
+                echo "</form>";
+              } catch (PDOException $e) {
+                echo 'Error: ' . $e->getMessage();
+              }
+
+              $pdo = null;
 
 
-  </form>
-</div>
-
-
-
-</div>
-  
-
-
+                ?>
+              </div>
+              <div class="button-container2">
+                <a href="cadastro.php" class="linkVoltar">Voltar</a>
+              </div>
+        </div>
+    </form>
+  </div>
 
   <!--CATEGORIA-->
   <div class="col-md-10 ml-sm-auto">
@@ -228,95 +202,71 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
       <div class="titleRelatorio">
         <h1>Categoria</h1>
       </div>
-
-
-      <div class="divTextForm1">
-        <label for="name">Nova categoria</label>
-        <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a categoria" required>
-        <input id="ok-button" name="cadCat" type="submit" aria-required="click" value="CADASTRAR"></input>
-
-        <div class="iconeBuscar">
-          <span class="icon"><i class="bi bi-search"></i>
-            <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar"></span>
-            <button type="button" onclick="performSearch(1)">Buscar</button>
-          <?php 
-                  $pdo = conexaoBD();
-                   $stmt = $pdo->prepare("select * from categoria");
-            
-               try {
-                   //buscando dados
-                   $stmt->execute();
-                 ?>
-                   <form method='post'>
-                   <div class='table-overflow'>
-                   <table id='myTable' border='1px'>
-                   <tr>
-                   <th></th>
-      
-                   <th>Nome</th>
-                   
-                   </tr>
-                  <?php 
-                   while ($row = $stmt->fetch()) {
-                      
-                       echo "<tr>";
-                       echo "<td><input type='radio' name='raAluno' 
-                            value='" . $row['id'] . "'>";
-                    
-                       echo "<td>" . $row['name'] . "</td>";
-                      
-                    
-                    
-      
-                       echo "</tr>";
-                   }
-      
-                   echo "</table><br>";
-                    echo '</div>';
-      
-                   echo "<button type='submit' formaction='remove.php'>Excluir Aluno</button>";
-                   echo "<button type='submit' formaction='edicao.php'>Editar Aluno</button>";
-                   echo "</form>";
-
-      
-               } catch (PDOException $e) {
-                   echo 'Error: ' . $e->getMessage();
-               }
-      
-               $pdo = null;
-
-          
-          ?>
-          </div>
-
       <div class="divTextForm">
-      <div class="MedDiv">
-      <label for="name">Nova Categoria</label>
-
-      <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a categoria" required>
-      <input id="ok-button2" name="cadCatehoria" type="submit" aria-required="click" value="CADASTRAR"></input>
+        <div class="MedDiv">
+          <label for="name">Nova Categoria</label>
+          <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a categoria" required>
+          <input id="ok-button2" name="cadCatehoria" type="submit" aria-required="click" value="CADASTRAR"></input>
+        </div>
+        <div class="BuscarDiv">
+          <div class="search-container">
+            <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
+            <button type="submit" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(1)">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <?php
+          $pdo = conexaoBD();
+          $stmt = $pdo->prepare("select * from categoria");
+  
+          try {
+            //buscando dados
+            $stmt->execute();
+          ?>
+            <form method='post'>
+              <div class='table-overflow'>
+                <table id='myTable' border='1px'>
+                  <tr>
+                    <th></th>
+  
+                    <th>Nome</th>
+  
+                  </tr>
+                <?php
+                while ($row = $stmt->fetch()) {
+  
+                  echo "<tr>";
+                  echo "<td><input type='radio' name='raAluno' 
+                              value='" . $row['id'] . "'>";
+  
+                  echo "<td>" . $row['name'] . "</td>";
+                  echo "</tr>";
+                }
+  
+                echo "</table><br>";
+                echo '</div>';
+  
+                echo "<button type='submit' formaction='remove.php'>Excluir</button>";
+                echo "<button type='submit' formaction='edicao.php'>Editar</button>";
+                echo "</form>";
+              } catch (PDOException $e) {
+                echo 'Error: ' . $e->getMessage();
+              }
+  
+              $pdo = null;
+  
+  
+                ?>
+  
+          
+  
+              </div>
+              <div class="button-container2">
+                <a href="cadastro.php" class="linkVoltar">Voltar</a>
+              </div>
       </div>
-      <div class="BuscarDiv">
-    <div class="search-container">
-        <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
-        <button type="submit" name="cadCategoria" aria-required="click" class="search-button">
-            <i class="fa fa-search"></i>
-        </button>
-    </div>
-</div>
-
-
-     </div>
-
-      <div class="button-container2">
-      
-        <a href="cadastro.php" class="linkVoltar">Voltar</a>
       </div>
-     
-       
-
     </form>
-
   </div>
 
   <div id="custom-alert">
@@ -339,37 +289,36 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
 
     <script>
-      
       function performSearch(i) {
         const tableRows = document.querySelectorAll("#myTable tr");
         console.log(tableRows);
-      
+
         const search = document.querySelectorAll("#search");
         const query = search[i].value.toLowerCase();
 
         tableRows.forEach(row => {
-            const name = row.textContent.toLowerCase();
+          const name = row.textContent.toLowerCase();
 
-            if (name.includes(query)) {
-                row.style.display = "table-row";
-            } else {
-                row.style.display = "none";
-            }
+          if (name.includes(query)) {
+            row.style.display = "table-row";
+          } else {
+            row.style.display = "none";
+          }
         });
-    }
+      }
 
-    function removeItem() {
+      function removeItem() {
         // Adicione sua lógica para remover o aluno aqui
-    }
+      }
 
-    function editItem() {
+      function editItem() {
         // Adicione sua lógica para editar o aluno aqui
-    }
-</script>
+      }
+    </script>
 
 
-</body> 
-  
+</body>
+
 <script>
   function trocarFormulario(id) {
     // ocultar todos os formulários
@@ -421,13 +370,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadUsuario'])) {
   $senha = $_POST['senha'];
   cadUsuario($name, $code, $level, $senha);
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadCat'])) {
-  
+
   $name = $_POST['name'];
   cadCat($name);
-
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadUnid'])) {
   $name = $_POST['name'];
- 
+
   cadUnid($name);
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadProduto'])) {
   $foto = isset($_FILES['arquivoFoto']) ? $_FILES['arquivoFoto'] : null;
