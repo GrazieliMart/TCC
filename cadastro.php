@@ -140,11 +140,11 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         <div class="MedDiv">
           <label for="name">Nova Medida</label>
           <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a unidade de medida" required>
-          <input id="ok-button1" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
+          <input class="ok-button-medida" id="ok-button1" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
         </div>
         <div class="BuscarDiv">
           <div class="search-container">
-            
+
             <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
             <button type="button" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(0)">
               <i class="fa fa-search"></i>
@@ -221,7 +221,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
           <?php
           $pdo = conexaoBD();
           $stmt = $pdo->prepare("select * from categoria");
-  
+
           try {
             //buscando dados
             $stmt->execute();
@@ -231,43 +231,43 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
                 <table id='myTable' border='1px'>
                   <tr>
                     <th></th>
-  
+
                     <th>Nome</th>
-  
+
                   </tr>
                 <?php
                 while ($row = $stmt->fetch()) {
-  
+
                   echo "<tr>";
                   echo "<td><input type='radio' name='raAluno' 
                               value='" . $row['id'] . "'>";
-  
+
                   echo "<td>" . $row['name'] . "</td>";
                   echo "</tr>";
                 }
-  
+
                 echo "</table><br>";
                 echo '</div>';
-  
+
                 echo "<button type='submit' formaction='remove.php'>Excluir</button>";
                 echo "<button type='submit' formaction='edicao.php'>Editar</button>";
                 echo "</form>";
               } catch (PDOException $e) {
                 echo 'Error: ' . $e->getMessage();
               }
-  
+
               $pdo = null;
-  
-  
+
+
                 ?>
-  
-          
-  
+
+
+
               </div>
               <div class="button-container2">
                 <a href="cadastro.php" class="linkVoltar">Voltar</a>
               </div>
-      </div>
+        </div>
       </div>
     </form>
   </div>
@@ -323,6 +323,11 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 </body>
 
 <script>
+  $(".ok-button-medida").click(function() {
+    console.log("clicou");
+    $("#form3").location.reload();
+  });
+
   function trocarFormulario(id) {
     // ocultar todos os formulários
     var forms = document.getElementsByTagName("form");
@@ -350,13 +355,6 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
     )
 
   });
-
-  function limparCampos() {
-    var forms = document.getElementsByClassName("limpar-campos");
-    for (var i = 0; i < forms.length; i++) {
-      forms[i].reset();
-    }
-  }
 </script>
 
 </html>
@@ -382,6 +380,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadUsuario'])) {
   cadUnid($name);
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadProduto'])) {
   $foto = isset($_FILES['arquivoFoto']) ? $_FILES['arquivoFoto'] : null;
+  //echo "fon";
   cadProd($foto);
 }
 ?>

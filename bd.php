@@ -33,19 +33,19 @@ function login()
 
             if ($stmt->rowCount() > 0) {
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
                 // Verificar se a senha inserida corresponde ao hash armazenado
                 if (password_verify($senha_inserida, $result['senha_hash'])) {
                     // Credenciais válidas
                     $_SESSION['level'] = $result["level"];
                     $_SESSION['username'] = $result["usuario"];
-            
+
                     header("Location: index.php");
                     exit();
                 } else {
                     // Credenciais inválidas (senha incorreta)
                     echo ' <div id="error-message">';
-                   echo "<span style='color: white;'>Senha incorreta!</span>";
+                    echo "<span style='color: white;'>Senha incorreta!</span>";
                 }
             } else {
                 // Usuário não encontrado
@@ -126,6 +126,7 @@ function cadProd($foto)
             }
         }
     } catch (PDOException $ex) {
+        echo $ex->getMessage();
         echo '<script>Swal.fire("Erro", "Erro: ' . $ex->getMessage() . '", "error");</script>';
     }
 }
@@ -181,7 +182,6 @@ function cadCat($name)
 
             $stmt->execute();
             echo '<script>Swal.fire("Sucesso", "Categoria cadastrada!", "success");</script>';
-      
         } else {
             echo '<script>Swal.fire("Erro", "Categoria já existe.", "error");</script>';
         }
@@ -356,9 +356,6 @@ function buscarTeste()
                 </ul>
                 </nav>';
         }
-
-    
-
     } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
     }
