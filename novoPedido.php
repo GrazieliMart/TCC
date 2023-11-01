@@ -47,17 +47,13 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 ?>
 
 
-<footer class="footer">
-<footer>    
-  <p class="footer-text">SARS | UNICAMP | COTIL</p>
-    <button class="btnRodape" onclick="abrirFormulario()">Contatar Desenvolvedor</button>
 
-</footer>
-<div class="divPedidoNovo2">
-	<form>
+<div class="col-md-10 ml-sm-auto">
+	<form class="divPedidoNovo2">
 		<div class="titleRelatorio">
 		<h1 >Novo Pedido</h1>
         </div>
+
         <div class="divTextRelatorio1">
 		<label for="nome">Código de Usuário</label>
 		<input type="text" id="nome" name="nome" placeholder="Digite seu nome" required  class="formaticTextRelatorio">
@@ -87,9 +83,14 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 				  <label for="delivery">Data de entrega</label><br>
 				  <input type="date" id="delivery" placeholder="" required class="formaticTextRelatorio">
                   <br>
-		
-		<input type="submit" value="Solicitar" class="btnRelatorio1"></div></form></div>
+</div>
+  </div>	
+  <input type="submit" value="Solicitar" class="btnRelatorio1">
+</form>
 
-        
+</div>
+        <footer class="footer">
+       <p class="footer-text">SARS | UNICAMP | COTIL</p>
+       </footer>
 </body>
 </html>

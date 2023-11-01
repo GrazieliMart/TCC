@@ -82,12 +82,14 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         <label for="formFile">Insira a imagem referente</label>
         <input type="file" name="arquivoFoto" id="arquivoFoto" accept="image/*" required>
       </div>
+
       <div class="button-container">
 
-        <input id="ok-button" name="cadProduto" aria-required="click" type="submit" value="Cadastrar"></input>
+        <input id="ok-button1" name="cadProduto" aria-required="click" type="submit" value="Cadastrar"></input>
         <br>
         <a href="cadastro.php" class="linkVoltar">Voltar</a>
       </div>
+
     </form>
   </div>
   <!--USUÁRIO -->
@@ -138,10 +140,11 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         <div class="MedDiv">
           <label for="name">Nova Medida</label>
           <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a unidade de medida" required>
-          <input id="ok-button" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
+          <input id="ok-button1" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
         </div>
         <div class="BuscarDiv">
           <div class="search-container">
+            
             <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
             <button type="button" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(0)">
               <i class="fa fa-search"></i>
@@ -206,7 +209,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         <div class="MedDiv">
           <label for="name">Nova Categoria</label>
           <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a categoria" required>
-          <input id="ok-button2" name="cadCatehoria" type="submit" aria-required="click" value="CADASTRAR"></input>
+          <input id="ok-button1" name="cadCat" type="submit" aria-required="click" value="CADASTRAR"></input>
         </div>
         <div class="BuscarDiv">
           <div class="search-container">
@@ -272,10 +275,10 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
   <div id="custom-alert">
     <p><?php echo $username ?>, clique no item com o qual deseja trabalhar</p>
     <br>
-    <a onclick="trocarFormulario('form1')"><button id="ok-button" aria-required="click">Produtos</button></a>
-    <a onclick="trocarFormulario('form2')"><button id="ok-button" aria-required="click">Usuários</button></a>
-    <a onclick="trocarFormulario('form3')"><button id="ok-button" aria-required="click">Medidas</button></a>
-    <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click">Categorias</button></a>
+    <a onclick="trocarFormulario('form1')"><button id="ok-button" aria-required="click"><i class="bi bi-bag-plus"></i><br>Produtos</button></a>
+    <a onclick="trocarFormulario('form2')"><button id="ok-button" aria-required="click"><i class="bi bi-person-add"></i><br>Usuários</button></a>
+    <a onclick="trocarFormulario('form3')"><button id="ok-button" aria-required="click"><i class="bi bi-rulers"></i><br>Medidas</button></a>
+    <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click"><i class="bi bi-grid"></i>Categorias</button></a>
 
   </div>
 

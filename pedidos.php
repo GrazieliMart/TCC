@@ -31,8 +31,8 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 <!DOCTYPE html>
 <html>
 <style>
-    /* Adicione seu estilo personalizado aqui */
-    .divRelatorio {
+ 
+     /*.divRelatorio {
         display: inline;
         flex-direction: column;
         align-items: center;
@@ -61,14 +61,8 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         flex-direction: column;
         align-items: flex-start;
         /* Alinhamento à esquerda */
-        background-color: white;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        width: 50%;
-
-        margin: 100px auto;
-    }
+      
+    
 
     /* Estilo dos cards */
     .card {
@@ -80,7 +74,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         /* Largura dos cards (50% do container) com margens */
     }
 
-    /* Estilo dos cards quando não está digitado o código */
+ 
     .card.hidden {
         display: none;
     }
@@ -110,34 +104,16 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
                     <?php echo $username ?>
                 </h1>
                 <br>
+              </div>
+
+              <div class="DivPedido">
+           <button id="ok-button3"><a href="novoPedido.php">Novo Pedido</a> </button>
             </div>
 
-            <div class="glass-container">
-                <div class="search-box">
-                    <h4>Buscar por Código</h4>
-                    <div class="input-group">
-                        <input class="form-control p-2 shadow-2xl glass w-full text-black outline-none" type="text" id="codigoInput" required />
-                        <button class="btnBuscar" type="button" id="buscarCodigoBtn">Buscar</button>
-
-                    </div>
-
-                    <script>
-                        document.getElementById('buscarCodigoBtn').addEventListener('click', function() {
-                            const codigo = document.getElementById('codigoInput').value;
-
-                            // Redireciona o usuário para a página respostaPedido.php com o código como parâmetro na URL
-                            window.location.href = 'respostaPedido.php?codigo=' + codigo;
-                        });
-                    </script>
-                    </script>
-
-                </div>
-
-
-            </div>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-            <a href="novoPedido.php" class="btnRelatorio">Novo Pedido</a>
+         
     </div>
+
+
     <footer class="footer">
         <footer>
             <p class="footer-text">SARS | UNICAMP | COTIL</p>

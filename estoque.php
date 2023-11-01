@@ -34,31 +34,38 @@ include("bd.php");
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   <link rel="stylesheet" href="style/styleteste7.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <link rel="icon" type="image/png" href="logo/1.png">
   <style>
     #ok-button {
 
-      background-color: #fff;
+   
       font-size: 13px;
-      width: 100px;
-      /* Reduzi a largura para ajustar melhor */
+     
+      background: transparent;
       cursor: pointer;
-      color: #000000;
+      color: #fff;
       border: none;
       margin-left: 5px;
       border-radius: 20px;
       padding: 6px;
-
+      color: #fff;
       transition: .2s;
-      box-shadow: 0px 2px 4px rgba(0, 174, 255, 0.3);
-
       font-weight: normal;
       text-align: center;
 
     }
-
+    #ok-button:hover{
+       transition: 0.2s;
+  color: rgb(0, 112, 216);
+    }
+   
     /* Estilos para a janela modal */
     .modal {
       position: fixed;
@@ -82,7 +89,18 @@ include("bd.php");
     .table {
       width: 100%;
     }
+    .edit-button{
+      background-color: transparent;
+      border: none;
 
+    }
+    .btn-delete{
+      background-color: transparent;
+      border: none;
+    }
+    .btn-delete i{
+     
+    }
 
     .close {
       float: right;
@@ -93,7 +111,7 @@ include("bd.php");
 
 <body>
   <?php
-  include 'menuLateral.php';
+  include 'menuLateral1.php';
   ?>
   <div class="divRelatorio1">
     <div class="titleRelatorio">
@@ -101,11 +119,24 @@ include("bd.php");
     </div>
     <br>
 
-    <div class="divTextRelatorio2">
+    <div class="divTextRelatorio3">
 
       <form method="post">
-        <input type="text" id="search" class="formaticTextRelatorio" placeholder="Pesquisar produto..." name="name">
-        <input id="ok-button" type="submit" value="Consultar">
+      <div class="BuscarDiv">
+        <div class="search-container">
+
+
+        <input type="text" id="search" class="formaticTextRelatorioEstoque" placeholder="Pesquisar produto..." name="name" required>
+            <button id="ok-button" type="submit" name="cadCategoria" aria-required="click" class="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+
+  </div>
+          </div>
+
+       <!-- <input id="ok-button" type="submit" value="Consultar">-->
+
+
       </form>
 
       <?php
@@ -153,6 +184,7 @@ include("bd.php");
 
   <footer class="footer">
     <footer>
+      <p></p>
       <p class="footer-text">SARS | UNICAMP | COTIL</p>
     </footer>
   </footer>

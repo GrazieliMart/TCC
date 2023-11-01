@@ -319,18 +319,20 @@ function buscarTeste()
 
                 echo '
                 <td>
-                <button  class="edit-button" data-product-code="' . $row["code"] . '" >Editar</button>
-                
+                <button  class="edit-button" data-product-code="' . $row["code"] . '" ><i class="bi bi-pencil-square"></i></button>
                 <form method="POST">
+                
                 <input type="hidden" name="id" value="' . $row["code"] . '">
-                <input type="submit" class="btn btn-delete" formaction="excluir.php" value="Excluir" name="op">
+                <button class="btn-delete" type="submit" formaction="excluir.php" name="op"><i class="w-100 bi bi-trash3-fill"></i></button>
+                
             </form>
+
                 </td>
             </tr>
             ';
             }
 
-            // Encerre a tabela
+            // <input type="submit"  formaction="excluir.php" name="op">    Encerre a tabela
             echo "</table>";
 
             // Crie links de paginação

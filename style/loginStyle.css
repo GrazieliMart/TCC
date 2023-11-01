@@ -153,9 +153,9 @@ h1 {
   
  display: flex;
  left: 30%;
-  border: 2px solid white;
+
   color: #e4ebf0;
-  border-radius:20px;
+  border-radius:5px;
   padding: 20px;
   background: rgba(255, 255, 255, 0.5); /* Cor de fundo com opacidade */
  
