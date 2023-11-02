@@ -25,21 +25,17 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cadastro | AlmoxariSars</title>
   <link rel="icon" type="image/png" href="logo/1.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="style/styleteste7.css">
   <link rel="stylesheet" href="style/formsCadastro.css">
-
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-
-  <style>
-
-  </style>
 </head>
 
 <body>
@@ -47,7 +43,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
   include 'menuLateral.php';
   ?>
 
-  <!--PRODUTO -->
+PRODUTO
   <div class="col-md-10 ml-sm-auto">
     <form id="form1" class="limpar-campos" style="display: none;" method="post" name="formProduto" enctype="multipart/form-data">
       <div class="titleRelatorio">

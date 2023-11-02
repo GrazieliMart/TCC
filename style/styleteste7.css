@@ -684,7 +684,7 @@ ul li.item-menu2 a .icon > i{
    
 }
 
-@media (max-width: 600px) {
+@media only screen and (max-width: 600px) {
     nav.menu-lateral {
         width: 50px; 
         transition: 0s; 
