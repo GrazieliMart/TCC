@@ -273,13 +273,15 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
   </div>
 
   <div id="custom-alert">
-    <p><?php echo $username ?>, clique no item com o qual deseja trabalhar</p>
+    <div class="divTitleCadastro">
+    <p><?php echo $username ?>, clique no item com o qual deseja trabalhar</p></div>
     <br>
+    <div class="divButtonsCadastro">
     <a onclick="trocarFormulario('form1')"><button id="ok-button" aria-required="click"><i class="bi bi-bag-plus"></i><br>Produtos</button></a>
     <a onclick="trocarFormulario('form2')"><button id="ok-button" aria-required="click"><i class="bi bi-person-add"></i><br>Usuários</button></a>
     <a onclick="trocarFormulario('form3')"><button id="ok-button" aria-required="click"><i class="bi bi-rulers"></i><br>Medidas</button></a>
     <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click"><i class="bi bi-grid"></i>Categorias</button></a>
-
+</div>
   </div>
 
   <footer class="footer">

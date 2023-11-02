@@ -1,11 +1,4 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Jost&family=Ubuntu:wght@300;400;500&display=swap');
-
-*{
-    font-family: 'Jost', sans-serif;
-font-family: 'Ubuntu', sans-serif;
-}
-
 body {
     margin: 0;
     padding: 0;
@@ -37,12 +30,8 @@ h1 {
 
     }
 
-    
-
     .form-container {
-      /*background-color: #fff;*/
       border-radius: 5px;
-      /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);*/
       padding: 20px;
       margin-top: 0px;
       max-width: 400px;
@@ -120,11 +109,11 @@ h1 {
     }
     
 .loginLogo {
-  align-items: center; /* Centralizar elementos verticalmente */
+  align-items: center; 
   display: flex;
   left:20px;
-  justify-content:space-between;/* Espaçar os elementos horizontalmente */
-  margin-bottom: 1px; /* Espaçamento inferior */
+  justify-content:space-between;
+  margin-bottom: 1px; 
   margin-left:10px;
 }
 
@@ -152,12 +141,23 @@ h1 {
   align:center;
   
  display: flex;
- left: 30%;
+ left: 35%;
 
   color: #e4ebf0;
   border-radius:5px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.5); /* Cor de fundo com opacidade */
+  background: rgba(255, 255, 255, 0.5); 
+ 
+  
+}
+.containerLogEsqueciSenha{
+  
+ left: 0;
+
+  color: #e4ebf0;
+  border-radius:5px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.5); 
  
   
 }
@@ -216,15 +216,14 @@ input {
   position: relative;
   display: block;
   width: 250px;
-  margin-top: -15px; /* Ajuste o valor conforme necessário para aproximar a barra do campo de texto */
+  margin-top: -15px; 
 }
 
 .bar:before, .bar:after {
  content: '';
  height: 2px;
  width: 0;
- /*bottom: 60px;
- top: 5px;*/
+ 
  position: absolute;
  background: #1D79A1;
  transition: 0.2s ease all;
@@ -281,4 +280,46 @@ input {
   width: 0;
   background: transparent;
  }
+}
+@media (max-width: 600px) {
+  .containerLog{
+    width: 300px;
+        height: auto;
+        margin-top: 0;
+        left: 75px;
+        
+  }
+  .form-container {
+    font-size: 14px; 
+   
+  }
+  .iconLogin {
+    width: 30px; 
+    height: 30px;
+  }
+ .loginLogo{
+  margin-bottom: 1px;
+  margin-left: 10px;
+  flex-direction: row;
+  display: block;
+  align-items: center;
+ }
+ .forgot-password {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 11px;
+}
+ .bar{
+  width: 150px;
+ }
+ .form-container input[type="text"],
+    .form-container input[type="password"] {
+     
+      width: 150px;
+    }
+    #logo {
+      height: 60px;
+      width: 80px;
+      margin: 10px; 
+    }
 }

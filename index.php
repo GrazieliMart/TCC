@@ -29,7 +29,7 @@ $level = $_SESSION['level'];
   include('menuLateral.php');
   ?>
 
-
+<div class="center-content">
   <div class="divRelatorio3">
 
     <form>
@@ -52,6 +52,7 @@ $level = $_SESSION['level'];
         </div>
      
     </form>
+  </div>
   </div>
 
   <footer class="footer">

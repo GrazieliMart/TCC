@@ -83,9 +83,10 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 				  <label for="delivery">Data de entrega</label><br>
 				  <input type="date" id="delivery" placeholder="" required class="formaticTextRelatorio">
                   <br>
+                  
 </div>
-  </div>	
-  <input type="submit" value="Solicitar" class="btnRelatorio1">
+  </div>	<input type="submit" value="Solicitar" class="btnRelatorio1">
+  
 </form>
 
 </div>

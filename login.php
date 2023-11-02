@@ -13,19 +13,16 @@
 </head>
 
 <body>
-  <div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="container d-flex align-items-center vh-100">
     <div class="row" id="container-geral">
-      <div class="col-6">
-        <!--    <div class="logo">
-       <img src="logo/unicamp.png" alt="Logo da UNICAMP">-->
-      </div>
+      
     </div>
-    <div class="col-6">
-
+   
+ <div class="containerLog ">
       <div class="form-container">
 
 
-        <div class="containerLog">
+       
           <div id="error-message">
             <?php
 
@@ -69,6 +66,7 @@
                     <a href="esqueciSenha.php">Esqueci minha senha</a>
                   </div>
                 </div>
+                
             </form>
 
           </div>
