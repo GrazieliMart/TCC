@@ -30,6 +30,8 @@ include("bd.php");
 <html>
 
 <head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Estoque | AlmoxariSars</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -98,9 +100,7 @@ include("bd.php");
       background-color: transparent;
       border: none;
     }
-    .btn-delete i{
-     
-    }
+    
 
     .close {
       float: right;
@@ -113,6 +113,12 @@ include("bd.php");
   <?php
   include 'menuLateral1.php';
   ?>
+   <footer class="footer">
+    
+      
+    <p class="footer-text">SARS | UNICAMP | COTIL</p>
+  
+</footer>
   <div class="divRelatorio1">
     <div class="titleRelatorio">
       <h1>Estoque</h1>
@@ -182,12 +188,7 @@ include("bd.php");
 
 
 
-  <footer class="footer">
-    <footer>
-      <p></p>
-      <p class="footer-text">SARS | UNICAMP | COTIL</p>
-    </footer>
-  </footer>
+ 
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>

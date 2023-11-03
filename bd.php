@@ -261,7 +261,7 @@ function excluir($id)
     }
 }
 
-function buscarTeste()
+/*function buscarTeste()
 {
 
     try {
@@ -360,7 +360,7 @@ function buscarTeste()
         echo 'Error: ' . $e->getMessage();
     }
 }
-
+*/
 
 function editarTeste($id)
 {

@@ -201,17 +201,17 @@ transition: .2s;
 
   #form1 {
     background: rgba(255, 255, 255, 0.5);
-    border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-    height: 550px;
-    width: 400px;
-    color: #fff;
-    left: 450px;
-    top: 35%;
-    transform: translate(-50%, -50%);
-    margin-top: 10px;
-    position: fixed;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  height: 550px;
+  width: 400px;
+  color: #fff;
+  left: 27%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  margin-top: 10px;
+  position: fixed;
    
    
 
@@ -220,7 +220,12 @@ transition: .2s;
   .BuscarDiv{
     margin-top: 10%;
   }
-
+  .divSeparador{
+    display: flex;
+  }
+  .divSeparador2{
+    display: flex;
+  }
   #form2 {
     background: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
@@ -229,8 +234,8 @@ transition: .2s;
     height: 550px;
     width: 400px;
     color: #fff;
-    left: 450px;
-    top: 35%;
+    left: 27%;
+    top: 45%;
     transform: translate(-50%, -50%);
     margin-top: 10px;
     position: fixed;
@@ -246,30 +251,28 @@ transition: .2s;
     height: 550px;
     width: 400px;
     color: #fff;
-    left: 450px;
-    top: 35%;
+    left: 27%;
+    top: 45%;
     transform: translate(-50%, -50%);
     margin-top: 10px;
     position: fixed;
-   
 
   }
 
   #form4 {
 
-   
     background: rgba(255, 255, 255, 0.5);
-    border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-    height: 550px;
-    width: 400px;
-    color: #fff;
-    left: 450px;
-    top: 35%;
-    transform: translate(-50%, -50%);
-    margin-top: 10px;
-    position: fixed;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  height: 550px;
+  width: 400px;
+  color: #fff;
+  left: 27%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  margin-top: 10px;
+  position: fixed;
   
    
 
@@ -340,9 +343,21 @@ transition: .2s;
   align-items: center;
   text-align: center;
 }
+.button-container3 {
+  display: flex;
+  justify-content: center;
+  margin-top: 15%;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
 
-
+#myTable{
+  background-color: #1D79A1;
+  border: #fff 2px solid;
+  width: 100%;
+}
 .button-container button {
 margin: 0 5px; 
 }
@@ -357,20 +372,22 @@ margin: 0 5px;
 }
 
 @media (max-width: 600px) {
-
+  #myTable{
+   
+    width: 90%;
+  }
+  .table{
+    width: 90px;
+  }
   #custom-alert{
-   background: rgba(255, 0, 0, 0.5);
-   border-radius: 5px;
-   justify-content: center;
-   align-items: center;
-   height: 400px;
-   width: 800px;
-   color: #fff;
-   position: absolute;
-   left: 50%;
-   top: 45%;
-   transform: translate(-50%, -50%);
-   margin-top: 10px;
+    width: 80%;
+    margin-left: 8%;
+    height: 600px;
+  }
+  .divTitleCadastro{
+    font-size: 20px;
+    align-items: center;
+    text-align: center;
   }
   nav.menu-lateral {
    width: 50px; 
@@ -409,4 +426,147 @@ ul li.item-menu a:hover {
     transition: 0.2s;
     margin-bottom: 1em; /* Use margin-bottom para espaçamento externo responsivo */
   }
+ 
+
+  #custom-alert {
+    
+    width: 80%;
+
+    height: 400px;
+  }
+  #custom-alert button{
+    margin-left:5px;
+    width: 120px;
+  }
+  
+  .divTitleCadastro {
+    font-size: 20px;
+    align-items: center;
+    text-align: center;
+  }
+
+ 
+  .divButtonsCadastro {
+    margin-top: 30%; 
+    flex-direction: column;
+  }
+  #form1{
+        
+    width: 80%;
+    left: 33%;
+    height: 500px;
+    margin-top: 0px;
+  
+}
+#form2{
+        
+  width: 80%;
+  left: 33%;
+  height: 500px;
+  margin-top: 0;
+
+}
+#form3{
+        
+  width: 80%;
+  left: 33%;
+  height: 500px;
+  margin-top: 0;
+
+
+}
+#form4{
+        
+  width: 80%;
+  left: 33%;
+  height: 500px;
+  margin-top: 0;
+
+
+}
+.button-container{
+  margin-top: 21%;
+}
+.button-container1 {
+  
+  margin-top: 55%;}
+  .button-container2 {
+   
+    margin-top: 25%;}
+    .button-container3 {
+   
+      margin-top: 10%;}
+   
+}
+@media (max-width: 900px){
+ 
+  
+  #custom-alert{
+    width: 80%;
+    margin-left: 8%;
+    height: 600px;
+  }
+  .divTitleCadastro{
+    font-size: 20px;
+    align-items: center;
+    text-align: center;
+  }
+  nav.menu-lateral {
+   width: 50px; 
+   transition: 0s; 
+   }
+
+  ul li.item-menu{
+   padding-top: 0px;
+}
+
+nav.menu-lateral ul {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+}
+
+nav.menu-lateral ul li.item-menu {
+    width: 100%;
+}
+ul li.item-menu a:hover {
+    width: 50px;
+    color: rgb(255, 255, 255);
+}nav.menu-lateral:hover {
+    width: 50px;
+    transition: 0s;
+  }
+
+  ul li.item-menu a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 1rem; /* Use unidades relativas para o tamanho da fonte */
+    padding: 1em 0em; /* Use unidades relativas para o preenchimento interno */
+    display: flex;
+    line-height: 1.5; /* Ajuste o espaçamento vertical conforme necessário */
+    transition: 0.2s;
+    margin-bottom: 1em; /* Use margin-bottom para espaçamento externo responsivo */
+  }
+  .divButtonsCadastro {
+    flex-direction: column;
+  }
+
+  #custom-alert {
+    
+    width: 80%;
+
+    height: 400px;
+  }
+  #custom-alert button{
+    margin-left:5px;
+    width: 120px;
+  }
+  
+  .divTitleCadastro {
+    font-size: 20px;
+    align-items: center;
+    text-align: center;
+  }
+
 }

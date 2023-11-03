@@ -43,7 +43,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
   include 'menuLateral.php';
   ?>
 
-PRODUTO
+
   <div class="col-md-10 ml-sm-auto">
     <form id="form1" class="limpar-campos" style="display: none;" method="post" name="formProduto" enctype="multipart/form-data">
       <div class="titleRelatorio">
@@ -135,7 +135,7 @@ PRODUTO
       <div class="divTextForm2">
         <div class="MedDiv">
           <label for="name">Nova Medida</label>
-          <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a unidade de medida" required>
+          <input type="text" class="formaticTextRelatorioUnidade" id="name" name="name" placeholder="Insira a unidade de medida" required>
           <input class="ok-button-medida" id="ok-button1" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
         </div>
         <div class="BuscarDiv">
@@ -157,7 +157,7 @@ PRODUTO
           ?>
             <form method='post'>
               <div class='table-overflow'>
-                <table id='myTable' border='1px'>
+                <table id='myTable'>
                   <tr>
                     <th></th>
 
@@ -175,9 +175,10 @@ PRODUTO
                 }
                 echo "</table><br>";
                 echo '</div>';
-
-                echo "<button type='submit' formaction='remove.php'>Excluir</button>";
-                echo "<button type='submit' formaction='edicao.php'>Editar</button>";
+                echo '<div class="buttonsCadastro">';
+                echo "<button class='btn-delete' type='submit' formaction='remove.php'><i class='w-100 bi bi-trash3-fill'></i></button>";
+                echo "<button class='edit-button' type='submit' formaction='edicao.php'><i class='bi bi-pencil-square'></i></button>";
+                echo '</div>';
                 echo "</form>";
               } catch (PDOException $e) {
                 echo 'Error: ' . $e->getMessage();
@@ -188,7 +189,7 @@ PRODUTO
 
                 ?>
               </div>
-              <div class="button-container2">
+              <div class="button-container3">
                 <a href="cadastro.php" class="linkVoltar">Voltar</a>
               </div>
         </div>
@@ -224,7 +225,7 @@ PRODUTO
           ?>
             <form method='post'>
               <div class='table-overflow'>
-                <table id='myTable' border='1px'>
+                <table id='myTable'  >
                   <tr>
                     <th></th>
 
@@ -244,10 +245,14 @@ PRODUTO
 
                 echo "</table><br>";
                 echo '</div>';
-
-                echo "<button type='submit' formaction='remove.php'>Excluir</button>";
-                echo "<button type='submit' formaction='edicao.php'>Editar</button>";
+                echo '<div class="buttonsCadastro">';
+                echo "<button class='btn-delete' type='submit' formaction='remove.php'><i class='w-100 bi bi-trash3-fill'></i></button>";
+                echo "<button class='edit-button' type='submit' formaction='edicao.php'><i class='bi bi-pencil-square'></i></button>";
+                echo '</div>';
                 echo "</form>";
+
+
+  
               } catch (PDOException $e) {
                 echo 'Error: ' . $e->getMessage();
               }
@@ -273,10 +278,15 @@ PRODUTO
     <p><?php echo $username ?>, clique no item com o qual deseja trabalhar</p></div>
     <br>
     <div class="divButtonsCadastro">
+      
+    <div class="divSeparador">
     <a onclick="trocarFormulario('form1')"><button id="ok-button" aria-required="click"><i class="bi bi-bag-plus"></i><br>Produtos</button></a>
     <a onclick="trocarFormulario('form2')"><button id="ok-button" aria-required="click"><i class="bi bi-person-add"></i><br>Usuários</button></a>
+    </div>
+    <div class="divSeparador2">
     <a onclick="trocarFormulario('form3')"><button id="ok-button" aria-required="click"><i class="bi bi-rulers"></i><br>Medidas</button></a>
     <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click"><i class="bi bi-grid"></i>Categorias</button></a>
+    </div>
 </div>
   </div>
 

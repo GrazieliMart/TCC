@@ -274,13 +274,15 @@ body{
 .formaticRelatorio,
 .formaticTextRelatorio,
 .formaticTextRelatorioEstoque,
+.formaticTextRelatorioUnidade,
 .btnRelatorio {
     margin-top: 10px;
     margin-bottom: 10px; /* Adiciona espaço vertical entre os elementos */
 }
 
 .formaticRelatorio,
-.formaticTextRelatorio {
+.formaticTextRelatorio,
+.formaticTextRelatorioUnidade {
     color: #797b85;
     border-radius: 5px;
     width: 93%;
@@ -296,6 +298,12 @@ body{
     color: #797b85;
     bottom: 5px;
     width: 90%;}
+    .formaticTextRelatorioUnidade {
+        background-color: rgba(255, 255, 255, 0.5);
+        border: none;
+        color: #797b85;
+        bottom: 5px;
+        width: 90%;}
 .formaticTextRelatorioEstoque{
 
     background-color: rgba(255, 255, 255, 0.5);
@@ -321,6 +329,31 @@ body{
     padding:10px;
     left: 350px;
 }
+.edit-button{
+    background-color: transparent;
+    border: solid 2px #fff;
+    border-radius: 2px;
+    margin-left: 10px;
+    transition: 0.2s;
+  }
+  .edit-button:hover{
+    background-color: #ffffff5d;
+    transition: 0.2s;
+  }
+  .btn-delete{
+    background-color: transparent;
+    border: solid 2px #fff;
+    border-radius: 2px;
+  }
+  .btn-delete:hover{
+    background-color: #ffffff5d;
+    transition: 0.2s;
+  }
+ 
+  .buttonsCadastro{
+    align-content: center;
+    margin-top: 5px;
+  }
 
     .btnRelatorio1 {
         background-color: #1D79A1;
@@ -689,12 +722,28 @@ ul li.item-menu2 a .icon > i{
         width: 50px; 
         transition: 0s; 
        }
+       nav.menu-lateralEstoque{
+        width: 60px;
+        transition: 0s;
+    }
+    nav.menu-lateralEstoque:hover{
+        width: 60px;
+        transition: 0s;
+    }
 ul li.item-menu{
     
     padding-top: 0px;
     
 }
+.edit-button{
+    
+    border:none;
+}
+  .btn-delete{
    
+    border: none;
+   
+  }
     nav.menu-lateral ul {
         padding: 0;
         display: flex;
@@ -723,6 +772,10 @@ ul li.item-menu{
         transition: 0.2s;
         margin-bottom: 1em; /* Use margin-bottom para espaçamento externo responsivo */
       }
+      .formaticTextRelatorioEstoque {
+       
+        width: 88%;
+      }
     .divRelatorio3 {
         width: 300px;
         height: auto;
@@ -730,7 +783,13 @@ ul li.item-menu{
         left: 55%;
         top: 40%;
       }
-    
+      .divRelatorio1{
+        width: 80%;
+    margin-left: 8%;
+    height: 550px;
+    top: 45%;
+      }
+      
       .divRelatorio3 .divWelcome {
         flex-direction: row;
         align-items: center;
@@ -746,9 +805,11 @@ ul li.item-menu{
         margin-right: 20px; 
       }
       .divRelatorio {
-        width: 80%;
-    margin-left: 8%;
-    height: 600px;
+      
+            width: 80%;
+            margin-left: 8%;
+            height: 550px;
+         
     }
 
     .divRelatorio .divWelcome {
@@ -794,12 +855,33 @@ ul li.item-menu{
     .formaticTextRelatorio {
         width: 100%; 
     }
+    .formaticTextRelatorioUnidade{
+        width: 90%;
+    }
+    .divTextForm2 {
+       
+        width: 290px;
+      }
 
     .btnRelatorio1 {
         
         margin-top: 10px;
     }
+    .divTextForm{
+        font-size: 14px;
+    top: 30px;
+    width: 90%;
+    top: 11%;
+    }
+    .divTextForm1{
+        font-size: 14px;
+    top: 30px;
+    width: 90%;
+    top: 100px;
+    }
 }
+
+
 
 
 .divPedido{
