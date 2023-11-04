@@ -43,11 +43,13 @@ function login()
                     header("Location: index.php");
                     exit();
                 } else {
-                    // Credenciais inválidas
-                    $error = "<span style='color: black;'>Usuário ou senha incorretos!</span>";
+                    // Credenciais inválidas (senha incorreta)
+                    echo ' <div id="error-message">';
+                    echo "<span style='color: white;'>Senha incorreta!</span>";
                 }
             } else {
-                echo "<span style='color: black;'>Usuário não encontrado!</span>";
+                // Usuário não encontrado
+                echo "<span style='color: white;'>Usuário não encontrado!</span>";
             }
         }
     } catch (PDOException $e) {
@@ -124,6 +126,7 @@ function cadProd($foto)
             }
         }
     } catch (PDOException $ex) {
+        echo $ex->getMessage();
         echo '<script>Swal.fire("Erro", "Erro: ' . $ex->getMessage() . '", "error");</script>';
     }
 }
@@ -286,6 +289,7 @@ function buscarTeste()
             $stmt = consultar($offset, $itensPorPagina); // Implemente a função consultarComPaginacao()
 
             // Inicie a tabela fora do loop
+           
             echo "<table id='tabela' class=' table table-secondary table-striped' >";
             echo "<thead>
                             <tr data-product-code='1'>
@@ -316,20 +320,22 @@ function buscarTeste()
 
                 echo '
                 <td>
-                <button  class="edit-button" data-product-code="' . $row["code"] . '" >Editar</button>
-                
+                <button  class="edit-button" data-product-code="' . $row["code"] . '" ><i class="bi bi-pencil-square"></i></button>
                 <form method="POST">
+                
                 <input type="hidden" name="id" value="' . $row["code"] . '">
-                <input type="submit" class="btn btn-delete" formaction="excluir.php" value="Excluir" name="op">
+                <button class="btn-delete" type="submit" formaction="excluir.php" name="op"><i class="w-100 bi bi-trash3-fill"></i></button>
+                
             </form>
+
                 </td>
             </tr>
             ';
             }
 
-            // Encerre a tabela
+            // <input type="submit"  formaction="excluir.php" name="op">    Encerre a tabela
             echo "</table>";
-
+          
             // Crie links de paginação
             echo '<nav aria-label="Page navigation example">
                     <ul class="pagination">
@@ -351,19 +357,11 @@ function buscarTeste()
                 </ul>
                 </nav>';
         }
-
-        // if (isset($_SESSION['mensagem'])) {
-        //     echo '<script>Swal.fire("Sucesso", "' . $_SESSION['mensagem'] . '", "success");</script>';
-
-        //     // Limpe a variável de sessão após exibir a mensagem
-        //     unset($_SESSION['mensagem']);
-        // }       // Inicie a sessão se ainda não estiver iniciada
-
-
     } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
     }
 }
+
 
 function editarTeste($id)
 {

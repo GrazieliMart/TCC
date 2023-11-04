@@ -2,47 +2,40 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Jost&family=Ubuntu:wght@300;400;500&display=swap');
 
-*{
-    font-family: 'Jost', sans-serif;
-font-family: 'Ubuntu', sans-serif;
+ 
+  .table-overflow {
+    max-height:150px;
+    overflow-y:auto;
 }
-
 body{
     
     margin: 0;
     height: 100vh;
-    background: linear-gradient(45deg,#257bcf,#5088bf,#75a7d9);
+    background-color: #03638C;
     background-size: 300% 600%;
-    animation: gradientAnimation 2s ease infinite;
+    
     
 }
-@keyframes gradientAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-.divWelcome{
+.center-content {
     display: flex;
     justify-content: center;
-    height: 90px;
-    width: 450px;
-    position: fixed;
-    margin-top: 10px;
-    left: 200px;
-    justify-content:space-between;
-}
+    align-items: center;
+    height: 100vh; /* This centers the content vertically */
+    background-color: #03638C;
+  }
+  .divRelatorio3 .divWelcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
 .containerWelcome{
     position: fixed;
     margin-top: 30px;
 }
 .footer {
-    background: rgba(241, 237, 237, 0.5); 
+    background:#1D79A1; 
     color: white; /* Cor do texto no rodapé */
     text-align: center;
     padding: 10px;
@@ -75,8 +68,7 @@ body{
     align-items: flex-start; /* Alinhar o conteúdo verticalmente ao topo */
     padding: 10px; 
 }
-.logoIndex{}
-/* Estilos para .btnLogOut e outros elementos dentro de .navSup */
+
 .btnLogOut {
     
     border-radius: 30px;
@@ -113,18 +105,17 @@ body{
 }
 .divRelatorio {
     background: rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
+    border-radius: 5px;
     justify-content: center;
     align-items: center;
     height: 400px;
     width: 800px;
     color: #fff;
+    position: absolute;
     left: 50%;
-    top:280px;
-    transform: translate(-50%, -50%); /* Centraliza horizontal e verticalmente */
-    position: fixed;
+    top: 45%;
+    transform: translate(-50%, -50%);
     margin-top: 10px;
-    border: 2px #fff solid;
 }
 .divRelatorio4 {
     background: rgba(255, 255, 255, 0.5);
@@ -135,25 +126,26 @@ body{
     width: 800px;
     color: #fff;
     left: 50%;
-    top:280px;
-    transform: translate(-50%, -50%); /* Centraliza horizontal e verticalmente */
+    top: 35%;
+    transform: translate(-50%, -50%); 
     position: fixed;
     margin-top: 10px;
 }
 
 .divRelatorio3 {
-    
-    
+    background: none; /* Remover o fundo branco */
+    border-radius: 20px;
     justify-content: center;
     align-items: center;
     height: 400px;
     width: 800px;
     color: #fff;
     left: 50%;
-    top:280px;
-    transform: translate(-50%, -50%); /* Centraliza horizontal e verticalmente */
+    top: 50%; /* Diminuir o espaço superior */
+    transform: translate(-50%, -50%);
     position: fixed;
     margin-top: 10px;
+
 }
 
 
@@ -163,14 +155,19 @@ body{
 /*MEXENDO NESSE AQUI, bianca */
 
 
+
+  }
+  
+
 .divRelatorio1 {
     background: rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
+    border-radius: 5px;
     justify-content: center;
     align-items: center;
     height: 100%;
     width: 100%;
     color: #fff;
+
     position: fixed ;
     left: 15%;
     
@@ -181,6 +178,13 @@ body{
    
   
     border: 2px #fff solid;
+
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%); 
+    position: fixed;
+    margin-top: 10px;
+
 }
 
 
@@ -192,18 +196,19 @@ body{
 
 .divPedidoNovo2 {
     background: rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
+    border-radius: 5px;
     justify-content: center;
     align-items: center;
-    height: 510px;
-    width: 400px;
+    height: 500px;
+    width: 800px;
     color: #fff;
+    position: absolute;
     left: 50%;
-    top:270px;
-    transform: translate(-50%, -50%); /* Centraliza horizontal e verticalmente */
-    position: fixed;
+    top: 45%;
+    transform: translate(-50%, -50%);
     margin-top: 10px;
-    border: #fff 2px solid;
+   
+   
 }
 .divRelatorio2 {
     background: rgba(255, 255, 255, 0.5);
@@ -222,47 +227,45 @@ body{
 .divTextRelatorio1 {
     display: flex;
     flex-direction: column;
-    position: absolute;
+    position: relative;
     justify-content: center;
-    padding: 20px;
     font-size: 15px;
     font-weight: bold;
-    top: 50px;
-    margin-left: 80px;
+    top: 55px;
+    margin-left: 5%;
 }
 .divTextForm {
     display: flex;
     flex-direction: column;
-    position: fixed;
+    position: relative;
     justify-content: center;
-    
     font-size: 15px;
     font-weight: bold;
     top: 80px;
-    margin-left: 130px;
+   
+    margin-left: 5%;
 }
 
 .divTextForm1 {
     display: flex;
     flex-direction: column;
-    position: fixed;
+    position: relative;
     justify-content: center;
-    
     font-size: 15px;
     font-weight: bold;
-    top: 200px;
-    margin-left: 130px;
+    top: 130px;
+   
+    margin-left: 5%;
 }
 .divTextForm2 {
     display: flex;
     flex-direction: column;
-    position: fixed;
+    position: relative;
     justify-content: center;
-    
     font-size: 15px;
     font-weight: bold;
-    top: 130px;
-    margin-left: 130px;
+    top: 100px;
+    margin-left: 5%;
 }
 .divTextRelatorio2 {
     width: 100%;
@@ -274,6 +277,20 @@ body{
     font-size: 15px;
     font-weight: bold;
     top: 23px;
+    margin-left: auto;
+
+}
+
+.divTextRelatorio3 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    justify-content: center;
+    padding: 20px;
+    font-size: 15px;
+   
+    top: 40px;
     margin-left: auto;
 
 }
@@ -290,19 +307,23 @@ body{
 
 .formaticRelatorio,
 .formaticTextRelatorio,
+.formaticTextRelatorioEstoque,
+.formaticTextRelatorioUnidade,
 .btnRelatorio {
     margin-top: 10px;
     margin-bottom: 10px; /* Adiciona espaço vertical entre os elementos */
 }
 
 .formaticRelatorio,
-.formaticTextRelatorio {
+.formaticTextRelatorio,
+.formaticTextRelatorioUnidade {
     color: #797b85;
-    border-radius: 20px;
-    width: 200px; /* Aumentei a largura para acomodar melhor o conteúdo */
+    border-radius: 5px;
+    width: 93%;
     background-color: #ffffff;
     border: 2px #00aeff solid;
     padding: 5px;
+
 }
 
 .formaticTextRelatorio {
@@ -310,9 +331,22 @@ body{
     border: none;
     color: #797b85;
     bottom: 5px;
-    width: 190px; /* Preenche a largura da div */
-}
+    width: 90%;}
+    .formaticTextRelatorioUnidade {
+        background-color: rgba(255, 255, 255, 0.5);
+        border: none;
+        color: #797b85;
+        bottom: 5px;
+        width: 90%;}
+.formaticTextRelatorioEstoque{
 
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 5px;
+    color: #797b85;
+    bottom: 15px;
+    width: 95%;
+}
 .btnRelatorio {
     background-color: #fff;
     font-size: 13px;
@@ -329,23 +363,60 @@ body{
     padding:10px;
     left: 350px;
 }
-.btnRelatorio1 {
-    background-color: #fff;
-    font-size: 13px;
-    width: 120px; /* Reduzi a largura para ajustar melhor */
-    cursor: pointer;
-    color: #000000;
-    border: none;
+.edit-button{
+    background-color: transparent;
+    border: solid 2px #fff;
+    border-radius: 2px;
     margin-left: 10px;
-    border-radius: 20px;
-    padding: 6px;
-    margin-top: 10px;
-    transition: .2s;
-    box-shadow: 0px 2px 4px rgba(0, 174, 255, 0.3);
+    transition: 0.2s;
+  }
+  .edit-button:hover{
+    background-color: #ffffff5d;
+    transition: 0.2s;
+  }
+  .btn-delete{
+    background-color: transparent;
+    border: solid 2px #fff;
+    border-radius: 2px;
+  }
+  .btn-delete:hover{
+    background-color: #ffffff5d;
+    transition: 0.2s;
+  }
+ 
+  .buttonsCadastro{
+    align-content: center;
+    margin-top: 5px;
+  }
+
+    .btnRelatorio1 {
+        background-color: #1D79A1;
+        font-size: 15px;
+        width: 100px;
+        height: 30px;
+        cursor: pointer;
+        color: #ffffff;
+        border: none;
+        border-radius: 2px;
+        padding: 6px;
+        transition: .2s;
+        box-shadow: 0px 2px 4px rgba(0, 174, 255, 0.3);
+        font-weight: normal;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 10px;
+        position: absolute;
+        left: 50%;
+        bottom: 10px; /* Alinhe o botão na parte inferior da divPedidoNovo2 */
+        transform: translateX(-50%); /* Centralize horizontalmente */
+    
 }
 
+
 .btnRelatorio1:hover {
-    width: 123px;
+    width: 101px;
     box-shadow: 0px 4px 8px rgba(7, 95, 136, 0.3);
     transition: .3s;
 }
@@ -404,7 +475,7 @@ body{
     box-shadow: 0px 4px 8px rgba(7, 95, 136, 0.3);
     transition: .3s;
 }
-.titleRelatorio{
+.titleRelatorio {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -422,15 +493,25 @@ body{
     margin-top: 50px;
     left: 370px;
 }
-.divWelcome2{
+.divWelcome img {
+    max-height: 100px; /* Definir o tamanho máximo da imagem */
+    margin-right: 20px; /* Espaçamento entre a imagem e o texto */
+  }
+.divRelatorio3 .divWelcome {
     display: flex;
+    flex-direction: row; /* Alinhar a imagem e o texto na mesma linha */
     justify-content: center;
-    height: 90px;
-    width: 500px;
-    position: fixed;
-    margin-top: 100px;
-    left: 180px;
-}.textWelcome3{
+    align-items: center;
+  }
+.divRelatorio3 .divWelcome2 {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 30px;
+    font-weight: bold;
+    color: white;
+    cursor: text;
+  }
+  .textWelcome3{
     text-align: center;
     font-size: 35px;
     margin-top: 0px;
@@ -493,35 +574,49 @@ body{
     box-shadow: 0px 4px 8px rgba(7, 95, 136, 0.3);
     transition: .3s;
 } 
-nav.menu-lateral{
+nav.menu-lateral {
     width: 60px;
-    /* height: 470px; */
-    background: rgba(255, 255, 255, 0.5); 
-    padding: 40px 0 40px 1%; 
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    /* border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px; */
-    box-shadow: 3px 0 0 #00aeff;
+    height: 100%;
+    background: #1D79A1;
+    padding: 40px 0 40px 1%;
+    top: 0;
+    box-shadow: 3px 0 0 #ffffff;
     position: fixed;
     display: flex;
-    margin-top:5%;
+    flex-direction: column; /* Alteração aqui para tornar a lista vertical */
+    justify-content: center; /* Centraliza os itens verticalmente */
     left: 0;
     overflow: hidden;
     transition: .3s;
-}
-
- nav.menu-lateral1{
-    width: 60px;
-    height:160px;
-    background: rgba(255, 255, 255, 0.5); 
-    padding: 40px 0 40px 1%; 
-    border-top-right-radius: 45px;
-    border-bottom-right-radius: 45px;
-    box-shadow: 3px 0 0 #00aeff;
+  }
+nav.menu-lateralEstoque{
+    width: 70px;
+    height: 100%;
+    background: #1D79A1;
+    padding: 40px 0 40px 1%;
+    box-shadow: 3px 0 0 #ffffff;
     position: fixed;
     display: flex;
-    margin-top:11%;
+    left: 0;
+    overflow: hidden;
+    transition: .3s;
+    
+}
+nav.menu-lateralEstoque:hover{
+    width: 200px;
+    transition: .3s;
+}
+nav.menu-lateral1 {
+    width: 60px;
+    height: 300px;
+    background: #1D79A1;
+    padding: 40px 0 40px 1%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 3px 0 0 #ffffff;
+    position: fixed;
+    display: flex;
+    margin-top: 7%;
     left: 0;
     overflow: hidden;
     transition: .3s;
@@ -531,25 +626,26 @@ nav.menu-lateral1:hover{
     transition: .3s;
 }
 
-nav.menu-lateral2{
+nav.menu-lateral2 {
     width: 60px;
-    height:220px;
-    background: rgba(255, 255, 255, 0.5); 
-    padding: 40px 0 40px 1%; 
-    border-top-right-radius: 45px;
-    border-bottom-right-radius: 45px;
-    box-shadow: 3px 0 0 #00aeff;
+    height: 320px;
+    background: #1D79A1;
+    padding: 40px 0 40px 1%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 3px 0 0 #ffffff;
     position: fixed;
     display: flex;
-    margin-top:11%;
+    margin-top: 7%;
     left: 0;
     overflow: hidden;
     transition: .3s;
-}
+  }
 nav.menu-lateral2:hover{
     width: 200px;
     transition: .3s;
 }
+
 
 nav.menu-lateral:hover{
     width: 200px;
@@ -559,6 +655,7 @@ nav.menu-lateral:hover{
     width: 100%;
     padding-left: 10px;
 }
+
 
 .btn-expandir > i{
     color: #fff;
@@ -573,27 +670,33 @@ ul{
 }
 ul li.item-menu{
     transition: .3s;
-    /* sem borda */
+    
     border-radius: 10px;
     padding-left: 10px;
     padding-top: 5px;
+    
 }
 ul li.item-menu:hover{
-    background: #00aeff;
+    color: rgba(255, 255, 255, 0.452);
     /* width: 220px; */
     width: 180px;
    
 }
-ul li.item-menu a{
+ul li.item-menu a {
+    color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 16px;
+  padding: 20px 0px;
+  display: flex;
+  line-height: 25px;
+  transition: 0.2s;
+  }
+ul li.item-menu a:hover{
     
-        color: rgb(255, 255, 255);
-        text-decoration: none;
-        font-size: 15px;
-        padding: 1px 1px 20px 0px;
-        display: flex;
-        line-height: 25px;
-        margin-top: 10px;
-      
+    color: rgba(255, 255, 255, 0.479);
+    transition: 0.2s;
+    
+  
 }
 /* ul li.item-menu:first-child {
     
@@ -646,6 +749,244 @@ ul li.item-menu2 a .icon > i{
    font-size: 25px;
    margin-right: 25px;
    
+}
+.menu-toggle{
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    nav.menu-lateral {
+        width: 50px; 
+        transition: 0s; 
+        display: none;
+        z-index: 2;
+       }
+       nav.menu-lateralEstoque{
+        width: 60px; 
+        transition: 0s; 
+        display: none;
+        top: 0;
+        z-index: 2;
+    }
+    .menu-lateral {
+        width: 0;
+     
+    }
+    .menu-lateralEstoque {
+        width: 0;
+     
+    }
+    
+    
+  
+    
+    nav.menu-lateralEstoque:hover{
+        width: 60px;
+        transition: 0s;
+    }
+ul li.item-menu{
+    
+    padding-top: 0px;
+    
+}
+
+    nav.menu-lateral ul {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+   
+    }
+
+    nav.menu-lateral ul li.item-menu {
+        width: 100%;
+    }
+    ul li.item-menu a:hover {
+        width: 50px;
+        color: rgb(255, 255, 255);
+    }nav.menu-lateral:hover {
+        width: 50px;
+        transition: 0s;
+      }
+    
+      ul li.item-menu a {
+        color: rgb(255, 255, 255);
+        text-decoration: none;
+        font-size: 1rem; /* Use unidades relativas para o tamanho da fonte */
+        padding: 1em 0em; /* Use unidades relativas para o preenchimento interno */
+        display: flex;
+        line-height: 1.5; /* Ajuste o espaçamento vertical conforme necessário */
+        transition: 0.2s;
+        margin-bottom: 1em; /* Use margin-bottom para espaçamento externo responsivo */
+      }.edit-button{
+    
+    border:none;
+}
+.menu-lateral {
+    display: none;
+}
+
+/* Estilos para o botão de menu */
+.menu-toggle {
+    cursor: pointer;
+    font-size: 30px; /* Defina o tamanho desejado */
+    display: flex;
+    left: 50%;
+    justify-content: end;
+    height: 50px; /* Defina a altura desejada */
+    transition: 0.1s;
+    color: #fff; /* Defina a cor para branco */
+    top: 10px; /* Defina a posição superior desejada */
+}
+
+/* Mostrar a navegação quando ativada */
+.menu-lateral.active {
+    display: block;
+}
+.menu-lateral1.active {
+    display: block;
+  }
+  .menu-lateral2.active {
+    display: block;
+  }
+/* Estilos para a navegação (ajuste conforme necessário) */
+.menu-lateral.active ul {
+    /* Adicione estilos de exibição quando o menu estiver ativo */
+}
+.menu-lateralEstoque.active {
+    display: block;
+}
+
+/* Estilos para a navegação (ajuste conforme necessário) */
+.menu-lateralEstoque.active ul {
+    /* Adicione estilos de exibição quando o menu estiver ativo */
+}
+  .btn-delete{
+   
+    border: none;
+   
+  }
+      .formaticTextRelatorioEstoque {
+       
+        width: 88%;
+      }
+    .divRelatorio3 {
+        width: 300px;
+        height: auto;
+        margin-top: 0;
+        top: 40%;
+      }
+      .divRelatorio1{
+        width: 80%;
+    height: 550px;
+    top: 45%;
+      }
+      
+      .divRelatorio3 .divWelcome {
+        flex-direction: row;
+        align-items: center;
+      }
+    
+      .textWelcome,
+      .textWelcome2 {
+        font-size: 20px;
+        margin-top: 10px;
+      }
+      .divWelcome img {
+        max-height: 20px; 
+        margin-right: 20px; 
+      }
+      .divRelatorio {
+      
+            width: 80%;
+            height: 550px;
+         
+    }
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1; 
+        display: none; 
+    }
+    nav.menu-lateral2 {
+       
+        height: 350px;
+        margin-top: 35%;
+       
+      }
+      nav.menu-lateral1 {
+        height: 300px;
+        
+        margin-top: 40%;}
+    .divRelatorio .divWelcome {
+        flex-direction: column; 
+    }
+
+    .textWelcome {
+        font-size: 20px; 
+    }
+
+    .divWelcome img {
+        max-height: 20px; 
+        margin-right: 10px; 
+    }
+    .titleRelatorio h1 {
+        font-size: 20px;
+        margin: 10px; 
+        text-align: center; 
+      
+    }
+    #ok-button3 {
+        width: 50%; 
+        height: 40px;
+        bottom: 20px; 
+        left: 5%; 
+        transform: translateX(0);
+    }
+    .divPedidoNovo2 {
+        width: 80%;
+        height: 600px;
+       
+    }
+
+    .divTextRelatorio1 {
+        font-size: 14px;
+        top: 30px;
+        width: 90%;
+        top: 15%;
+    }
+
+    .formaticRelatorio,
+    .formaticTextRelatorio {
+        width: 100%; 
+    }
+    .formaticTextRelatorioUnidade{
+        width: 90%;
+    }
+    .divTextForm2 {
+       
+        width: 290px;
+      }
+
+    .btnRelatorio1 {
+        
+        margin-top: 10px;
+    }
+    .divTextForm{
+        font-size: 14px;
+    top: 30px;
+    width: 90%;
+    top: 11%;
+    }
+    .divTextForm1{
+        font-size: 14px;
+    top: 30px;
+    width: 90%;
+    top: 100px;
+    }
 }
 
 

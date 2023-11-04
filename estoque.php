@@ -30,35 +30,44 @@ include("bd.php");
 <html>
 
 <head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Estoque | AlmoxariSars</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   <link rel="stylesheet" href="style/styleteste7.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <link rel="icon" type="image/png" href="logo/1.png">
   <style>
     #ok-button {
 
-      background-color: #fff;
+   
       font-size: 13px;
-      width: 100px;
-      /* Reduzi a largura para ajustar melhor */
+     
+      background: transparent;
       cursor: pointer;
-      color: #000000;
+      color: #fff;
       border: none;
       margin-left: 5px;
       border-radius: 20px;
       padding: 6px;
-
+      color: #fff;
       transition: .2s;
-      box-shadow: 0px 2px 4px rgba(0, 174, 255, 0.3);
-
       font-weight: normal;
       text-align: center;
 
     }
-
+    #ok-button:hover{
+       transition: 0.2s;
+  color: rgb(0, 112, 216);
+    }
+   
     /* Estilos para a janela modal */
     .modal {
       position: fixed;
@@ -82,7 +91,16 @@ include("bd.php");
     .table {
       width: 100%;
     }
+    .edit-button{
+      background-color: transparent;
+      border: none;
 
+    }
+    .btn-delete{
+      background-color: transparent;
+      border: none;
+    }
+    
 
     .close {
       float: right;
@@ -93,19 +111,38 @@ include("bd.php");
 
 <body>
   <?php
-  include 'menuLateral.php';
+  include 'menuLateral1.php';
   ?>
+   <footer class="footer">
+    
+      
+    <p class="footer-text">SARS | UNICAMP | COTIL</p>
+  
+</footer>
   <div class="divRelatorio1">
     <div class="titleRelatorio">
       <h1>Estoque</h1>
     </div>
     <br>
 
-    <div class="divTextRelatorio2">
+    <div class="divTextRelatorio3">
 
       <form method="post">
-        <input type="text" id="search" class="formaticTextRelatorio" placeholder="Pesquisar produto..." name="name">
-        <input id="ok-button" type="submit" value="Consultar">
+      <div class="BuscarDiv">
+        <div class="search-container">
+
+
+        <input type="text" id="search" class="formaticTextRelatorioEstoque" placeholder="Pesquisar produto..." name="name" required>
+            <button id="ok-button" type="submit" name="cadCategoria" aria-required="click" class="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+
+  </div>
+          </div>
+
+       <!-- <input id="ok-button" type="submit" value="Consultar">-->
+
+
       </form>
 
       <?php
@@ -142,55 +179,6 @@ include("bd.php");
 
         </div>
       </div>
-      <?php /*
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    try {
-        $pdo = conexaoBD();
-
-        $code = $_POST['code'];
-        $nome = $_POST['edit-nome'];
-        $category = $_POST['edit-category'];
-        $unidadeMedida = $_POST['edit-unidadeMedida'];
-        $quantidade = $_POST['edit-quantidade'];
-
-        $uploaddir = 'upload/produtos/'; //diretório onde será gravada a foto
-
-        //foto
-
-        $foto = $_FILES['foto'];
-        $nomeFoto = $foto['name'];
-        $tipoFoto = $foto['type'];
-        $tamanhoFoto = $foto['size'];
-
-        //gerando novo nome para a foto
-        $info = new SplFileInfo($nomeFoto);
-        $extensaoArq = $info->getExtension();
-        $novoNomeFoto = $nome . "." . $extensaoArq;
-
-        if (($nomeFoto != "") && (move_uploaded_file($_FILES['foto']['tmp_name'], $uploaddir . $novoNomeFoto))) {
-            $uploadfile = $uploaddir . $novoNomeFoto;
-
-            $sql = "UPDATE produtoTCC SET nome = '$nome', category = '$category', unidadeMedida = '$unidadeMedida', quantidade = '$quantidade' , arquivoFoto = '$uploadfile' WHERE code = '$code'";
-            $result = $pdo->query($sql);
-        } 
-        
-        
-        else {
-            $sql = "UPDATE produtoTCC SET nome = '$nome', category = '$category', unidadeMedida = '$unidadeMedida', quantidade = '$quantidade'  WHERE code = '$code'";
-            $result = $pdo->query($sql);
-        }
-
-        if ($result) {
-            echo "<script>alert('Produto editado com sucesso!');</script>";
-            
-        } else {
-            echo "<script>alert('Erro ao editar produto!');</script>";
-        }
-    } catch (Exception $e) {
-        echo "Erro: " . $e->getMessage();
-    }
-}*/
-      ?>
 
 
     </div>
@@ -200,11 +188,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
 
-  <footer class="footer">
-    <footer>
-      <p class="footer-text">SARS | UNICAMP | COTIL</p>
-    </footer>
-  </footer>
+ 
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>

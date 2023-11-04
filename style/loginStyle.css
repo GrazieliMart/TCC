@@ -1,32 +1,14 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Jost&family=Ubuntu:wght@300;400;500&display=swap');
-
-*{
-    font-family: 'Jost', sans-serif;
-font-family: 'Ubuntu', sans-serif;
-}
-
 body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: linear-gradient(45deg,#257bcf,#5088bf,#75a7d9);
+    background-color: #03638C;
     background-size: 300% 600%;
-    animation: gradientAnimation 7s ease infinite;
+   
     font-family: sans-serif;
 }
 
-@keyframes gradientAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
 
 h1 {
     position: absolute;
@@ -37,10 +19,8 @@ h1 {
     font-size: 36px;
     color: white;
 }
-    body {
-      background-color: #e4ebf0;
-      font-family: sans-serif;
-    }
+  
+
 
     #container-geral {
       border-radius: 10px;
@@ -50,12 +30,8 @@ h1 {
 
     }
 
-    
-
     .form-container {
-      /*background-color: #fff;*/
       border-radius: 5px;
-      /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);*/
       padding: 20px;
       margin-top: 0px;
       max-width: 400px;
@@ -97,7 +73,7 @@ h1 {
     }
 
     .form-container button[type="submit"] {
-      background-color: #00aeff;
+      background-color: #1D79A1;
       border: none;
       border-radius: 30px;
       color: #fff;
@@ -110,8 +86,9 @@ h1 {
     }
 
     .form-container button[type="submit"]:hover {
-      background-color:  #009be3;
+      background-color:  #03638C;
       box-shadow: 0 0 3px black;
+      transition: 0.2s;
     }
 
     .forgot-password {
@@ -127,14 +104,16 @@ h1 {
 
     .forgot-password a:hover {
       text-decoration: underline;
+      color: #fff;
+      transition: 0.2s;
     }
     
 .loginLogo {
-  align-items: center; /* Centralizar elementos verticalmente */
+  align-items: center; 
   display: flex;
   left:20px;
-  justify-content:space-between;/* Espaçar os elementos horizontalmente */
-  margin-bottom: 1px; /* Espaçamento inferior */
+  justify-content:space-between;
+  margin-bottom: 1px; 
   margin-left:10px;
 }
 
@@ -160,13 +139,25 @@ h1 {
 .containerLog{
   position: relative;
   align:center;
-  left:80px;
-  background: white;
-  border: 2px solid white;
+  
+ display: flex;
+ left: 35%;
+
   color: #e4ebf0;
-  border-radius:20px;
+  border-radius:5px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.5); /* Cor de fundo com opacidade */
+  background: rgba(255, 255, 255, 0.5); 
+ 
+  
+}
+.containerLogEsqueciSenha{
+  
+ left: 0;
+
+  color: #e4ebf0;
+  border-radius:5px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.5); 
  
   
 }
@@ -225,17 +216,16 @@ input {
   position: relative;
   display: block;
   width: 250px;
-  margin-top: -15px; /* Ajuste o valor conforme necessário para aproximar a barra do campo de texto */
+  margin-top: -15px; 
 }
 
 .bar:before, .bar:after {
  content: '';
  height: 2px;
  width: 0;
- /*bottom: 60px;
- top: 5px;*/
+ 
  position: absolute;
- background: #2785e8;
+ background: #1D79A1;
  transition: 0.2s ease all;
  -moz-transition: 0.2s ease all;
  -webkit-transition: 0.2s ease all;
@@ -290,4 +280,44 @@ input {
   width: 0;
   background: transparent;
  }
+}
+@media (max-width: 600px) {
+  .containerLog {
+    width: 300px;
+    height: auto;
+    margin-top: 0;
+    left: 65px;}
+  .form-container {
+    font-size: 14px; 
+   
+  }
+  .iconLogin {
+    width: 30px; 
+    height: 30px;
+  }
+ .loginLogo{
+  margin-bottom: 1px;
+  margin-left: 10px;
+  flex-direction: row;
+  display: block;
+  align-items: center;
+ }
+ .forgot-password {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 11px;
+}
+ .bar{
+  width: 150px;
+ }
+ .form-container input[type="text"],
+    .form-container input[type="password"] {
+     
+      width: 150px;
+    }
+    #logo {
+      height: 60px;
+      width: 80px;
+      margin: 10px; 
+    }
 }

@@ -25,19 +25,17 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cadastro | AlmoxariSars</title>
   <link rel="icon" type="image/png" href="logo/1.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="style/styleteste7.css">
   <link rel="stylesheet" href="style/formsCadastro.css">
-
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-  <style>
-
-  </style>
 </head>
 
 <body>
@@ -45,7 +43,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
   include 'menuLateral.php';
   ?>
 
-  <!--PRODUTO -->
+
   <div class="col-md-10 ml-sm-auto">
     <form id="form1" class="limpar-campos" style="display: none;" method="post" name="formProduto" enctype="multipart/form-data">
       <div class="titleRelatorio">
@@ -80,11 +78,14 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         <label for="formFile">Insira a imagem referente</label>
         <input type="file" name="arquivoFoto" id="arquivoFoto" accept="image/*" required>
       </div>
+
       <div class="button-container">
-      
-        <input id="ok-button" name="cadProduto" aria-required="click" type="submit" value="Cadastrar"></input>
-        
+
+        <input id="ok-button1" name="cadProduto" aria-required="click" type="submit" value="Cadastrar"></input>
+        <br>
+        <a href="cadastro.php" class="linkVoltar">Voltar</a>
       </div>
+
     </form>
   </div>
   <!--USUÁRIO -->
@@ -95,7 +96,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         <h1>Usuário</h1>
       </div>
       <div class="form-row">
-        <div class="divTextForm2">
+        <div class="divTextForm1">
           <label for="name">Nome</label>
           <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira o nome" required>
 
@@ -116,67 +117,177 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
           <input class="formaticTextRelatorio" id="senha" name="senha" placeholder="Insira a senha" type="password">
 
         </div>
-        <div class="button-container">
-          <input id="ok-button" name="cadUsuario" type="submit" aria-required="click" value="CADASTRAR"></input>
-
+        <div class="button-container1">
+          <input id="ok-button1" name="cadUsuario" type="submit" aria-required="click" value="CADASTRAR"></input>
+          <br>
+          <a href="cadastro.php" class="linkVoltar">Voltar</a>
         </div>
     </form>
 
   </div>
   <!--UNIDADE DE MEDIDA-->
-  <form id="form3" class="limpar-campos" method="post" style="display: none;">
-    <div class="titleRelatorio">
-      <h1>Unidade de Medida</h1>
-    </div>
 
-    <div class="divTextForm1">
-      <label for="name">Nova Medida</label>
-      <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a unidade de medida" required>
-      <div class="iconeBuscar">
-        <span class="icon"><i class="bi bi-search"></i>
-          <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar"></span>
+  <div class="col-md-10 ml-sm-auto">
+    <form id="form3" class="limpar-campos" method="post" style="display: none;">
+      <div class="titleRelatorio">
+        <h1>Unidade de Medida</h1>
       </div>
-    </div>
+      <div class="divTextForm2">
+        <div class="MedDiv">
+          <label for="name">Nova Medida</label>
+          <input type="text" class="formaticTextRelatorioUnidade" id="name" name="name" placeholder="Insira a unidade de medida" required>
+          <input class="ok-button-medida" id="ok-button1" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
+        </div>
+        <div class="BuscarDiv">
+          <div class="search-container">
+
+            <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
+            <button type="button" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(0)">
+              <i class="fa fa-search"></i>
+            </button>
+
+          </div>
+          <?php
+          $pdo = conexaoBD();
+          $stmt = $pdo->prepare("select * from unidadeMedida");
+
+          try {
+            //buscando dados
+            $stmt->execute();
+          ?>
+            <form method='post'>
+              <div class='table-overflow'>
+                <table id='myTable'>
+                  <tr>
+                    <th></th>
+
+                    <th>Nome</th>
+
+                  </tr>
+                <?php
+                while ($row = $stmt->fetch()) {
+
+                  echo "<tr>";
+                  echo "<td><input type='radio' name='raAluno' 
+                            value='" . $row['id'] . "'>";
+                  echo "<td>" . $row['name'] . "</td>";
+                  echo "</tr>";
+                }
+                echo "</table><br>";
+                echo '</div>';
+                echo '<div class="buttonsCadastro">';
+                echo "<button class='btn-delete' type='submit' formaction='remove.php'><i class='w-100 bi bi-trash3-fill'></i></button>";
+                echo "<button class='edit-button' type='submit' formaction='edicao.php'><i class='bi bi-pencil-square'></i></button>";
+                echo '</div>';
+                echo "</form>";
+              } catch (PDOException $e) {
+                echo 'Error: ' . $e->getMessage();
+              }
+
+              $pdo = null;
 
 
-    <div class="button-container">
-      <input id="ok-button" name="cadUnid" type="submit" aria-required="click" value="CADASTRAR"></input>
+                ?>
+              </div>
+              <div class="button-container3">
+                <a href="cadastro.php" class="linkVoltar">Voltar</a>
+              </div>
+        </div>
+    </form>
+  </div>
 
-    </div>
-  </form>
   <!--CATEGORIA-->
   <div class="col-md-10 ml-sm-auto">
     <form id="form4" class="limpar-campos" method="post" style="display: none;">
       <div class="titleRelatorio">
         <h1>Categoria</h1>
       </div>
-
-      <div class="divTextForm1">
-        <label for="name">Nova categoria</label>
-        <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a categoria" required>
-
-
-        <div class="iconeBuscar">
-          <span class="icon"><i class="bi bi-search"></i>
-            <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar"></span>
+      <div class="divTextForm">
+        <div class="MedDiv">
+          <label for="name">Nova Categoria</label>
+          <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira a categoria" required>
+          <input id="ok-button1" name="cadCat" type="submit" aria-required="click" value="CADASTRAR"></input>
         </div>
+        <div class="BuscarDiv">
+          <div class="search-container">
+            <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
+            <button type="submit" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(1)">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <?php
+          $pdo = conexaoBD();
+          $stmt = $pdo->prepare("select * from categoria");
 
-      </div>
-      <div class="button-container">
-        <input id="ok-button" name="cadCat" type="submit" aria-required="click" value="CADASTRAR"></input>
+          try {
+            //buscando dados
+            $stmt->execute();
+          ?>
+            <form method='post'>
+              <div class='table-overflow'>
+                <table id='myTable'  >
+                  <tr>
+                    <th></th>
 
+                    <th>Nome</th>
+
+                  </tr>
+                <?php
+                while ($row = $stmt->fetch()) {
+
+                  echo "<tr>";
+                  echo "<td><input type='radio' name='raAluno' 
+                              value='" . $row['id'] . "'>";
+
+                  echo "<td>" . $row['name'] . "</td>";
+                  echo "</tr>";
+                }
+
+                echo "</table><br>";
+                echo '</div>';
+                echo '<div class="buttonsCadastro">';
+                echo "<button class='btn-delete' type='submit' formaction='remove.php'><i class='w-100 bi bi-trash3-fill'></i></button>";
+                echo "<button class='edit-button' type='submit' formaction='edicao.php'><i class='bi bi-pencil-square'></i></button>";
+                echo '</div>';
+                echo "</form>";
+
+
+  
+              } catch (PDOException $e) {
+                echo 'Error: ' . $e->getMessage();
+              }
+
+              $pdo = null;
+
+
+                ?>
+
+
+
+              </div>
+              <div class="button-container2">
+                <a href="cadastro.php" class="linkVoltar">Voltar</a>
+              </div>
+        </div>
       </div>
     </form>
-
   </div>
 
   <div id="custom-alert">
-    <p><?php echo $username ?>, clique no item com o qual deseja trabalhar</p>
+    <div class="divTitleCadastro">
+    <p><?php echo $username ?>, clique no item com o qual deseja trabalhar</p></div>
     <br>
-    <a onclick="trocarFormulario('form1')"><button id="ok-button" aria-required="click">Produtos</button></a>
-    <a onclick="trocarFormulario('form2')"><button id="ok-button" aria-required="click">Usuários</button></a>
-    <a onclick="trocarFormulario('form3')"><button id="ok-button" aria-required="click">Medidas</button></a>
-    <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click">Categorias</button></a>
+    <div class="divButtonsCadastro">
+      
+    <div class="divSeparador">
+    <a onclick="trocarFormulario('form1')"><button id="ok-button" aria-required="click"><i class="bi bi-bag-plus"></i><br>Produtos</button></a>
+    <a onclick="trocarFormulario('form2')"><button id="ok-button" aria-required="click"><i class="bi bi-person-add"></i><br>Usuários</button></a>
+    </div>
+    <div class="divSeparador2">
+    <a onclick="trocarFormulario('form3')"><button id="ok-button" aria-required="click"><i class="bi bi-rulers"></i><br>Medidas</button></a>
+    <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click"><i class="bi bi-grid"></i>Categorias</button></a>
+    </div>
+</div>
   </div>
 
   <footer class="footer">
@@ -188,10 +299,43 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
 
 
+    <script>
+      function performSearch(i) {
+        const tableRows = document.querySelectorAll("#myTable tr");
+        console.log(tableRows);
+
+        const search = document.querySelectorAll("#search");
+        const query = search[i].value.toLowerCase();
+
+        tableRows.forEach(row => {
+          const name = row.textContent.toLowerCase();
+
+          if (name.includes(query)) {
+            row.style.display = "table-row";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      function removeItem() {
+        // Adicione sua lógica para remover o aluno aqui
+      }
+
+      function editItem() {
+        // Adicione sua lógica para editar o aluno aqui
+      }
+    </script>
+
+
 </body>
 
-
 <script>
+  $(".ok-button-medida").click(function() {
+    console.log("clicou");
+    $("#form3").location.reload();
+  });
+
   function trocarFormulario(id) {
     // ocultar todos os formulários
     var forms = document.getElementsByTagName("form");
@@ -219,13 +363,6 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
     )
 
   });
-
-  function limparCampos() {
-    var forms = document.getElementsByClassName("limpar-campos");
-    for (var i = 0; i < forms.length; i++) {
-      forms[i].reset();
-    }
-  }
 </script>
 
 </html>
@@ -242,14 +379,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadUsuario'])) {
   $senha = $_POST['senha'];
   cadUsuario($name, $code, $level, $senha);
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadCat'])) {
+
   $name = $_POST['name'];
   cadCat($name);
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadUnid'])) {
   $name = $_POST['name'];
-  echo $name;
+
   cadUnid($name);
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadProduto'])) {
   $foto = isset($_FILES['arquivoFoto']) ? $_FILES['arquivoFoto'] : null;
+  //echo "fon";
   cadProd($foto);
 }
 ?>

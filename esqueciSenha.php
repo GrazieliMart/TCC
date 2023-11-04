@@ -18,10 +18,10 @@
        <img src="logo/unicamp.png" alt="Logo da UNICAMP">-->
         </div>
       </div>
-      <div class="col-6">
+  
         <div class="form-container">
 
-           <div class="containerLog">
+           <div class="containerLogEsqueciSenha">
 
           <?php if (isset($error)) { ?>
             <p>

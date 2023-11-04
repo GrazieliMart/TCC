@@ -1,17 +1,13 @@
 <?php
 if ($level == 3) {
-   
     echo '
     <div id="overlay"></div>
 
-  <div class="menu-toggle" id="menuToggle">
-<i class="bi bi-list"></i>
+    <div class="menu-toggle" id="menuToggle">
+  <i class="bi bi-list"></i>
+  </div>
 
-</div>
-
-<nav class="menu-lateral"  id="menuLateral">
-
-
+<nav class="menu-lateralEstoque">
 <ul>
     <li class="item-menu">
         <a href="index.php">
@@ -38,9 +34,7 @@ if ($level == 3) {
 } else if ($level == 2) {
 
     echo '
-    
-  
-<nav class="menu-lateral2"  id="menuLateral2">
+<nav class="menu-lateral2">
 <ul>
     <li class="item-menu">
         <a href="index.php">
@@ -67,9 +61,7 @@ if ($level == 3) {
 } else if ($level == 1) {
 
     echo '
-    
-  
-<nav class="menu-lateral1"  id="menuLateral1">
+<nav class="menu-lateral1">
 <ul>
     <li class="item-menu">
         <a href="index.php">
@@ -101,7 +93,7 @@ let isNavOpen = false; // Inicialmente, a navegação está fechada
 document.addEventListener("DOMContentLoaded", function() { 
     const overlay = document.getElementById("overlay");
     const menuToggle = document.getElementById("menuToggle");
-    const menu = document.querySelector(".menu-lateral");
+    const menu = document.querySelector(".menu-lateralEstoque");
    
 
     if (menuToggle) {
