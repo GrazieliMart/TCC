@@ -156,7 +156,7 @@ body{
     width: 800px;
     color: #fff;
     left: 50%;
-    top: 35%;
+    top: 45%;
     transform: translate(-50%, -50%); 
     position: fixed;
     margin-top: 10px;
@@ -247,6 +247,7 @@ body{
     margin-left: auto;
 
 }
+
 .divTextRelatorio3 {
     width: 100%;
     display: flex;
@@ -255,7 +256,7 @@ body{
     justify-content: center;
     padding: 20px;
     font-size: 15px;
-    font-weight: bold;
+   
     top: 40px;
     margin-left: auto;
 
@@ -556,8 +557,8 @@ nav.menu-lateral {
     transition: .3s;
   }
 nav.menu-lateralEstoque{
-    width: 75px;
-    height: 95%;
+    width: 70px;
+    height: 100%;
     background: #1D79A1;
     padding: 40px 0 40px 1%;
     box-shadow: 3px 0 0 #ffffff;
@@ -572,13 +573,13 @@ nav.menu-lateralEstoque:hover{
     width: 200px;
     transition: .3s;
 }
- nav.menu-lateral1{
+nav.menu-lateral1 {
     width: 60px;
-    height: 400px;
+    height: 300px;
     background: #1D79A1;
     padding: 40px 0 40px 1%;
-     border-top-right-radius: 5px; 
-    border-bottom-right-radius: 5px; 
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
     box-shadow: 3px 0 0 #ffffff;
     position: fixed;
     display: flex;
@@ -592,13 +593,13 @@ nav.menu-lateral1:hover{
     transition: .3s;
 }
 
-nav.menu-lateral2{
+nav.menu-lateral2 {
     width: 60px;
-    height: 500px;
+    height: 320px;
     background: #1D79A1;
     padding: 40px 0 40px 1%;
-     border-top-right-radius: 5px; 
-    border-bottom-right-radius: 5px; 
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
     box-shadow: 3px 0 0 #ffffff;
     position: fixed;
     display: flex;
@@ -606,11 +607,12 @@ nav.menu-lateral2{
     left: 0;
     overflow: hidden;
     transition: .3s;
-}
+  }
 nav.menu-lateral2:hover{
     width: 200px;
     transition: .3s;
 }
+
 
 nav.menu-lateral:hover{
     width: 200px;
@@ -638,7 +640,7 @@ ul li.item-menu{
     
     border-radius: 10px;
     padding-left: 10px;
-    padding-top: 20px;
+    padding-top: 5px;
     
 }
 ul li.item-menu:hover{
@@ -654,7 +656,6 @@ ul li.item-menu a {
   padding: 20px 0px;
   display: flex;
   line-height: 25px;
-  margin-top: 5px;
   transition: 0.2s;
   }
 ul li.item-menu a:hover{
@@ -716,16 +717,36 @@ ul li.item-menu2 a .icon > i{
    margin-right: 25px;
    
 }
+.menu-toggle{
+    display: none;
+}
 
 @media only screen and (max-width: 600px) {
     nav.menu-lateral {
         width: 50px; 
         transition: 0s; 
+        display: none;
+        z-index: 2;
        }
        nav.menu-lateralEstoque{
-        width: 60px;
-        transition: 0s;
+        width: 60px; 
+        transition: 0s; 
+        display: none;
+        top: 0;
+        z-index: 2;
     }
+    .menu-lateral {
+        width: 0;
+     
+    }
+    .menu-lateralEstoque {
+        width: 0;
+     
+    }
+    
+    
+  
+    
     nav.menu-lateralEstoque:hover{
         width: 60px;
         transition: 0s;
@@ -735,15 +756,7 @@ ul li.item-menu{
     padding-top: 0px;
     
 }
-.edit-button{
-    
-    border:none;
-}
-  .btn-delete{
-   
-    border: none;
-   
-  }
+
     nav.menu-lateral ul {
         padding: 0;
         display: flex;
@@ -771,7 +784,54 @@ ul li.item-menu{
         line-height: 1.5; /* Ajuste o espaçamento vertical conforme necessário */
         transition: 0.2s;
         margin-bottom: 1em; /* Use margin-bottom para espaçamento externo responsivo */
-      }
+      }.edit-button{
+    
+    border:none;
+}
+.menu-lateral {
+    display: none;
+}
+
+/* Estilos para o botão de menu */
+.menu-toggle {
+    cursor: pointer;
+    font-size: 30px; /* Defina o tamanho desejado */
+    display: flex;
+    left: 50%;
+    justify-content: end;
+    height: 50px; /* Defina a altura desejada */
+    transition: 0.1s;
+    color: #fff; /* Defina a cor para branco */
+    top: 10px; /* Defina a posição superior desejada */
+}
+
+/* Mostrar a navegação quando ativada */
+.menu-lateral.active {
+    display: block;
+}
+.menu-lateral1.active {
+    display: block;
+  }
+  .menu-lateral2.active {
+    display: block;
+  }
+/* Estilos para a navegação (ajuste conforme necessário) */
+.menu-lateral.active ul {
+    /* Adicione estilos de exibição quando o menu estiver ativo */
+}
+.menu-lateralEstoque.active {
+    display: block;
+}
+
+/* Estilos para a navegação (ajuste conforme necessário) */
+.menu-lateralEstoque.active ul {
+    /* Adicione estilos de exibição quando o menu estiver ativo */
+}
+  .btn-delete{
+   
+    border: none;
+   
+  }
       .formaticTextRelatorioEstoque {
        
         width: 88%;
@@ -780,12 +840,10 @@ ul li.item-menu{
         width: 300px;
         height: auto;
         margin-top: 0;
-        left: 55%;
         top: 40%;
       }
       .divRelatorio1{
         width: 80%;
-    margin-left: 8%;
     height: 550px;
     top: 45%;
       }
@@ -807,11 +865,29 @@ ul li.item-menu{
       .divRelatorio {
       
             width: 80%;
-            margin-left: 8%;
             height: 550px;
          
     }
-
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1; 
+        display: none; 
+    }
+    nav.menu-lateral2 {
+       
+        height: 350px;
+        margin-top: 35%;
+       
+      }
+      nav.menu-lateral1 {
+        height: 300px;
+        
+        margin-top: 40%;}
     .divRelatorio .divWelcome {
         flex-direction: column; 
     }
@@ -839,7 +915,6 @@ ul li.item-menu{
     }
     .divPedidoNovo2 {
         width: 80%;
-        margin-left: 8%;
         height: 600px;
        
     }

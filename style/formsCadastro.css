@@ -204,7 +204,7 @@ transition: .2s;
   border-radius: 5px;
   justify-content: center;
   align-items: center;
-  height: 550px;
+  
   width: 400px;
   color: #fff;
   left: 27%;
@@ -231,7 +231,7 @@ transition: .2s;
     border-radius: 5px;
     justify-content: center;
     align-items: center;
-    height: 550px;
+   
     width: 400px;
     color: #fff;
     left: 27%;
@@ -248,7 +248,7 @@ transition: .2s;
     border-radius: 5px;
     justify-content: center;
     align-items: center;
-    height: 550px;
+    height: 500px;
     width: 400px;
     color: #fff;
     left: 27%;
@@ -265,7 +265,7 @@ transition: .2s;
   border-radius: 5px;
   justify-content: center;
   align-items: center;
-  height: 550px;
+  height: 500px;
   width: 400px;
   color: #fff;
   left: 27%;
@@ -333,12 +333,13 @@ transition: .2s;
   margin-top: 42%;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 10px;
   text-align: center;
 }
 .button-container2 {
   display: flex;
   justify-content: center;
-  margin-top: 20%;
+  margin-top: 10%;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -346,7 +347,7 @@ transition: .2s;
 .button-container3 {
   display: flex;
   justify-content: center;
-  margin-top: 15%;
+  margin-top: 5%;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -381,7 +382,7 @@ margin: 0 5px;
   }
   #custom-alert{
     width: 80%;
-    margin-left: 8%;
+    margin-left: 0%;
     height: 600px;
   }
   .divTitleCadastro{
@@ -453,7 +454,7 @@ ul li.item-menu a:hover {
   #form1{
         
     width: 80%;
-    left: 33%;
+    left: 25%;
     height: 500px;
     margin-top: 0px;
   
@@ -461,7 +462,7 @@ ul li.item-menu a:hover {
 #form2{
         
   width: 80%;
-  left: 33%;
+  left: 25%;
   height: 500px;
   margin-top: 0;
 
@@ -469,7 +470,7 @@ ul li.item-menu a:hover {
 #form3{
         
   width: 80%;
-  left: 33%;
+  left: 25%;
   height: 500px;
   margin-top: 0;
 
@@ -478,7 +479,7 @@ ul li.item-menu a:hover {
 #form4{
         
   width: 80%;
-  left: 33%;
+  left: 25%;
   height: 500px;
   margin-top: 0;
 
@@ -503,7 +504,7 @@ ul li.item-menu a:hover {
   
   #custom-alert{
     width: 80%;
-    margin-left: 8%;
+    margin-left: 0%;
     height: 600px;
   }
   .divTitleCadastro{

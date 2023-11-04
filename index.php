@@ -25,9 +25,12 @@ $level = $_SESSION['level'];
 </head>
 
 <body>
+
+
   <?php
   include('menuLateral.php');
   ?>
+
 
 <div class="center-content">
   <div class="divRelatorio3">

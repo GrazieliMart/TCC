@@ -261,7 +261,7 @@ function excluir($id)
     }
 }
 
-/*function buscarTeste()
+function buscarTeste()
 {
 
     try {
@@ -289,6 +289,7 @@ function excluir($id)
             $stmt = consultar($offset, $itensPorPagina); // Implemente a função consultarComPaginacao()
 
             // Inicie a tabela fora do loop
+           
             echo "<table id='tabela' class=' table table-secondary table-striped' >";
             echo "<thead>
                             <tr data-product-code='1'>
@@ -334,7 +335,7 @@ function excluir($id)
 
             // <input type="submit"  formaction="excluir.php" name="op">    Encerre a tabela
             echo "</table>";
-
+          
             // Crie links de paginação
             echo '<nav aria-label="Page navigation example">
                     <ul class="pagination">
@@ -360,7 +361,7 @@ function excluir($id)
         echo 'Error: ' . $e->getMessage();
     }
 }
-*/
+
 
 function editarTeste($id)
 {

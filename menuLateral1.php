@@ -1,6 +1,12 @@
 <?php
 if ($level == 3) {
     echo '
+    <div id="overlay"></div>
+
+    <div class="menu-toggle" id="menuToggle">
+  <i class="bi bi-list"></i>
+  </div>
+
 <nav class="menu-lateralEstoque">
 <ul>
     <li class="item-menu">
@@ -82,3 +88,26 @@ if ($level == 3) {
 }
 
 ?>
+<script>
+let isNavOpen = false; // Inicialmente, a navegação está fechada
+document.addEventListener("DOMContentLoaded", function() { 
+    const overlay = document.getElementById("overlay");
+    const menuToggle = document.getElementById("menuToggle");
+    const menu = document.querySelector(".menu-lateralEstoque");
+   
+
+    if (menuToggle) {
+        menuToggle.addEventListener("click", function() {
+            // Alternar a classe "active" na navegação
+            if (isNavOpen) {
+                overlay.style.display = 'none';
+                menu.classList.remove("active");
+            } else {
+                menu.classList.add("active");
+                 overlay.style.display = 'block';
+            }
+            isNavOpen = !isNavOpen; // Alternar o estado
+        });
+    }
+});
+</script>
