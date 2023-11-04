@@ -157,7 +157,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
           ?>
             <form method='post'>
               <div class='table-overflow'>
-                <table id='myTable'>
+                <table class='myTable'>
                   <tr>
                     <th></th>
 
@@ -176,8 +176,8 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
                 echo "</table><br>";
                 echo '</div>';
                 echo '<div class="buttonsCadastro">';
-                echo "<button class='btn-delete' type='submit' formaction='remove.php'><i class='w-100 bi bi-trash3-fill'></i></button>";
-                echo "<button class='edit-button' type='submit' formaction='edicao.php'><i class='bi bi-pencil-square'></i></button>";
+                echo "<button class='btn-delete' type='button' onclick='deleteRow()'><i class='w-100 bi bi-trash3-fill'></i></button>";
+                echo "<button class='edit-button' type='button' onclick='editRow()'><i class='bi bi-pencil-square'></i></button>";
                 echo '</div>';
                 echo "</form>";
               } catch (PDOException $e) {
@@ -216,50 +216,42 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
             </button>
           </div>
           <?php
+
           $pdo = conexaoBD();
           $stmt = $pdo->prepare("select * from categoria");
 
           try {
-            //buscando dados
+            // Buscando dados
             $stmt->execute();
           ?>
             <form method='post'>
               <div class='table-overflow'>
-                <table id='myTable'  >
+                <table class='myTable'>
                   <tr>
                     <th></th>
-
                     <th>Nome</th>
-
                   </tr>
                 <?php
                 while ($row = $stmt->fetch()) {
-
                   echo "<tr>";
-                  echo "<td><input type='radio' name='raAluno' 
-                              value='" . $row['id'] . "'>";
-
+                  echo "<td><input type='radio' name='raAluno' value='" . $row['id'] . "'>";
                   echo "<td>" . $row['name'] . "</td>";
                   echo "</tr>";
                 }
-
-                echo "</table><br>";
+                echo '</table><br>';
                 echo '</div>';
                 echo '<div class="buttonsCadastro">';
-                echo "<button class='btn-delete' type='submit' formaction='remove.php'><i class='w-100 bi bi-trash3-fill'></i></button>";
-                echo "<button class='edit-button' type='submit' formaction='edicao.php'><i class='bi bi-pencil-square'></i></button>";
+                echo "<button class='btn-delete' type='button' onclick='deleteRow()'><i class='w-100 bi bi-trash3-fill'></i></button>";
+
+                // Adicionar um botão "Editar" que acionará a edição
+                echo "<button class='edit-button' type='button' onclick='editRow()'><i class='bi bi-pencil-square'></i></button>";
+
                 echo '</div>';
                 echo "</form>";
-
-
-  
               } catch (PDOException $e) {
                 echo 'Error: ' . $e->getMessage();
               }
-
               $pdo = null;
-
-
                 ?>
 
 
@@ -275,19 +267,20 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
   <div id="custom-alert">
     <div class="divTitleCadastro">
-    <p><?php echo $username ?>, clique no item com o qual deseja trabalhar</p></div>
+      <p><?php echo $username ?>, clique no item com o qual deseja trabalhar</p>
+    </div>
     <br>
     <div class="divButtonsCadastro">
-      
-    <div class="divSeparador">
-    <a onclick="trocarFormulario('form1')"><button id="ok-button" aria-required="click"><i class="bi bi-bag-plus"></i><br>Produtos</button></a>
-    <a onclick="trocarFormulario('form2')"><button id="ok-button" aria-required="click"><i class="bi bi-person-add"></i><br>Usuários</button></a>
+
+      <div class="divSeparador">
+        <a onclick="trocarFormulario('form1')"><button id="ok-button" aria-required="click"><i class="bi bi-bag-plus"></i><br>Produtos</button></a>
+        <a onclick="trocarFormulario('form2')"><button id="ok-button" aria-required="click"><i class="bi bi-person-add"></i><br>Usuários</button></a>
+      </div>
+      <div class="divSeparador2">
+        <a onclick="trocarFormulario('form3')"><button id="ok-button" aria-required="click"><i class="bi bi-rulers"></i><br>Medidas</button></a>
+        <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click"><i class="bi bi-grid"></i>Categorias</button></a>
+      </div>
     </div>
-    <div class="divSeparador2">
-    <a onclick="trocarFormulario('form3')"><button id="ok-button" aria-required="click"><i class="bi bi-rulers"></i><br>Medidas</button></a>
-    <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click"><i class="bi bi-grid"></i>Categorias</button></a>
-    </div>
-</div>
   </div>
 
   <footer class="footer">
@@ -297,6 +290,164 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
     </footer>
 
 
+    <script>
+      function editRow() {
+        const tables = document.querySelectorAll('.myTable');
+        let selectedRow = null;
+        let selectedTable = null;
+        tables.forEach((table, index) => {
+     
+          const radios = table.querySelectorAll('input[type="radio"]');
+       
+          radios.forEach((radio) => {
+
+            if (radio.checked) {
+              selectedTable = index;
+              selectedRow = radio.parentNode.parentNode;
+            }
+          });
+        });
+
+        if (selectedRow) {
+          const cells = selectedRow.querySelectorAll('td');
+          cells[1].innerHTML = '<input type="text" value="' + cells[1].innerText + '">';
+          const saveCell = document.createElement('td');
+          const saveButton = document.createElement('button');
+          saveButton.textContent = 'Salvar';
+          saveButton.setAttribute('type', 'button');
+          saveButton.addEventListener('click', () => saveRow(selectedRow, selectedTable));
+          saveCell.appendChild(saveButton);
+
+          // Insira a nova célula na linha
+          selectedRow.appendChild(saveCell);
+        } else {
+          alert('Selecione uma linha para editar.');
+        }
+      }
+
+      function saveRow(selectedRow, selectedTable) {
+        const cells = selectedRow.querySelectorAll('td');
+        const id = selectedRow.querySelector('input[type="radio"]').value;
+        const newName = cells[1].querySelector('input').value;
+        console.log(id, newName);
+        if (selectedTable == 1) {
+          $.ajax({
+            url: 'atualizar_categoria.php', // Substitua pelo URL do seu script PHP de atualização
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              id: id,
+              newName: newName
+            },
+            success: function(response) {
+              console.log(response);
+              if (response.success) {
+                cells[1].innerHTML = newName;
+                selectedRow.querySelector('input[type="radio"]').checked = false;
+                selectedRow.removeChild(cells[2]);
+                alert(response.message);
+              } else {
+                alert(response.message);
+              }
+            },
+            error: function() {
+              alert('Erro na solicitação AJAX.');
+            }
+          });
+        } else {
+          $.ajax({
+            url: 'atualizar_unidade.php', // Substitua pelo URL do seu script PHP de atualização
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              id: id,
+              newName: newName
+            },
+            success: function(response) {
+              console.log(response);
+              if (response.success) {
+                cells[1].innerHTML = newName;
+                selectedRow.querySelector('input[type="radio"]').checked = false;
+                selectedRow.removeChild(cells[2]);
+                alert(response.message);
+              } else {
+                alert(response.message);
+              }
+            },
+            error: function() {
+              alert('Erro na solicitação AJAX.');
+            }
+          });
+        }
+      }
+
+      function deleteRow() {
+        const tables = document.querySelectorAll('.myTable');
+        let selectedRow = null;
+        let selectedTable = null;
+        tables.forEach((table, index) => {
+     
+          const radios = table.querySelectorAll('input[type="radio"]');
+       
+          radios.forEach((radio) => {
+
+            if (radio.checked) {
+              console.log(index)
+              selectedTable = index;
+              selectedRow = radio.parentNode.parentNode;
+            }
+          });
+        });
+        const id = selectedRow.querySelector('input[type="radio"]').value; 
+      if(selectedTable==1){
+          
+        $.ajax({
+          url: 'excluir_categoria.php', // Substitua pelo URL do seu script de exclusão
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            id: id
+          },
+          success: function(response) {
+            if (response.success) {
+              // Remova a linha da tabela
+              selectedRow.remove();
+              alert(response.message);
+            } else {
+              alert(response.message);
+            }
+          },
+          error: function() {
+            alert('Erro na solicitação AJAX.');
+          }
+        });
+      }else{
+        $.ajax({
+          url: 'excluir_unidade.php', // Substitua pelo URL do seu script de exclusão
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            id: id
+          },
+          success: function(response) {
+            if (response.success) {
+              // Remova a linha da tabela
+              selectedRow.remove();
+              alert(response.message);
+            } else {
+              alert(response.message);
+            }
+          },
+          error: function() {
+            alert('Erro na solicitação AJAX.');
+          }
+        });
+
+      }
+      }
+    </script>
+    </div>
+    </form>
 
 
     <script>
@@ -326,6 +477,8 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         // Adicione sua lógica para editar o aluno aqui
       }
     </script>
+
+
 
 
 </body>

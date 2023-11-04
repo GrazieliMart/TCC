@@ -156,7 +156,6 @@ body{
 
 
 
-  }
   
 
 .divRelatorio1 {
@@ -164,8 +163,8 @@ body{
     border-radius: 5px;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    width: 100%;
+    height: 500px;
+    width: 800px;
     color: #fff;
 
     position: fixed ;

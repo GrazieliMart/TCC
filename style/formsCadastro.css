@@ -354,7 +354,7 @@ transition: .2s;
 }
 
 
-#myTable{
+.myTable{
   background-color: #1D79A1;
   border: #fff 2px solid;
   width: 100%;
@@ -373,7 +373,7 @@ margin: 0 5px;
 }
 
 @media (max-width: 600px) {
-  #myTable{
+  .myTable{
    
     width: 90%;
   }
