@@ -35,7 +35,49 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
 
+    .modal-content {
+      background-color: lightblue;
+      width: 80%;
+      max-width: 600px;
+      margin: 100px auto;
+      padding: 20px;
+      border: 1px solid #000;
+      border-radius: 5px;
+    }
+
+    .close {
+      float: right;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    #openModalBtn {
+      background-color: #1D79A1;
+      font-size: 12px;
+      width: 100px px;
+      height: 30px;
+      cursor: pointer;
+      color: #ffffff;
+      border: none;
+      border-radius: 2px;
+      padding: 6px;
+      transition: .2s;
+      box-shadow: 0px 2px 4px rgba(0, 174, 255, 0.3);
+      font-weight: normal;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
@@ -117,11 +159,76 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
           <input class="formaticTextRelatorio" id="senha" name="senha" placeholder="Insira a senha" type="password">
 
         </div>
+
         <div class="button-container1">
-          <input id="ok-button1" name="cadUsuario" type="submit" aria-required="click" value="CADASTRAR"></input>
+        <input id="ok-button1" name="cadUsuario" type="submit" aria-required="click" value="CADASTRAR"></input>
+            <br>
+
+
+
+          <button type="button" id="openModalBtn">Abrir Tabela</button>
           <br>
-          <a href="cadastro.php" class="linkVoltar">Voltar</a>
-        </div>
+          <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <h2>Usuários</h2>
+              <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar" style='width: 84%;'>
+              <button type="button" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(0)">
+                <i class="fa fa-search"></i>
+              </button>
+
+
+              <?php
+
+              $pdo = conexaoBD();
+              $stmt = $pdo->prepare("select * from login");
+
+              try {
+                //buscando dados
+                $stmt->execute();
+              ?>
+                <form method='post'>
+                  <div class='table-overflow'>
+                    <table class='myTable'>
+                      <tr>
+                        <th></th>
+
+                        <th>Nome</th>
+
+
+                      </tr>
+                    <?php
+                    while ($row = $stmt->fetch()) {
+
+                      echo "<tr>";
+                      echo "<td><input type='radio' name='raAluno' 
+                            value='" . $row['id'] . "'>";
+                      echo "<td>" . $row['usuario'] . "</td>";
+                      echo "</tr>";
+                    }
+                    echo "</table><br>";
+
+
+                    echo "<button class='btn-delete' type='button' onclick='deleteRow()'><i class='w-100 bi bi-trash3-fill'></i></button>";
+
+
+                    echo "</form>";
+                    echo '</div>';
+                  } catch (PDOException $e) {
+                    echo 'Error: ' . $e->getMessage();
+                  }
+
+                  $pdo = null;
+
+
+                    ?>
+
+                  </div>
+            </div>
+         
+            <a href="cadastro.php" class="linkVoltar">Voltar</a>
+          </div>
+          
     </form>
 
   </div>
@@ -290,15 +397,38 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
     </footer>
 
 
+
     <script>
+      $(document).ready(function() {
+        // Abrir a modal quando o botão for clicado
+        $("#openModalBtn").click(function() {
+          $("#myModal").css("display", "block");
+
+
+        });
+
+        // Fechar a modal quando o "x" for clicado
+        $(".close").click(function() {
+          $("#myModal").css("display", "none");
+        });
+
+        // Fechar a modal quando clicar fora da modal
+        $(window).click(function(e) {
+          if (e.target == document.getElementById("myModal")) {
+            $("#myModal").css("display", "none");
+          }
+        });
+      });
+
+
       function editRow() {
         const tables = document.querySelectorAll('.myTable');
         let selectedRow = null;
         let selectedTable = null;
         tables.forEach((table, index) => {
-     
+
           const radios = table.querySelectorAll('input[type="radio"]');
-       
+
           radios.forEach((radio) => {
 
             if (radio.checked) {
@@ -386,9 +516,9 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         let selectedRow = null;
         let selectedTable = null;
         tables.forEach((table, index) => {
-     
+
           const radios = table.querySelectorAll('input[type="radio"]');
-       
+
           radios.forEach((radio) => {
 
             if (radio.checked) {
@@ -398,52 +528,52 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
             }
           });
         });
-        const id = selectedRow.querySelector('input[type="radio"]').value; 
-      if(selectedTable==1){
-          
-        $.ajax({
-          url: 'excluir_categoria.php', // Substitua pelo URL do seu script de exclusão
-          type: 'POST',
-          dataType: 'json',
-          data: {
-            id: id
-          },
-          success: function(response) {
-            if (response.success) {
-              // Remova a linha da tabela
-              selectedRow.remove();
-              alert(response.message);
-            } else {
-              alert(response.message);
-            }
-          },
-          error: function() {
-            alert('Erro na solicitação AJAX.');
-          }
-        });
-      }else{
-        $.ajax({
-          url: 'excluir_unidade.php', // Substitua pelo URL do seu script de exclusão
-          type: 'POST',
-          dataType: 'json',
-          data: {
-            id: id
-          },
-          success: function(response) {
-            if (response.success) {
-              // Remova a linha da tabela
-              selectedRow.remove();
-              alert(response.message);
-            } else {
-              alert(response.message);
-            }
-          },
-          error: function() {
-            alert('Erro na solicitação AJAX.');
-          }
-        });
+        const id = selectedRow.querySelector('input[type="radio"]').value;
+        if (selectedTable == 1) {
 
-      }
+          $.ajax({
+            url: 'excluir_categoria.php', // Substitua pelo URL do seu script de exclusão
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              id: id
+            },
+            success: function(response) {
+              if (response.success) {
+                // Remova a linha da tabela
+                selectedRow.remove();
+                alert(response.message);
+              } else {
+                alert(response.message);
+              }
+            },
+            error: function() {
+              alert('Erro na solicitação AJAX.');
+            }
+          });
+        } else {
+          $.ajax({
+            url: 'excluir_unidade.php', // Substitua pelo URL do seu script de exclusão
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              id: id
+            },
+            success: function(response) {
+              if (response.success) {
+                // Remova a linha da tabela
+                selectedRow.remove();
+                alert(response.message);
+              } else {
+                alert(response.message);
+              }
+            },
+            error: function() {
+              alert('Erro na solicitação AJAX.');
+            }
+          });
+
+        }
       }
     </script>
     </div>
@@ -467,14 +597,6 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
             row.style.display = "none";
           }
         });
-      }
-
-      function removeItem() {
-        // Adicione sua lógica para remover o aluno aqui
-      }
-
-      function editItem() {
-        // Adicione sua lógica para editar o aluno aqui
       }
     </script>
 
