@@ -36,6 +36,11 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    <?php if($level==2) { ?>
+      .divButtonsCadastro{
+        justify-content: center;
+      }
+    <?php }?>
     .modal {
       display: none;
       position: fixed;
@@ -83,155 +88,162 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 <body>
   <?php
   include 'menuLateral.php';
+  include('bd.php');
   ?>
+<?php if($level==3) { ?>
+    <div class="col-md-10 ml-sm-auto">
 
+      <form id="form1" style="display: none;" method="post" name="formProduto" enctype="multipart/form-data">
+        <div class="titleRelatorio">
+          <h1>Produto</h1>
+        </div>
+        <div class="divTextForm">
+          <label for="nome">Nome</label>
+          <input type="text" id="name" name="nome" placeholder="Digite seu nome" required class="formaticTextRelatorio">
 
-  <div class="col-md-10 ml-sm-auto">
-    <form id="form1" class="limpar-campos" style="display: none;" method="post" name="formProduto" enctype="multipart/form-data">
-      <div class="titleRelatorio">
-        <h1>Produto</h1>
-      </div>
-      <div class="divTextForm">
-        <label for="nome">Nome</label>
-        <input type="text" id="name" name="nome" placeholder="Digite seu nome" required class="formaticTextRelatorio">
-
-        <label for="code">Código</label>
-        <input type="code" id="code" name="code" placeholder="Digite seu código" required class="formaticTextRelatorio">
-        <label for="category">Categoria</label>
-        <select class="formaticRelatorio" id="category" required name="category">
-          <option selected disabled>Selecione uma categoria</option>
-          <?php
-          include('bd.php');
-          consultaCat();
-          ?>
-        </select>
-        <label for="qnt">Quantidade</label>
-        <input type="code" id="code" name="quantidade" placeholder="Digite a quantidade" required class="formaticTextRelatorio">
-
-        <label for="unidadeMedida">Unidade de Medida</label>
-        <select class="formaticRelatorio" id="unit" required name="unidadeMedida">
-          <option selected disabled>Selecione uma unidade de medida</option>
-
-          <?php
-
-          consultaUnid();
-          ?>
-        </select>
-        <label for="formFile">Insira a imagem referente</label>
-        <input type="file" name="arquivoFoto" id="arquivoFoto" accept="image/*" required>
-      </div>
-
-      <div class="button-container">
-
-        <input id="ok-button1" name="cadProduto" aria-required="click" type="submit" value="Cadastrar"></input>
-        <br>
-        <a href="cadastro.php" class="linkVoltar">Voltar</a>
-      </div>
-
-    </form>
-  </div>
-  <!--USUÁRIO -->
-  <div class="col-md-10 ml-sm-auto">
-
-    <form id="form2" method="post" class="limpar-campos" style="display: none;">
-      <div class="titleRelatorio">
-        <h1>Usuário</h1>
-      </div>
-      <div class="form-row">
-        <div class="divTextForm1">
-          <label for="name">Nome</label>
-          <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira o nome" required>
-
-
-          <label for="code">Código de funcionário</label>
-          <input type="text" class="formaticTextRelatorio" id="code" name="code" placeholder="Insira o código" required>
-
-          <label for="unit">Tipo de usuário</label>
-          <select class="formaticRelatorio" id="level" name="level" required>
-            <option selected disabled>Selecione o tipo de usuário</option>
-            <option value="3">Adm</option>
-            <option value="2">nível 2</option>
-            <option value="1">nível 1</option>
-
+          <label for="code">Código</label>
+          <input type="code" id="code" name="code" placeholder="Digite seu código" required class="formaticTextRelatorio">
+          <label for="category">Categoria</label>
+          <select class="formaticRelatorio" id="category" required name="category">
+            <option selected disabled>Selecione uma categoria</option>
+            <?php
+           
+            consultaCat();
+            ?>
           </select>
+          <label for="qnt">Quantidade</label>
+          <input type="code" id="code" name="quantidade" placeholder="Digite a quantidade" required class="formaticTextRelatorio">
 
-          <label for="senha">Senha</label>
-          <input class="formaticTextRelatorio" id="senha" name="senha" placeholder="Insira a senha" type="password">
+          <label for="unidadeMedida">Unidade de Medida</label>
+          <select class="formaticRelatorio" id="unit" required name="unidadeMedida">
+            <option selected disabled>Selecione uma unidade de medida</option>
 
+            <?php
+            consultaUnid();
+            ?>
+          </select>
+          <label for="formFile">Insira a imagem referente</label>
+          <input type="file" name="arquivoFoto" id="arquivoFoto" accept="image/*" required>
         </div>
 
-        <div class="button-container1">
-        <input id="ok-button1" name="cadUsuario" type="submit" aria-required="click" value="CADASTRAR"></input>
+        <div class="button-container">
+
+          <input id="ok-button1" name="cadProduto" aria-required="click" type="submit" value="Cadastrar"></input>
+          <br>
+          <a href="cadastro.php" class="linkVoltar">Voltar</a>
+        </div>
+
+      </form>
+
+    </div>
+<?php }?>
+  <?php
+  if ($level == 3) {
+  ?>
+    <!--USUÁRIO -->
+    <div class="col-md-10 ml-sm-auto">
+
+      <form id="form2" method="post" class="limpar-campos" style="display: none;">
+        <div class="titleRelatorio">
+          <h1>Usuário</h1>
+        </div>
+        <div class="form-row">
+          <div class="divTextForm1">
+            <label for="name">Nome</label>
+            <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira o nome" required>
+
+
+            <label for="code">Código de funcionário</label>
+            <input type="text" class="formaticTextRelatorio" id="code" name="code" placeholder="Insira o código" required>
+
+            <label for="unit">Tipo de usuário</label>
+            <select class="formaticRelatorio" id="level" name="level" required>
+              <option selected disabled>Selecione o tipo de usuário</option>
+              <option value="3">Adm</option>
+              <option value="2">nível 2</option>
+              <option value="1">nível 1</option>
+
+            </select>
+
+            <label for="senha">Senha</label>
+            <input class="formaticTextRelatorio" id="senha" name="senha" placeholder="Insira a senha" type="password">
+
+          </div>
+
+          <div class="button-container1">
+            <input id="ok-button1" name="cadUsuario" type="submit" aria-required="click" value="CADASTRAR"></input>
             <br>
 
 
 
-          <button type="button" id="openModalBtn">Abrir Tabela</button>
-          <br>
-          <div id="myModal" class="modal">
-            <div class="modal-content">
-              <span class="close">&times;</span>
-              <h2>Usuários</h2>
-              <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar" style='width: 84%;'>
-              <button type="button" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(0)">
-                <i class="fa fa-search"></i>
-              </button>
+            <button type="button" id="openModalBtn">Abrir Tabela</button>
+            <br>
+            <div id="myModal" class="modal">
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Usuários</h2>
+                <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar" style='width: 84%;'>
+                <button type="button" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(0)">
+                  <i class="fa fa-search"></i>
+                </button>
 
 
-              <?php
+                <?php
 
-              $pdo = conexaoBD();
-              $stmt = $pdo->prepare("select * from login");
+                $pdo = conexaoBD();
+                $stmt = $pdo->prepare("select * from login");
 
-              try {
-                //buscando dados
-                $stmt->execute();
-              ?>
-                <form method='post'>
-                  <div class='table-overflow'>
-                    <table class='myTable'>
-                      <tr>
-                        <th></th>
+                try {
+                  //buscando dados
+                  $stmt->execute();
+                ?>
+                  <form method='post'>
+                    <div class='table-overflow'>
+                      <table class='myTable'>
+                        <tr>
+                          <th></th>
 
-                        <th>Nome</th>
+                          <th>Nome</th>
 
 
-                      </tr>
-                    <?php
-                    while ($row = $stmt->fetch()) {
+                        </tr>
+                      <?php
+                      while ($row = $stmt->fetch()) {
 
-                      echo "<tr>";
-                      echo "<td><input type='radio' name='raAluno' 
+                        echo "<tr>";
+                        echo "<td><input type='radio' name='raAluno' 
                             value='" . $row['id'] . "'>";
-                      echo "<td>" . $row['usuario'] . "</td>";
-                      echo "</tr>";
+                        echo "<td>" . $row['usuario'] . "</td>";
+                        echo "</tr>";
+                      }
+                      echo "</table><br>";
+
+
+                      echo "<button class='btn-delete' type='button' onclick='deleteRow()'><i class='w-100 bi bi-trash3-fill'></i></button>";
+
+
+                      echo "</form>";
+                      echo '</div>';
+                    } catch (PDOException $e) {
+                      echo 'Error: ' . $e->getMessage();
                     }
-                    echo "</table><br>";
+
+                    $pdo = null;
 
 
-                    echo "<button class='btn-delete' type='button' onclick='deleteRow()'><i class='w-100 bi bi-trash3-fill'></i></button>";
+                      ?>
 
+                    </div>
+              </div>
 
-                    echo "</form>";
-                    echo '</div>';
-                  } catch (PDOException $e) {
-                    echo 'Error: ' . $e->getMessage();
-                  }
-
-                  $pdo = null;
-
-
-                    ?>
-
-                  </div>
+              <a href="cadastro.php" class="linkVoltar">Voltar</a>
             </div>
-         
-            <a href="cadastro.php" class="linkVoltar">Voltar</a>
-          </div>
-          
-    </form>
 
-  </div>
+      </form>
+
+    </div>
+  <?php } ?>
+
   <!--UNIDADE DE MEDIDA-->
 
   <div class="col-md-10 ml-sm-auto">
@@ -378,11 +390,14 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
     </div>
     <br>
     <div class="divButtonsCadastro">
-
-      <div class="divSeparador">
-        <a onclick="trocarFormulario('form1')"><button id="ok-button" aria-required="click"><i class="bi bi-bag-plus"></i><br>Produtos</button></a>
-        <a onclick="trocarFormulario('form2')"><button id="ok-button" aria-required="click"><i class="bi bi-person-add"></i><br>Usuários</button></a>
-      </div>
+      <?php
+      if ($level == 3) {
+      ?>
+        <div class="divSeparador">
+          <a onclick="trocarFormulario('form1')"><button id="ok-button" aria-required="click"><i class="bi bi-bag-plus"></i><br>Produtos</button></a>
+          <a onclick="trocarFormulario('form2')"><button id="ok-button" aria-required="click"><i class="bi bi-person-add"></i><br>Usuários</button></a>
+        </div>
+      <?php } ?>
       <div class="divSeparador2">
         <a onclick="trocarFormulario('form3')"><button id="ok-button" aria-required="click"><i class="bi bi-rulers"></i><br>Medidas</button></a>
         <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click"><i class="bi bi-grid"></i>Categorias</button></a>
