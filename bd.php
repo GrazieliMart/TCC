@@ -76,8 +76,8 @@ function cadProd($foto)
 
         $nome = isset($_POST['nome']) ? $_POST['nome'] : "";
         $code = isset($_POST['code']) ? (int) $_POST['code'] : 0;
-        $category = isset($_POST['category']) ? $_POST['category'] : "";
-        $unidadeMedida = isset($_POST['unidadeMedida']) ? $_POST['unidadeMedida'] : "";
+        $category = isset($_POST['category']) ? $_POST['category'] : 0;
+        $unidadeMedida = isset($_POST['unidadeMedida']) ? $_POST['unidadeMedida'] : 0;
         $quantidade = isset($_POST['quantidade']) ? (int) $_POST['quantidade'] : 0;
 
         $uploadDir = 'upload/produtos/';
@@ -219,15 +219,35 @@ function consultar($offset, $itensPorPagina)
     $pdo = conexaoBD();
     if (isset($_POST["name"]) && ($_POST["name"] != "")) {
         $nome = $_POST["name"];
-        $stmt = $pdo->prepare("SELECT * FROM produtoTCC WHERE nome LIKE :nome LIMIT $itensPorPagina OFFSET $offset");
         $nome = '%' . $nome . '%'; // Adicione % antes e depois do valor de pesquisa
+
+        $stmt = $pdo->prepare("SELECT produtoTCC.code AS code, produtoTCC.nome AS nome,
+        produtoTCC.arquivoFoto AS arquivoFoto,
+        produtoTCC.quantidade AS quantidade,
+        categoria.name AS category,
+        unidadeMedida.name AS unidadeMedida
+    FROM produtoTCC
+    INNER JOIN categoria ON produtoTCC.category = categoria.id
+    INNER JOIN unidadeMedida ON produtoTCC.unidadeMedida = unidadeMedida.id
+            WHERE produtoTCC.nome LIKE :nome LIMIT $itensPorPagina OFFSET $offset");
+
         $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
     } else {
-        $stmt = $pdo->prepare("select * from produtoTCC LIMIT $itensPorPagina OFFSET $offset");
+        $stmt = $pdo->prepare("SELECT produtoTCC.code AS code, produtoTCC.nome AS nome,
+        produtoTCC.arquivoFoto AS arquivoFoto,
+        produtoTCC.quantidade AS quantidade,
+        categoria.name AS category,
+        unidadeMedida.name AS unidadeMedida
+    FROM produtoTCC
+    INNER JOIN categoria ON produtoTCC.category = categoria.id
+    INNER JOIN unidadeMedida ON produtoTCC.unidadeMedida = unidadeMedida.id
+            LIMIT $itensPorPagina OFFSET $offset");
     }
+
     $stmt->execute();
     return $stmt;
 }
+
 function consultarNormal($id)
 {
     $pdo = conexaoBD();
@@ -289,7 +309,7 @@ function buscarTeste()
             $stmt = consultar($offset, $itensPorPagina); // Implemente a função consultarComPaginacao()
 
             // Inicie a tabela fora do loop
-           
+
             echo "<table id='tabela' class=' table table-secondary table-striped' >";
             echo "<thead>
                             <tr data-product-code='1'>
@@ -335,7 +355,7 @@ function buscarTeste()
 
             // <input type="submit"  formaction="excluir.php" name="op">    Encerre a tabela
             echo "</table>";
-          
+
             // Crie links de paginação
             echo '<nav aria-label="Page navigation example">
                     <ul class="pagination">
@@ -417,7 +437,7 @@ function consultaUnid()
         $stmt->execute();
         while ($row = $stmt->fetch()) {
 
-            echo " <option value='" . $row["name"] . "'>" . $row['name'] . "</option>";
+            echo " <option value='" . $row["id"] . "'>" . $row['name'] . "</option>";
         }
     } catch (PDOException $e) {
         echo $e->getMessage();
@@ -433,7 +453,7 @@ function consultaCat()
         $stmt = $pdo->prepare('SELECT * FROM categoria');
         $stmt->execute();
         while ($row = $stmt->fetch()) {
-            echo " <option value='" . $row["name"] . "'>" . $row['name'] . "</option>";
+            echo " <option value='" . $row["id"] . "'>" . $row['name'] . "</option>";
         }
     } catch (PDOException $e) {
         echo $e->getMessage();

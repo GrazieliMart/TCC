@@ -30,7 +30,7 @@ include("bd.php");
 <html>
 
 <head>
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Estoque | AlmoxariSars</title>
 
@@ -47,9 +47,9 @@ include("bd.php");
   <style>
     #ok-button {
 
-   
+
       font-size: 13px;
-     
+
       background: transparent;
       cursor: pointer;
       color: #fff;
@@ -63,11 +63,12 @@ include("bd.php");
       text-align: center;
 
     }
-    #ok-button:hover{
-       transition: 0.2s;
-  color: rgb(0, 112, 216);
+
+    #ok-button:hover {
+      transition: 0.2s;
+      color: rgb(0, 112, 216);
     }
-   
+
     /* Estilos para a janela modal */
     .modal {
       position: fixed;
@@ -91,16 +92,18 @@ include("bd.php");
     .table {
       width: 100%;
     }
-    .edit-button{
+
+    .edit-button {
       background-color: transparent;
       border: none;
 
     }
-    .btn-delete{
+
+    .btn-delete {
       background-color: transparent;
       border: none;
     }
-    
+
 
     .close {
       float: right;
@@ -113,12 +116,12 @@ include("bd.php");
   <?php
   include 'menuLateral1.php';
   ?>
-   <footer class="footer">
-    
-      
+  <footer class="footer">
+
+
     <p class="footer-text">SARS | UNICAMP | COTIL</p>
-  
-</footer>
+
+  </footer>
   <div class="divRelatorio1">
     <div class="titleRelatorio">
       <h1>Estoque</h1>
@@ -128,19 +131,19 @@ include("bd.php");
     <div class="divTextRelatorio3">
 
       <form method="post">
-      <div class="BuscarDiv">
-        <div class="search-container">
+        <div class="BuscarDiv">
+          <div class="search-container">
 
 
-        <input type="text" id="search" class="formaticTextRelatorioEstoque" placeholder="Pesquisar produto..." name="name" required>
+            <input type="text" id="search" class="formaticTextRelatorioEstoque" placeholder="Pesquisar produto..." name="name" required>
             <button id="ok-button" type="submit" name="cadCategoria" aria-required="click" class="search-button">
               <i class="fa fa-search"></i>
             </button>
 
-  </div>
           </div>
+        </div>
 
-       <!-- <input id="ok-button" type="submit" value="Consultar">-->
+        <!-- <input id="ok-button" type="submit" value="Consultar">-->
 
 
       </form>
@@ -188,7 +191,7 @@ include("bd.php");
 
 
 
- 
+
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
@@ -214,7 +217,7 @@ include("bd.php");
           },
           dataType: 'json',
           success: function(data) {
-            // Preenche os campos do modal com os dados do produto
+            console.log(data);
             editCode.value = productCode;
             editNome.value = data.nome;
             editCategory.value = data.category;

@@ -1,186 +1,85 @@
+<?php
+// Conecte-se ao banco de dados (substitua com suas informações de conexão)
+include('bd.php');
+
+try {
+    $pdo = conexaoBd();
+} catch (PDOException $e) {
+    die("Erro na conexão com o banco de dados: " . $e->getMessage());
+}
+
+// Consulta para buscar dados da tabela Pedido
+$query = "SELECT * FROM Pedido";
+
+// Executa a consulta
+$result = $pdo->query($query);
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <style>
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        .modal-content {
-            background-color: #fff;
-            width: 80%;
-            max-width: 600px;
-            margin: 100px auto;
-            padding: 20px;
-            border: 1px solid #000;
-            border-radius: 5px;
-        }
-
-        .close {
-            float: right;
-            font-size: 30px;
-            cursor: pointer;
-        }
-    </style>
-    <title>Document</title>
+    <title>Tabela de Pedidos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
 
 <body>
-    <button id="openModalBtn">Abrir Tabela</button>
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Tabela do Banco de Dados</h2>
-            <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
-            <button type="button" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(0)">
-              <i class="fa fa-search"></i>
-            </button>
-          
+    <h1>Tabela de Pedidos</h1>
 
-                <?php
-                include("bd.php");
-                $pdo = conexaoBD();
-                $stmt = $pdo->prepare("select * from login");
+    <table class="table table-striped" border="1">
+        <tr>
+            <th>Codigo</th>
+            <th>Data do Pedido</th>
+            <th>Cliente</th>
+            <th>osgm</th>
+            <th>Status</th>
+        </tr>
 
-                try {
-                    //buscando dados
-                    $stmt->execute();
-                ?>
-                    <form method='post'>
-                        <div class='table-overflow'>
-                            <table class='myTable'>
-                                <tr>
-                                    <th></th>
+        <?php
+        // Loop através dos resultados da consulta e exiba-os na tabela
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            echo "<tr class='open-modal-on-double-click' data-toggle='modal' data-target='#myModal'>";
+            echo "<td>" . $row['codigo'] . "</td>";
+            echo "<td>" . $row['dataPedido'] . "</td>";
+            echo "<td>" . $row['cliente'] . "</td>";
+            echo "<td>" . $row['OSGM'] . "</td>";
+            echo "<td>" . $row['status'] . "</td>";
+            echo "</tr>";
+        }
+        ?>
+    </table>
 
-                                    <th>Nome</th>
-
-
-                                </tr>
-                            <?php
-                            while ($row = $stmt->fetch()) {
-
-                                echo "<tr>";
-                                echo "<td><input type='radio' name='raAluno' 
-                            value='" . $row['id'] . "'>";
-                                echo "<td>" . $row['usuario'] . "</td>";
-                                echo "</tr>";
-                            }
-                            echo "</table><br>";
-                           
-                           
-                            echo "<button class='btn-delete' type='button' onclick='deleteRow()'><i class='w-100 bi bi-trash3-fill'></i></button>";
-
-                           
-                            echo "</form>";
-                            echo '</div>';
-                        } catch (PDOException $e) {
-                            echo 'Error: ' . $e->getMessage();
-                        }
-
-                        $pdo = null;
-
-
-                            ?>
-                            
-                        </div>
+    <!-- Modal que será exibido -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Detalhes do Pedido</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Conteúdo do modal aqui -->
+                </div>
+            </div>
         </div>
-
-
-        <script>
-            $(document).ready(function() {
-                // Abrir a modal quando o botão for clicado
-                $("#openModalBtn").click(function() {
-                    $("#myModal").css("display", "block");
-
-
-                });
-
-                // Fechar a modal quando o "x" for clicado
-                $(".close").click(function() {
-                    $("#myModal").css("display", "none");
-                });
-
-                // Fechar a modal quando clicar fora da modal
-                $(window).click(function(e) {
-                    if (e.target == document.getElementById("myModal")) {
-                        $("#myModal").css("display", "none");
-                    }
+    </div>
+    
+    <script>
+        // Adicione um ouvinte de eventos para o duplo clique nas linhas da tabela
+        document.addEventListener('DOMContentLoaded', function () {
+            var rows = document.querySelectorAll('.open-modal-on-double-click');
+            rows.forEach(function (row) {
+                row.addEventListener('dblclick', function () {
+                    $('#myModal').modal('show'); // Exibe o modal
                 });
             });
-
-
-
-            function deleteRow() {
-                const tables = document.querySelectorAll('.myTable');
-                let selectedRow = null;
-                let selectedTable = null;
-                tables.forEach((table, index) => {
-
-                    const radios = table.querySelectorAll('input[type="radio"]');
-
-                    radios.forEach((radio) => {
-
-                        if (radio.checked) {
-                            console.log(index)
-                            selectedTable = index;
-                            selectedRow = radio.parentNode.parentNode;
-                        }
-                    });
-                });
-                const id = selectedRow.querySelector('input[type="radio"]').value;
-
-                if (selectedTable == 0) {
-                    $.ajax({
-                        url: 'excluir_usuario.php', // Substitua pelo URL do seu script de exclusão
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            id: id
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                // Remova a linha da tabela
-                                selectedRow.remove();
-                                alert(response.message);
-                            } else {
-                                alert(response.message);
-                            }
-                        },
-                        error: function() {
-                            alert('Erro na solicitação AJAX.');
-                        }
-                    });
-                }
-            }
-            function performSearch(i) {
-        const tableRows = document.querySelectorAll(".myTable tr");
-        console.log(tableRows);
-
-        const search = document.querySelectorAll("#search");
-        const query = search[i].value.toLowerCase();
-
-        tableRows.forEach(row => {
-          const name = row.textContent.toLowerCase();
-
-          if (name.includes(query)) {
-            row.style.display = "table-row";
-          } else {
-            row.style.display = "none";
-          }
         });
-      }
-        </script>
-        
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
 
 </body>
 

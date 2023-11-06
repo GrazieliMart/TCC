@@ -36,12 +36,11 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    <?php if($level==2) { ?>
-      .divButtonsCadastro{
-        justify-content: center;
-      }
-    <?php }?>
-    .modal {
+    <?php if ($level == 2) { ?>.divButtonsCadastro {
+      justify-content: center;
+    }
+
+    <?php } ?>.modal {
       display: none;
       position: fixed;
       top: 0;
@@ -90,7 +89,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
   include 'menuLateral.php';
   include('bd.php');
   ?>
-<?php if($level==3) { ?>
+  <?php if ($level == 3) { ?>
     <div class="col-md-10 ml-sm-auto">
 
       <form id="form1" style="display: none;" method="post" name="formProduto" enctype="multipart/form-data">
@@ -107,7 +106,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
           <select class="formaticRelatorio" id="category" required name="category">
             <option selected disabled>Selecione uma categoria</option>
             <?php
-           
+
             consultaCat();
             ?>
           </select>
@@ -136,7 +135,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
       </form>
 
     </div>
-<?php }?>
+  <?php } ?>
   <?php
   if ($level == 3) {
   ?>
@@ -261,7 +260,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
           <div class="search-container">
 
             <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
-            <button type="button" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(0)">
+            <button type="button" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(1)">
               <i class="fa fa-search"></i>
             </button>
 
@@ -330,7 +329,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         <div class="BuscarDiv">
           <div class="search-container">
             <input type="text" class="formaticTextRelatorio" id="search" placeholder="Buscar">
-            <button type="submit" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(1)">
+            <button type="button" name="cadCategoria" aria-required="click" class="search-button" onclick="performSearch(2)">
               <i class="fa fa-search"></i>
             </button>
           </div>
@@ -475,7 +474,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         const id = selectedRow.querySelector('input[type="radio"]').value;
         const newName = cells[1].querySelector('input').value;
         console.log(id, newName);
-        if (selectedTable == 1) {
+        if (selectedTable == 2) {
           $.ajax({
             url: 'atualizar_categoria.php', // Substitua pelo URL do seu script PHP de atualização
             type: 'POST',
@@ -544,7 +543,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
           });
         });
         const id = selectedRow.querySelector('input[type="radio"]').value;
-        if (selectedTable == 1) {
+        if (selectedTable == 2) {
 
           $.ajax({
             url: 'excluir_categoria.php', // Substitua pelo URL do seu script de exclusão
@@ -566,9 +565,35 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
               alert('Erro na solicitação AJAX.');
             }
           });
-        } else {
+        }
+        if (selectedTable == 1) {
           $.ajax({
-            url: 'excluir_unidade.php', // Substitua pelo URL do seu script de exclusão
+              url: 'excluir_unidade.php', // Substitua pelo URL do seu script de exclusão
+              type: 'POST',
+              dataType: 'json',
+              data: {
+                id: id
+              },
+              success: function(response) {
+                if (response.success) {
+                  // Remova a linha da tabela
+                  selectedRow.remove();
+                  alert(response.message);
+                } else {
+                  alert(response.message);
+                }
+              },
+              error: function() {
+                alert('Erro na solicitação AJAX.');
+              }
+            }
+
+          );
+
+        }
+        if (selectedTable == 0) {
+          $.ajax({
+            url: 'excluir_usuario.php', // Substitua pelo URL do seu script de exclusão
             type: 'POST',
             dataType: 'json',
             data: {
@@ -587,7 +612,6 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
               alert('Erro na solicitação AJAX.');
             }
           });
-
         }
       }
     </script>
@@ -597,7 +621,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
     <script>
       function performSearch(i) {
-        const tableRows = document.querySelectorAll("#myTable tr");
+        const tableRows = document.querySelectorAll(".myTable tr");
         console.log(tableRows);
 
         const search = document.querySelectorAll("#search");
@@ -679,6 +703,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadUsuario'])) {
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadProduto'])) {
   $foto = isset($_FILES['arquivoFoto']) ? $_FILES['arquivoFoto'] : null;
   //echo "fon";
+
   cadProd($foto);
 }
 ?>
