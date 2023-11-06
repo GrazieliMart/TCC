@@ -82,6 +82,17 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
       font-weight: normal;
       text-align: center;
     }
+    button{
+      background-color: #1D79A1;
+      border: #fff 2px solid;
+      border-radius:2px;
+      color: #ffffff;
+     
+    }
+   input{
+    border: none;
+    border-radius:3px;
+   }
   </style>
 </head>
 
@@ -130,6 +141,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
           <input id="ok-button1" name="cadProduto" aria-required="click" type="submit" value="Cadastrar"></input>
           <br>
+          
           <a href="cadastro.php" class="linkVoltar">Voltar</a>
         </div>
 
@@ -176,7 +188,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
 
 
-            <button type="button" id="openModalBtn">Abrir Tabela</button>
+            <button type="button" id="openModalBtn">Usuários Existentes</button>
             <br>
             <div id="myModal" class="modal">
               <div class="modal-content">

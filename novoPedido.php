@@ -1,15 +1,11 @@
 <?php
-//tratar o warnning de erro https://www.totvs.com/  https://admsistemas.com.br/almoxarifado/  https://solucao.digital/?gclid=EAIaIQobChMImafKqsKf_wIVtkZIAB30Tw1pEAAYAiAAEgJLWfD_BwE
-
-
-  // prova cadastro de php em banco de dados https://nicepage.com/pt/modelos-html
 ini_set('display_errors', 0);
 set_error_handler('tratarAviso');
+
 function tratarAviso($errno, $errstr, $errfile, $errline)
 {
- 
-  include 'login.php';
-  exit(); 
+    include 'login.php';
+    exit();
 }
 
 session_start();
@@ -17,14 +13,53 @@ session_start();
 $username = $_SESSION['username'];
 
 if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
+    $username = $_SESSION['username'];
+    $level = $_SESSION['level'];
+    $logado = true;
+}
 
-  $username = $_SESSION['username'];
+// Verifica o nível de acesso do usuário e exibe os cards correspondente
+include('bd.php');
 
-  $level = $_SESSION['level'];
-  $logado = true;}
-  // Verifica o nível de acesso do usuário e exibe os cards correspondente
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cadPedido'])) {
+  // Obtenha os valores do formulário
+  $cliente = isset($_POST['cliente']) ? $_POST['cliente'] : "";
+  $dataPedido = isset($_POST['dataPedido']) ? $_POST['dataPedido'] : "";
+  $observacoes = isset($_POST['observacoes']) ? $_POST['observacoes'] : "";
+  $produtos = $_POST['produtos']; // Produtos selecionados
 
-  ?>  
+  $pdo = conexaoBd();
+
+  try {
+    $codigo = 3; // Vazio
+    $status = "Pedido Efetuado";
+    $OSGM = 0; 
+    $stmt = $pdo->prepare("INSERT INTO Pedido (codigo, cliente, dataPedido, status, OSGM, observacoes, produtos) VALUES (:codigo, :cliente, :dataPedido, :status, :OSGM, :observacoes, :produtos)");
+
+      // Associe os parâmetros com os valores do formulário
+      $stmt->bindParam(':codigo', $codigo, PDO::PARAM_STR);
+      $stmt->bindParam(':cliente', $cliente, PDO::PARAM_STR);
+      $stmt->bindParam(':dataPedido', $dataPedido, PDO::PARAM_STR);
+      $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+      $stmt->bindParam(':OSGM', $OSGM, PDO::PARAM_STR);
+      $stmt->bindParam(':observacoes', $observacoes, PDO::PARAM_STR);
+
+      // Converta o array de produtos em uma string
+      $produtosStr = implode(', ', $produtos);
+      $stmt->bindParam(':produtos', $produtosStr, PDO::PARAM_STR);
+
+      // Execute a consulta
+      if ($stmt->execute()) {
+          echo '<script>alert("Pedido Efetuado!");</script>';
+      } else {
+          echo '<script>alert("Erro ao efetuar o pedido.");</script>';
+      }
+  } catch (PDOException $ex) {
+      echo $ex->getMessage();
+      echo '<script>alert("Erro: ' . $ex->getMessage() . '");</script>';
+  }
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -44,50 +79,44 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 <body>	
 <?php
   include 'menuLateral.php';
+
 ?>
 
 
 
 <div class="col-md-10 ml-sm-auto">
-	<form class="divPedidoNovo2">
-		<div class="titleRelatorio">
-		<h1 >Novo Pedido</h1>
+
+
+<form class="divPedidoNovo2" method="post" name="formPedidos">
+    <div class="titleRelatorio">
+        <h1>Pedido</h1>
+    </div>
+    <div class="divTextForm">
+       
+        <label for="produto">Selecione um Produto</label>
+        <select class="formaticRelatorio" id="produto" required name="produto">
+            <option selected disabled>Selecione um produto</option>
+            <?php
+            consultaProdutoTCC();
+            ?>
+        </select>
+        <label for="cliente">Cliente</label>
+        <input type="text" id="cliente" name="cliente" placeholder="Digite o nome do cliente" required class="formaticTextRelatorio">
+
+        <label for="observacoes">Observações</label>
+        <input type="text" id="observacoes" name="observacoes" placeholder="Atribua observações e especificações sobre o seu pedido" required class="formaticTextRelatorio">
+
+        <div class="delivery-date">
+            <label for="dataPedido">Data do Pedido</label><br>
+            <input type="date" id="dataPedido" name="dataPedido" placeholder="" required class="formaticTextRelatorio">
         </div>
-
-        <div class="divTextRelatorio1">
-		<label for="nome">Código de Usuário</label>
-		<input type="text" id="nome" name="nome" placeholder="Digite seu nome" required  class="formaticTextRelatorio">
-    <label for="nome">Ordem de Serviço</label>
-		<input type="text" id="nome" name="nome" placeholder="Digite o Código de Serviço" required  class="formaticTextRelatorio">
-        <label for="produto">Produto</label>
-		<select id="produto" name="produto" class="formaticRelatorio">
-      <option value="">Selecione um filtro</option>
-	  <option value="mensal">Hidraulica</option>
-	  <option value="semestral">Elétrica</option>
-      <option value="semestral">Cabeamento</option>
-      <option value="semestral">Estrutura (Aço,concreto,alvenaria...)</option>
-      <option value="semestral">Cobertura</option>
-      <option value="semestral">Impermeabilidade</option>
-      <option value="semestral">SPDA</option>
-      <option value="semestral">Pintura</option>
-      <option value="semestral">Climatização</option>
-      <option value="semestral">Pavimentação</option>
-	  </select>
-		
-		<label for="quantidade">Observações</label>
-        <input type="text" id="observacao" name="observacao" required class="formaticTextRelatorio">
-
-        <label for="quantidade">Quantidade</label>
-			<input type="number" id="quantidade" name="quantidade" required class="formaticTextRelatorio">
-				<div class="delivery-date">
-				  <label for="delivery">Data de entrega</label><br>
-				  <input type="date" id="delivery" placeholder="" required class="formaticTextRelatorio">
-                  <br>
-                  
-</div>
-  </div>	<input type="submit" value="Solicitar" class="btnRelatorio1">
-  
+    </div>
+   
+        <input class="btnRelatorio1" name="cadPedido" aria-required="click" type="submit" value="Solicitar"></input>
+        
+   
 </form>
+
 
 </div>
         <footer class="footer">

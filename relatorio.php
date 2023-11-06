@@ -103,7 +103,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
 
 
-  ?> 
+
 
   <footer class="footer">
       <p class="footer-text">SARS | UNICAMP | COTIL</p>
