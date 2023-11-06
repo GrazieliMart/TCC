@@ -1,5 +1,5 @@
 <?php
-// Inclua o código para estabelecer uma conexão com o banco de dados aqui
+
 include 'bd.php';
 
 // Verifique se o método da requisição é POST

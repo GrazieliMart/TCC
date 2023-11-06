@@ -7,6 +7,11 @@
     max-height:150px;
     overflow-y:auto;
 }
+
+*{
+    box-sizing: content-boxt;
+}
+
 body{
     
     margin: 0;
@@ -107,9 +112,10 @@ body{
     background: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
     justify-content: center;
+    
     align-items: center;
-    height: 400px;
-    width: 800px;
+    height: 60%;
+    width: 50%;
     color: #fff;
     position: absolute;
     left: 50%;
