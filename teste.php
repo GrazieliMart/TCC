@@ -13,8 +13,8 @@ $query = "SELECT * FROM Pedido";
 
 // Executa a consulta
 $result = $pdo->query($query);
-?>
 
+?>
 <!DOCTYPE html>
 <html>
 
@@ -38,7 +38,7 @@ $result = $pdo->query($query);
         <?php
         // Loop através dos resultados da consulta e exiba-os na tabela
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            echo "<tr class='open-modal-on-double-click' data-toggle='modal' data-target='#myModal'>";
+            echo "<tr data-pedido-id='" . $row['codigo'] . "' class='open-modal-on-double-click' data-toggle='modal' data-target='#myModal'>";
             echo "<td>" . $row['codigo'] . "</td>";
             echo "<td>" . $row['dataPedido'] . "</td>";
             echo "<td>" . $row['cliente'] . "</td>";
@@ -60,27 +60,99 @@ $result = $pdo->query($query);
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Conteúdo do modal aqui -->
+                    <h2>Dados do Pedido</h2>
+                    <form id="pedidoForm">
+                        <label for="codigo">Código:</label>
+                        <input type="text" id="codigo" name="codigo" readonly>
+                        <br>
+                        <label for="dataPedido">Data do Pedido:</label>
+                        <input type="text" id="dataPedido" name="dataPedido" readonly>
+                        <br>
+                        <label for="cliente">Cliente:</label>
+                        <input type="text" id="cliente" name="cliente" readonly>
+                        <br>
+                        <label for="osgm">OSGM:</label>
+                        <input type="text" id="osgm" name="osgm" readonly>
+                        <br>
+                        <label for="status">Status:</label>
+                        <input type="text" id="status" name="status" readonly>
+                    </form>
+
+                    <h2>Itens do Pedido</h2>
+                    <div id="itemPedidoList">
+                        <!-- Itens do pedido serão preenchidos dinamicamente aqui -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <script>
-        // Adicione um ouvinte de eventos para o duplo clique nas linhas da tabela
-        document.addEventListener('DOMContentLoaded', function () {
-            var rows = document.querySelectorAll('.open-modal-on-double-click');
-            rows.forEach(function (row) {
-                row.addEventListener('dblclick', function () {
-                    $('#myModal').modal('show'); // Exibe o modal
-                });
-            });
-        });
-    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    <script>
+        // Adicione um ouvinte de eventos para o duplo clique nas linhas da tabela
+        // ...
+        $(document).on('dblclick', '.open-modal-on-double-click', function() {
+            var pedidoId = $(this).data('pedido-id');
+            console.log(pedidoId);
+            // Preencha os dados do Pedido no modal
+            $.ajax({
+                url: 'obter_pedidos.php', // Substitua pela URL do seu script que retorna os dados do Pedido
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    pedidoId: pedidoId
+                },
+                success: function(data) {
+                    console.log(data);
+                    // Preencha os campos do Pedido no modal com os dados obtidos
+                    $('#codigo').val(data.codigo);
+                    $('#dataPedido').val(data.dataPedido);
+                    $('#cliente').val(data.cliente);
+                    $('#osgm').val(data.OSGM);
+                    $('#status').val(data.status);
+                },
+                error: function() {
+                    alert('Erro na solicitação AJAX para obter os dados do Pedido.');
+                }
+            });
 
+            // Preencha os Itens do Pedido no modal
+            var itemPedidoList = $('#itemPedidoList');
+            itemPedidoList.empty(); // Limpe a lista de Itens do Pedido
+
+            // Obtenha os dados dos Itens do Pedido com base no pedidoId usando uma requisição AJAX
+            $.ajax({
+                url: 'obter_itens.php', // Substitua pela URL do seu script que retorna os Itens do Pedido
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    pedidoId: pedidoId
+                },
+                success: function(data) {
+                    // Preencha os Itens do Pedido no modal
+                    data.forEach(function(item) {
+                        var itemPedidoForm = `
+                    <form>
+                        <label for="produto">Produto:</label>
+                        <input type="text" id="produto" name="produto" value="${item.produto}" readonly>
+                        <br>
+                        <label for="quantidade">Quantidade:</label>
+                        <input type="text" id="quantidade" name="quantidade" value="${item.quantidade}" readonly>
+                    </form>
+                `;
+                        itemPedidoList.append(itemPedidoForm);
+                    });
+                },
+                error: function() {
+                    alert('Erro na solicitação AJAX para obter os Itens do Pedido.');
+                }
+            });
+
+            $('#myModal').modal('show'); // Exibe o modal
+        });
+        // ...
+    </script>
 </body>
 
 </html>
