@@ -159,7 +159,7 @@ function cadProd($foto)
         echo '<script>Swal.fire("Erro", "Erro: ' . $ex->getMessage() . '", "error");</script>';
     }
 }
-function cadUsuario($name, $code, $level, $senha)
+function cadUsuario($name, $code, $level, $senha,$email)
 {
     $pdo = conexaoBd();
 
@@ -181,9 +181,10 @@ function cadUsuario($name, $code, $level, $senha)
     $hashed_password = password_hash($senha, PASSWORD_BCRYPT);
 
     // Inserir usuário no banco de dados usando uma consulta preparada
-    $insert_query = "INSERT INTO login (usuario, level, senha_hash) VALUES (:username, :level, :password_hash)";
+    $insert_query = "INSERT INTO login (usuario, level, senha_hash, email) VALUES (:username, :level, :password_hash, :email)";
     $stmt = $pdo->prepare($insert_query);
     $stmt->bindParam(":username", $name);
+    $stmt->bindParam(":email", $email);
     $stmt->bindParam(":password_hash", $hashed_password);
     $stmt->bindParam(":level", $level);
 
@@ -506,3 +507,20 @@ function consultaProdutoTCC()
     }
     $pdo = null;
 }
+
+function consultaUsuario(){
+    try {
+        $pdo = conexaoBD();
+        $stmt = $pdo->prepare('SELECT usuario FROM login');
+        $stmt->execute();
+        while ($row = $stmt->fetch()) {
+
+            echo " <option value='" . $row["usuario"] . "'>" . $row['usuario'] . "</option>";
+        }
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+    $pdo = null;
+
+}
+

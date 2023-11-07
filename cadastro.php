@@ -163,6 +163,9 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
             <label for="name">Nome</label>
             <input type="text" class="formaticTextRelatorio" id="name" name="name" placeholder="Insira o nome" required>
 
+            <label for="name">E-mail</label>
+            <input type="email" class="formaticTextRelatorio" id="email" name="email" placeholder="Insira o e-mail" required>
+
 
             <label for="code">Código de funcionário</label>
             <input type="text" class="formaticTextRelatorio" id="code" name="code" placeholder="Insira o código" required>
@@ -700,10 +703,11 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadUsuario'])) {
 
   $name = $_POST['name'];
+  $email = $_POST['email'];
   $code = $_POST["code"];
   $level = $_POST['level'];
   $senha = $_POST['senha'];
-  cadUsuario($name, $code, $level, $senha);
+  cadUsuario($name, $code, $level, $senha,$email);
 } else if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cadCat'])) {
 
   $name = $_POST['name'];

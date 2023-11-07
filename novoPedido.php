@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cadPedido'])) {
   $cliente = isset($_POST['cliente']) ? $_POST['cliente'] : "";
   $dataPedido = isset($_POST['dataPedido']) ? $_POST['dataPedido'] : "";
   $observacoes = isset($_POST['observacoes']) ? $_POST['observacoes'] : "";
-  $produtos = $_POST['produtos']; // Produtos selecionados
+
 
   $pdo = conexaoBd();
 
@@ -92,17 +92,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cadPedido'])) {
         <h1>Pedido</h1>
     </div>
     <div class="divTextForm">
+
+    <label for="cliente">Código</label>
+    <input type="number" name="codigo" id="codigo" class="formaticTextRelatorio" required>
        
-        <label for="produto">Selecione um Produto</label>
-        <select class="formaticRelatorio" id="produto" required name="produto">
-            <option selected disabled>Selecione um produto</option>
-            <?php
-            consultaProdutoTCC();
+        <label for="cliente">Solicitante</label>
+        <select name="solicitante" id="solicitante" class="formaticTextRelatorio" required>
+            <?php 
+            consultaUsuario();
             ?>
         </select>
-        <label for="cliente">Cliente</label>
-        <input type="text" id="cliente" name="cliente" placeholder="Digite o nome do cliente" required class="formaticTextRelatorio">
+       
 
+        <label for="cliente">OS-GM</label>
+    <input type="number" name="osgm" id="osgm" class="formaticTextRelatorio" required>
+        
         <label for="observacoes">Observações</label>
         <input type="text" id="observacoes" name="observacoes" placeholder="Atribua observações e especificações sobre o seu pedido" required class="formaticTextRelatorio">
 
