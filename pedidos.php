@@ -99,10 +99,10 @@ $result = $pdo->query($query);
             <div class="pedido">
                 <table class="table table-striped table-hover" border="1">
                     <tr>
-                        <th>Codigo</th>
-                        <th>Data do Pedido</th>
-                        <th>Cliente</th>
-                        <th>osgm</th>
+                        <th>Código</th>
+                        <th>Data</th>
+                        <th>Solicitante</th>
+                        <th>OSGM</th>
                         <th>Status</th>
                     </tr>
 
@@ -141,17 +141,23 @@ $result = $pdo->query($query);
                         <label for="codigo">Código:</label>
                         <input type="text" id="codigo" name="codigo" readonly>
                         <br>
-                        <label for="dataPedido">Data do Pedido:</label>
+                        <label for="dataPedido">Data</label>
                         <input type="text" id="dataPedido" name="dataPedido" readonly>
                         <br>
-                        <label for="cliente">Cliente:</label>
+                        <label for="cliente">Solicitante:</label>
                         <input type="text" id="cliente" name="cliente" readonly>
                         <br>
                         <label for="osgm">OSGM:</label>
                         <input type="text" id="osgm" name="osgm" readonly>
                         <br>
                         <label for="status">Status:</label>
-                        <input type="text" id="status" name="status" readonly>
+                        <select name="status" id="status">
+                            <option value="Recebido">Recebido</option>
+                            <option value="Atendido">Atendido</option>
+                            <option value="Cancelado">Cancelado</option>
+                        </select>
+                      
+                        <input type="submit" value="Salvar">
                     </form>
 
                     <h2>Itens do Pedido</h2>
@@ -227,8 +233,18 @@ $result = $pdo->query($query);
 
             $('#myModal').modal('show'); // Exibe o modal
         });
+
         // ...
     </script>
+    <script>
+        $(document).ready(function() {
+            $(".close").click(function() {
+                $("#myModal").hide();
+                $(".modal-backdrop").remove();
+            });
+        });
+    </script>
+
 
 
     <footer class="footer">
