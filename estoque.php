@@ -83,12 +83,39 @@ include("bd.php");
       background-color: lightsteelblue;
       width: 50%;
       max-width: 600px;
-      margin: 100px auto;
+      margin: 5px auto;
       padding: 20px;
       border-radius: 5px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
+    .modal-content input {
+  width: 100%;
+  
+ 
+  border: none;
+  background: #fff; 
+  border-radius: 5px; 
+}
+.modal-content label {
+  display: block;
+  margin-left: 0;
+}
+.modal-content input[type="submit"] {
+    background-color: #03638C;
+    border: none;
+    border-radius: 20px;
+    margin-top:10px;
+    padding: 6px 12px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+}
 
+.modal-content input[type="submit"]:hover {
+    background-color: #1D79A1;
+    transition: 0.2s;
+}
     .table {
       width: 100%;
     }
@@ -286,11 +313,11 @@ include("bd.php");
             location.reload(); // Recarregue a página ou atualize a tabela de forma mais eficiente
           } else {
 
-            alert('Erro ao sdsadsadsaeditar produto!');
+            alert('Erro ao editar produto!');
           }
         },
         error: function() {
-          alert('Erro ao editar produto11111111!');
+          alert('Erro ao editar produto!');
         }
       });
     });

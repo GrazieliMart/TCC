@@ -68,6 +68,35 @@ function buscarLogin($code, $pdo)
     $rows = $stmt->rowCount();
     return $rows;
 }
+function cadPedido($codigo,$cliente,$observacoes,$dataPedido)
+{
+    $pdo = conexaoBd();
+    try {
+        if (isset($_POST['cadPedido'])) {
+            $codigo = isset($_POST['codigo']) ? $_POST['codigo'] : "";
+            $cliente = isset($_POST['cliente']) ? $_POST['cliente'] : "";
+            $observacoes = isset($_POST['observacoes']) ? $_POST['observacoes'] : "";
+            $dataPedido = isset($_POST['dataPedido']) ? $_POST['dataPedido'] : "";
+
+            $stmt = $pdo->prepare("INSERT INTO testePedidos (codigo, cliente, observacoes, dataPedido)
+                                   VALUES (:codigo, :cliente, :observacoes, :dataPedido)");
+
+            $stmt->bindParam(':codigo', $codigo);
+            $stmt->bindParam(':cliente', $cliente);
+            $stmt->bindParam(':observacoes', $observacoes);
+            $stmt->bindParam(':dataPedido', $dataPedido);
+
+            if ($stmt->execute()) {
+                echo '<script>Swal.fire("Sucesso", "Pedido Efetuado!", "success");</script>';
+            } else {
+                echo '<script>Swal.fire("Erro", "Tente Novamente!", "error");</script>';
+            }
+        }
+    } catch (PDOException $ex) {
+        echo $ex->getMessage();
+        echo '<script>Swal.fire("Erro", "Erro: ' . $ex->getMessage() . '", "error");</script>';
+    }
+}
 
 function cadProd($foto)
 {
@@ -454,6 +483,23 @@ function consultaCat()
         $stmt->execute();
         while ($row = $stmt->fetch()) {
             echo " <option value='" . $row["id"] . "'>" . $row['name'] . "</option>";
+        }
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+    $pdo = null;
+}
+
+function consultaProdutoTCC()
+{
+    try {
+        $pdo = conexaoBD();
+
+        $stmt = $pdo->prepare('SELECT nome FROM produtoTCC');
+        $stmt->execute();
+
+        while ($row = $stmt->fetch()) {
+            echo '<option value="' . $row["nome"] . '">' . $row['nome'] . '</option>';
         }
     } catch (PDOException $e) {
         echo $e->getMessage();
