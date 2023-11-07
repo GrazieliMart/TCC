@@ -5,7 +5,10 @@ if (isset($_GET['code'])) {
     $code = $_GET['code'];
 
     // Consulta SQL para buscar os dados do produto com base no código
-    $sql = "SELECT * FROM produtoTCC WHERE code = :code";
+    $sql = "SELECT *
+FROM produtoTCC
+WHERE produtoTCC.code = :code;
+";
     // Prepare a consulta
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':code', $code);

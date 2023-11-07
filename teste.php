@@ -1,87 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Editar Dados</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Formulário de Cadastro de Pedido</title>
 </head>
 <body>
-    <table id="data-table">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Ações</th>
-        </tr>
-        <!-- Dados serão preenchidos dinamicamente aqui -->
-    </table>
+    <h2>Cadastro de Pedido</h2>
+    <form method="POST">
+        <label for="codigo">Código:</label>
+        <input type="number" name="codigo" required><br><br>
 
-    <div id="edit-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="close-modal">&times;</span>
-            <h2>Editar Dados</h2>
-            <input type="text" id="new-name" placeholder="Novo Nome">
-            <button id="save-changes">Salvar Alterações</button>
+        <label for="solicitante">Solicitante:</label>
+        <input type="text" name="solicitante" required><br><br>
+
+        <label for="osgm">OSGM:</label>
+        <input type="number" name="osgm" required><br><br>
+
+        <label for="obs">Observações:</label>
+        <input type="text" name="obs" required><br><br>
+
+        <label for="data">Data:</label>
+        <input type="date" name="data" required><br><br>
+
+        <h3>Produtos</h3>
+        <div id="produtos">
+            <div class="produto">
+                <label for="produto">Produto:</label>
+                <input type="text" name="produto[]">
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" name="quantidade[]">
+            </div>
         </div>
-    </div>
+        <button type="button" onclick="adicionarProduto()">Adicionar Produto</button><br><br>
 
-    <script src="script.js"></script>
+        <input type="submit" value="Salvar Pedido">
+    </form>
+
+    <script>
+        function adicionarProduto() {
+            const produtosDiv = document.getElementById("produtos");
+            const novoProdutoDiv = document.querySelector(".produto").cloneNode(true);
+            produtosDiv.appendChild(novoProdutoDiv);
+        }
+    </script>
 </body>
 </html>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Editar Dados</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
+
 <?php
-          $pdo = conexaoBD();
-          $stmt = $pdo->prepare("select * from unidadeMedida");
+try {
+    // Conectar-se ao banco de dados (substitua as informações do banco de dados)
+    include('bd.php'); // Supondo que bd.php tenha a função de conexão
 
-          try {
-            //buscando dados
-            $stmt->execute();
-          ?>
-    <table id="data-table">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Ações</th>
-        </tr>
-        <?php
-                while ($row = $stmt->fetch()) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $pdo = conexaoBd(); // Certifique-se de que a função de conexão está retornando uma instância PDO.
+// Recuperar dados do formulário
+$codigo = $_POST['codigo'];
+$solicitante = $_POST['solicitante'];
+$osgm = $_POST['osgm'];
+$obs = $_POST['obs'];
+$data = $_POST['data'];
+$produtos = $_POST['produto'];
+$quantidades = $_POST['quantidade'];
 
-                  echo "<tr>";
-                  echo "<td><input type='radio' name='raAluno' 
-                            value='" . $row['id'] . "'>";
-                  echo "<td>" . $row['name'] . "</td>";
-                  echo "</tr>";
-                }
-                echo "</table><br>";
-                echo '</div>';
+// Inserir o pedido na tabela "Pedidos"
+$sql_pedido = "INSERT INTO Pedido (codigo, cliente, dataPedido, OSGM, observacoes) VALUES (?, ?, ?, ?, ?)";
+$stmt_pedido = $pdo->prepare($sql_pedido);
+$stmt_pedido->execute([$codigo, $solicitante, $data, $osgm, $obs]);
+// Inserir os produtos na tabela "ItemPedido" com o pedido_id correspondente
+$sql_produto = "INSERT INTO ItemPedido (codigoPedido, codigoItem, quantidade) VALUES (?, ?, ?)";
+$stmt_produto = $pdo->prepare($sql_produto);
 
-                echo "<button type='submit' formaction='remove.php'>Excluir</button>";
-                echo "<button type='submit' formaction='edicao.php'>Editar</button>";
-                echo "</form>";
-              } catch (PDOException $e) {
-                echo 'Error: ' . $e->getMessage();
-              }
+for ($i = 0; $i < count($produtos); $i++) {
+    echo $produto = $produtos[$i];
+    echo $quantidade = $quantidades[$i];
+    $stmt_produto->execute([$codigo, $produto, $quantidade]);
+}
 
-              $pdo = null;
+echo "Pedido cadastrado com sucesso!";
 
 
-                ?>
-        <!-- Dados serão preenchidos dinamicamente aqui -->
-    </table>
-
-    <div id="edit-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="close-modal">&times;</span>
-            <h2>Editar Dados</h2>
-            <input type="text" id="new-name" placeholder="Novo Nome">
-            <button id="save-changes">Salvar Alterações</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+    } else {
+        echo 'erro';
+    }
+} catch (Exception $e) {
+    echo "Ocorreu um erro: " . $e->getMessage();
+}
+?>

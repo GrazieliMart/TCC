@@ -37,29 +37,32 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
         body {
             margin: 0;
             overflow: hidden;
+
         }
 
         .iframe-container {
-          margin-top: 40px;
-          margin-right: 90px;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-          
-        }
 
-        iframe {
-          margin-top: 100px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%; 
-            height: 100%; 
-            border: none;
-            transform-origin: 0 0;
-            
-            margin-right: 10px;
-        
+
+          
+            overflow: hidden;
+            margin-top: 30px;
+            zoom: 130%;
+            margin-right: 90px;
+
+
+            /* 16:9 aspect ratio */
+         
+            position: relative;
+
+            width: 138%;
+            height: 125%;
+           
+           
+          
+
+
+          
+          
         }
 
 
@@ -79,12 +82,20 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
 
   ?>
+<br>
+<br>
+<br>
+<br>
 
-<div class="divRelatorio1">
-    <div class="titleRelatorio">
+<div class="divRelatorio12">
+  
+    <div class="titleRelatorio1">
       <h1>Relatório</h1>
     </div>
     <br>
+    <br>
+    <br>
+
 
 
   
@@ -92,7 +103,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 <div class="iframe-container">
     <iframe title="relatorio" src="https://app.powerbi.com/reportEmbed?reportId=6662da05-e53d-4b46-9e69-1f693bb3d0f1&autoAuth=true&ctid=d3acd233-2d54-401d-8cc3-d86d8614b7c5" frameborder="0" allowFullScreen="true"
       
-      style="width: 95%; height: 84%;"></iframe>
+      style="width: 1000px; height: 700px;"></iframe>
       <!-- ele "tem" que ficar desse jeito p manter filtro e página escondido.  esse aqui muda diretamente no tamanho de exibição, os outros sao tentativas-->
 </div>
 </div>
@@ -103,7 +114,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
 
 
-  ?> 
+
 
   <footer class="footer">
       <p class="footer-text">SARS | UNICAMP | COTIL</p>

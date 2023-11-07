@@ -7,6 +7,11 @@
     max-height:150px;
     overflow-y:auto;
 }
+
+*{
+    box-sizing: content-boxt;
+}
+
 body{
     
     margin: 0;
@@ -107,9 +112,10 @@ body{
     background: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
     justify-content: center;
+    
     align-items: center;
-    height: 400px;
-    width: 800px;
+    height: 60%;
+    width: 50%;
     color: #fff;
     position: absolute;
     left: 50%;
@@ -152,24 +158,21 @@ body{
 
 
 
-/*MEXENDO NESSE AQUI, bianca */
 
 
-
-  }
-  
 
 .divRelatorio1 {
     background: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
+   
+    height: 500px;
+    width: 800px;
     color: #fff;
 
     position: fixed ;
-    left: 15%;
+
+    
+    
     
     
     top:100px;
@@ -187,6 +190,66 @@ body{
 
 }
 
+
+
+/*MEXENDO NESSE AQUI, bianca */
+
+
+
+  
+
+.divRelatorio12 {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+   
+    height: 500px;
+    width: 800px;
+    color: #fff;
+    padding-left: 70px;
+    padding-right: 370px;
+    padding-bottom: 300px;
+
+    position: absolute ;
+
+    
+    
+    
+    
+    top:100px;
+     /* Centraliza horizontal e verticalmente */
+   
+   
+  
+    border: 2px #fff solid;
+
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%); 
+    position: fixed;
+    margin-top: 10px;
+
+}
+
+
+.titleRelatorio1 {
+    display: flex;
+    
+    margin-left: 500px;
+    position: absolute;
+    width: 100%;
+    top: 50px;
+    transform: translateY(-50%);
+}
+
+.titleRelatorio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    top: 40px;
+    transform: translateY(-50%);
+}
 
 
 
@@ -241,7 +304,7 @@ body{
     justify-content: center;
     font-size: 15px;
     font-weight: bold;
-    top: 80px;
+    top: 120px;
    
     margin-left: 5%;
 }
@@ -475,15 +538,6 @@ body{
     box-shadow: 0px 4px 8px rgba(7, 95, 136, 0.3);
     transition: .3s;
 }
-.titleRelatorio {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    width: 100%;
-    top: 40px;
-    transform: translateY(-50%);
-}
 .divWelcome3{
     display: flex;
     justify-content: center;
@@ -502,6 +556,7 @@ body{
     flex-direction: row; /* Alinhar a imagem e o texto na mesma linha */
     justify-content: center;
     align-items: center;
+    
   }
 .divRelatorio3 .divWelcome2 {
     text-align: center;
@@ -867,7 +922,7 @@ ul li.item-menu{
   }
       .formaticTextRelatorioEstoque {
        
-        width: 88%;
+        width: 85%;
       }
     .divRelatorio3 {
         width: 300px;
