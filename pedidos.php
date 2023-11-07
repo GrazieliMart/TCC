@@ -137,9 +137,9 @@ $result = $pdo->query($query);
                 </div>
                 <div class="modal-body">
                     <h2>Dados do Pedido</h2>
-                    <form id="pedidoForm">
+                    <form id="pedidoForm" method='POST'>
                         <label for="codigo">Código:</label>
-                        <input type="text" id="codigo" name="codigo" readonly>
+                        <input type="number" id="codigo" name="codigo" readonly>
                         <br>
                         <label for="dataPedido">Data</label>
                         <input type="text" id="dataPedido" name="dataPedido" readonly>
@@ -153,11 +153,12 @@ $result = $pdo->query($query);
                         <label for="status">Status:</label>
                         <select name="status" id="status">
                             <option value="Recebido">Recebido</option>
+                            <option value="Liberado">Liberado</option>
                             <option value="Atendido">Atendido</option>
                             <option value="Cancelado">Cancelado</option>
                         </select>
                       
-                        <input type="submit" value="Salvar">
+                        <button type="button" id='editar'>Salvar</button>
                     </form>
 
                     <h2>Itens do Pedido</h2>
@@ -174,7 +175,13 @@ $result = $pdo->query($query);
     <script>
         // Adicione um ouvinte de eventos para o duplo clique nas linhas da tabela
         // ...
-        $(document).on('dblclick', '.open-modal-on-double-click', function() {
+        var screen;
+        if (window.innerWidth >= 768) { // Exemplo: Defina a largura de tela desejada para considerar como "tela grande"
+            screen = 'dblclick';
+    } else {
+        screen = 'click'
+    }
+        $(document).on(screen, '.open-modal-on-double-click', function() {
             var pedidoId = $(this).data('pedido-id');
             console.log(pedidoId);
             // Preencha os dados do Pedido no modal
@@ -245,7 +252,29 @@ $result = $pdo->query($query);
 });
 
     </script>
-
+    <script>
+        $(document).on('click','#editar',function() {
+            var itemCodigo = $('#codigo').val();
+            var itemStatus = $('#status').val();
+            console.log(itemCodigo,itemStatus);
+            $.ajax({
+                url: 'atualizar_pedido.php', // Substitua pela URL do seu script que retorna os Itens do Pedido
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    codigo: itemCodigo,
+                    status: itemStatus
+                },
+                success: function(response){
+                    alert(response.message);
+                    location.reload();
+                },
+                error: function(){
+                    alert('Erro na requisição AJAX');
+                }
+            });
+        })
+    </script>
 
 
     <footer class="footer">
