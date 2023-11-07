@@ -238,11 +238,12 @@ $result = $pdo->query($query);
     </script>
     <script>
         $(document).ready(function() {
-            $(".close").click(function() {
-                $("#myModal").hide();
-                $(".modal-backdrop").remove();
-            });
-        });
+    $(".close").click(function() {
+        $("#myModal").modal('hide'); // Corrigido para 'hide'
+        //$(".modal-backdrop").hide();
+    });
+});
+
     </script>
 
 
