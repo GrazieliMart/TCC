@@ -41,6 +41,7 @@ $result = $pdo->query($query);
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,9 +58,11 @@ $result = $pdo->query($query);
             margin: 10px;
             width: calc(50% - 20px);
         }
+
         .card.hidden {
             display: none;
         }
+
         .pedido {
             max-height: 450px;
             /* Altura máxima desejada para a tabela */
@@ -83,7 +86,7 @@ $result = $pdo->query($query);
             <div>
                 <input type="date" id="dataInicial" placeholder="Data inicial">
                 <input type="date" id="dataFinal" placeholder="Data final">
-                
+
                 <select name="cliente1" id="cliente1">
                     <option value=""></option>
                     <?php consultaUsuario(); ?>
@@ -108,18 +111,20 @@ $result = $pdo->query($query);
                         <th>Status</th>
                     </tr>
 
-                    <?php
-                    // Loop através dos resultados da consulta e exiba-os na tabela
-                    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<tr data-pedido-id='" . $row['codigo'] . "' class='open-modal-on-double-click' data-toggle='modal' data-target='#myModal'>";
-                        echo "<td>" . $row['codigo'] . "</td>";
-                        echo "<td>" . $row['dataPedido'] . "</td>";
-                        echo "<td>" . $row['cliente'] . "</td>";
-                        echo "<td>" . $row['OSGM'] . "</td>";
-                        echo "<td>" . $row['status'] . "</td>";
-                        echo "</tr>";
-                    }
-                    ?>
+                    <tbody id='tbody'>
+                        <?php
+                        // Loop através dos resultados da consulta e exiba-os na tabela
+                        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                            echo "<tr data-pedido-id='" . $row['codigo'] . "' class='open-modal-on-double-click' data-toggle='modal' data-target='#myModal'>";
+                            echo "<td>" . $row['codigo'] . "</td>";
+                            echo "<td>" . $row['dataPedido'] . "</td>";
+                            echo "<td>" . $row['cliente'] . "</td>";
+                            echo "<td>" . $row['OSGM'] . "</td>";
+                            echo "<td>" . $row['status'] . "</td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -150,19 +155,19 @@ $result = $pdo->query($query);
                         <input type="text" id="osgm" name="osgm" readonly>
                         <br>
                         <label for="status">Status:</label>
-                        <?php if($level==3) {?>
+                        <?php if ($level == 3) { ?>
                             <select name="status1" id="status1">
-                            <option value="Recebido">Recebido</option>
-                            <option value="Liberado">Liberado</option>
-                            <option value="Atendido">Atendido</option>
-                            <option value="Cancelado">Cancelado</option>
-                        </select>
-                        
-                        <button type="button" id='editar'>Salvar</button>
-                        <?php }?>
-                        <?php if($level<3) {?>
+                                <option value="Recebido">Recebido</option>
+                                <option value="Liberado">Liberado</option>
+                                <option value="Atendido">Atendido</option>
+                                <option value="Cancelado">Cancelado</option>
+                            </select>
+
+                            <button type="button" id='editar'>Salvar</button>
+                        <?php } ?>
+                        <?php if ($level < 3) { ?>
                             <input type="text" id="status" readonly>
-                        <?php }?>
+                        <?php } ?>
                     </form>
 
                     <h2>Itens do Pedido</h2>
@@ -196,7 +201,7 @@ $result = $pdo->query($query);
                     $('#dataPedido').val(data.dataPedido);
                     $('#cliente').val(data.cliente);
                     $('#osgm').val(data.OSGM);
-                    $('#status').val(data.status);
+                    $('#status1').val(data.status);
                 },
                 error: function() {
                     alert('Erro na solicitação AJAX para obter os dados do Pedido.');
@@ -221,10 +226,10 @@ $result = $pdo->query($query);
                         var itemPedidoForm = `
                     <form>
                         <label for="produto">Produto:</label>
-                        <input type="text" id="produto" name="produto" value="${item.produto}" readonly>
+                        <input type="text" class="produto" name="produto" value="${item.produto}" readonly>
                         <br>
                         <label for="quantidade">Quantidade:</label>
-                        <input type="text" id="quantidade" name="quantidade" value="${item.quantidade}" readonly>
+                        <input type="text" class="quantidade" name="quantidade" value="${item.quantidade}" readonly>
                     </form>
                 `;
                         itemPedidoList.append(itemPedidoForm);
@@ -246,12 +251,20 @@ $result = $pdo->query($query);
         });
     </script>
     <script>
-        $(document).on('click','#editar',function() {
+        $(document).on('click', '#editar', function() {
             var itemCodigo = $('#codigo').val();
             var itemStatus = $('#status1').val();
-            var itemProduto = $('#produto').val();
-            var itemQuantidade = $('#quantidade').val();
-            console.log(itemCodigo,itemStatus);
+
+            var produtos = $('.produto').map(function() {
+                return $(this).val();
+            }).get();
+
+            var quantidades = $('.quantidade').map(function() {
+                return $(this).val();
+            }).get();
+
+            console.log(itemCodigo, itemStatus, produtos, quantidades);
+
             $.ajax({
                 url: 'atualizar_pedido.php',
                 method: 'POST',
@@ -259,18 +272,18 @@ $result = $pdo->query($query);
                 data: {
                     codigo: itemCodigo,
                     status: itemStatus,
-                    produto: itemProduto,
-                    quantidade: itemQuantidade
+                    produtos: produtos,
+                    quantidades: quantidades
                 },
-                success: function(response){
+                success: function(response) {
                     alert(response.message);
                     location.reload();
                 },
-                error: function(){
-                    alert('Erro na requisição AJAX');
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
                 }
             });
-        })
+        });
     </script>
     <script>
         $(document).ready(function() {
@@ -293,7 +306,7 @@ $result = $pdo->query($query);
                     },
                     success: function(data) {
                         // Limpe a tabela
-                        $('.table tbody').empty();
+                        $('#tbody').empty();
 
                         // Preencha a tabela com os novos dados
                         data.forEach(function(row) {
@@ -304,7 +317,7 @@ $result = $pdo->query($query);
                             newRow += '<td>' + row.OSGM + '</td>';
                             newRow += '<td>' + row.status + '</td>';
                             newRow += '</tr>';
-                            $('.table tbody').append(newRow);
+                            $('#tbody').append(newRow);
                         });
                     },
                     error: function() {
@@ -314,10 +327,21 @@ $result = $pdo->query($query);
             });
         });
     </script>
+
     <footer class="footer">
-        <footer>
-            <p class="footer-text">SARS | UNICAMP | COTIL</p>
-        </footer>
+
+        <p class="footer-text">
+            <a href="https://www.sar.unicamp.br/" style="color: white; text-decoration: none;">SARS</a> |
+            <a href="https://www.unicamp.br/unicamp/" style="color: white; text-decoration: none;">UNICAMP</a> |
+            <a href="https://www.cotil.unicamp.br/" style="color: white; text-decoration: none;">COTIL</a>
+        </p>
+
+        <p class="footer-text"> Copyright © 2023 Almoxarisars</p>
+
+
     </footer>
+
+
 </body>
+
 </html>

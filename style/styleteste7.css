@@ -48,7 +48,8 @@ body{
     width: 100%;
     left: 0;
     position: fixed;
-    display: flex;
+    display: wrap;
+    
     justify-content: center;
 }
 .container-pedidos{

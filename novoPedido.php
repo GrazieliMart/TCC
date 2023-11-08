@@ -109,9 +109,21 @@ include('bd.php');
 
     </div>
 
-    <footer class="footer">
-        <p class="footer-text">SARS | UNICAMP | COTIL</p>
-    </footer>
+   
+  <footer class="footer">
+   
+   <p class="footer-text">
+   <a href="https://www.sar.unicamp.br/" style="color: white; text-decoration: none;">SARS</a> | 
+   <a href="https://www.unicamp.br/unicamp/" style="color: white; text-decoration: none;">UNICAMP</a> | 
+   <a href="https://www.cotil.unicamp.br/" style="color: white; text-decoration: none;">COTIL</a>
+ </p>
+ 
+       <p class="footer-text"> Copyright © 2023 Almoxarisars</p>
+      
+ 
+     </footer>
+ 
+ 
     <script>
         function adicionarProduto() {
             const produtosDiv = document.getElementById("produtos");
@@ -139,37 +151,33 @@ try {
         $produtos = $_POST['produto'];
         $quantidades = $_POST['quantidade'];
 
-        $stmt_validate = $pdo->prepare('SELECT * Pedido WHERE codigo = :codigo');
+        $stmt_validate = $pdo->prepare('SELECT * FROM Pedido WHERE codigo = :codigo');
         $stmt_validate->bindParam(':codigo', $codigo);
         $stmt_validate->execute();
+
         if ($stmt_validate->rowCount() > 0) {
             echo '<script>Swal.fire("Erro", "Pedido já existe.", "error");</script>';
         } else {
-            // Inserir o pedido na tabela "Pedidos"
             $sql_pedido = "INSERT INTO Pedido (codigo, cliente, dataPedido, OSGM, observacoes) VALUES (?, ?, ?, ?, ?)";
             $stmt_pedido = $pdo->prepare($sql_pedido);
+
             if ($stmt_pedido->execute([$codigo, $solicitante, $data, $osgm, $obs])) {
                 echo '<script>Swal.fire("Sucesso", "Pedido efetuado!", "success");</script>';
-            } else {
-                echo '<script>Swal.fire("Erro", "Pedido já existe.", "error");</script>';
-            }
-            // Inserir os produtos na tabela "ItemPedido" com o pedido_id correspondente
-            $sql_produto = "INSERT INTO ItemPedido (codigoPedido, codigoItem, quantidade) VALUES (?, ?, ?)";
-            $stmt_produto = $pdo->prepare($sql_produto);
 
-            for ($i = 0; $i < count($produtos); $i++) {
-                $produto = $produtos[$i];
-                $quantidade = $quantidades[$i];
-                $stmt_produto->execute([$codigo, $produto, $quantidade]);
+                $sql_produto = "INSERT INTO ItemPedido (codigoPedido, codigoItem, quantidade) VALUES (?, ?, ?)";
+                $stmt_produto = $pdo->prepare($sql_produto);
+
+                for ($i = 0; $i < count($produtos); $i++) {
+                    $produto = $produtos[$i];
+                    $quantidade = $quantidades[$i];
+                    $stmt_produto->execute([$codigo, $produto, $quantidade]);
+                }
+            } else {
+                echo '<script>Swal.fire("Erro", "Erro ao efetuar o pedido.", "error");</script>';
             }
         }
     }
 } catch (Exception $e) {
-    if($e->getCode()==4200){
-        echo '<script>Swal.fire("Erro", "Pedido já existe.", "error");</script>';
-    } else {
-        echo 'Ocorreu o erro: '+ $e->getMessage();
-    }
-    
+    echo 'Ocorreu o erro: ' . $e->getMessage();
 }
 ?>

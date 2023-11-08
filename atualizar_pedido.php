@@ -1,27 +1,47 @@
-<?php 
+<?php
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    include('bd.php');
+    include('bd.php'); // Verifique se esse arquivo está correto e sem erros.
 
     $codigo = filter_var($_POST['codigo'], FILTER_SANITIZE_STRING);
     $status = filter_var($_POST['status'], FILTER_SANITIZE_STRING);
-    $produto = $_POST['produto'];
-    $quantidade = $_POST['quantidade'];
-    if($status='Liberado'){
-        try{
+    $produto = filter_var($_POST['produtos'], FILTER_SANITIZE_STRING);
+    $quantidade = filter_var($_POST['quantidades'], FILTER_SANITIZE_STRING);
+
+    if ($status == 'Liberado') {
+        try {
             $pdo = conexaoBd();
-            $stmt_validate = $pdo->prepare('SELECT quantidade FROM produtoTCC WHERE code = :produto');
-            $stmt_validate->execute();
-            $result = $stmt_validate->fetch();
-            $operation = $result - $quantidade;
-            if($operation<=0){
-                
-            } else {
-                $stmt_produto = $pdo->prepare('UPDATE produto SET quantidade = :quantidade');
-                $stmt_produto->bindParam(':quantidade',$operation);
-                $stmt_produto->execute(); 
+            $produtos = $_POST['produtos'];
+            $quantidades = $_POST['quantidades'];
+
+            for ($i = 0; $i < count($produtos); $i++) {
+                $produto = $produtos[$i];
+                $quantidade = $quantidades[$i];
+
+                $sql = "SELECT quantidade FROM produtoTCC WHERE nome = :codigo";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':codigo', $produto);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $quantidadeDisponivel = $result['quantidade'];
+
+                if ($quantidadeDisponivel >= $quantidade) {
+                    $quantidadeAtualizada = $quantidadeDisponivel - $quantidade;
+
+                    $updateSql = "UPDATE produtoTCC SET quantidade = :quantidadeAtualizada WHERE nome = :codigo";
+                    $updateStmt = $pdo->prepare($updateSql);
+                    $updateStmt->bindParam(':quantidadeAtualizada', $quantidadeAtualizada);
+                    $updateStmt->bindParam(':codigo', $produto);
+                    $updateStmt->execute();
+                } else {
+                    $response = array('success' => false, 'message' => 'Quantidade insuficiente do produto ' . $produto);
+                    echo json_encode($response);
+                    exit();
+                }
             }
-        } catch(PDOException $e){
-            echo 'Ocorreu um problema: ' . $e->getMessage();
+        } catch (PDOException $e) {
+            $response = array('success' => false, 'message' => 'Erro no servidor ao atualizar a quantidade do produto');
+            echo json_encode($response);
+            exit();
         }
     }
     try {
@@ -39,9 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         echo json_encode($response);
     } catch (PDOException $e) {
-        // Trate a exceção de forma apropriada, por exemplo, registrando em um arquivo de log.
-        $response = array('success' => false, 'message' => 'Erro no servidor. Por favor, tente novamente mais tarde.');
+        $response = array('success' => false, 'message' => 'Erro no servidor ao atualizar o pedido ');
         echo json_encode($response);
     }
 }
-?>
