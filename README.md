@@ -34,7 +34,7 @@ Este é um projeto de almoxarifado que visa atender às necessidades do nosso cl
 
 ## Banco de Dados MySQL
 
-Este projeto utiliza o MySQL como banco de dados para armazenar informações relevantes. Para executar o projeto em sua máquina local, você precisará configurar um servidor MySQL e criar as tabelas necessárias para o funcionamento do sistema. Certifique-se de ter um servidor MySQL instalado e configurado. As instruções detalhadas para a configuração do banco de dados podem ser encontradas em [insira aqui o local onde as instruções estão disponíveis, se aplicável].
+Este projeto utiliza o MySQL como banco de dados para armazenar informações relevantes. Para executar o projeto em sua máquina local, você precisará configurar um servidor MySQL e criar as tabelas necessárias para o funcionamento do sistema. Certifique-se de ter um servidor MySQL instalado e configurado. 
 
 ## Como Rodar Localmente
 
