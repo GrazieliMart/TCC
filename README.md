@@ -46,4 +46,4 @@ Sinta-se à vontade para contribuir para este projeto. Você pode fazer isso abr
 
 ## Licença
 
-Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE.md](LICENSE.md) para obter mais detalhes.
+Este projeto está licenciado sob a Licença MIT - consulte o arquivo [[LICENSE.md](LICENSE.md)](https://opensource.org/license/mit/)https://opensource.org/license/mit/ para obter mais detalhes.
