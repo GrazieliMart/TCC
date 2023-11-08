@@ -335,7 +335,7 @@ body{
     padding: 20px;
     font-size: 15px;
    
-    top: 40px;
+    top: 46px;
     margin-left: auto;
 
 }
@@ -1052,3 +1052,23 @@ ul li.item-menu{
     
 
 }
+@media screen and (max-width: 768px) {
+    .divRelatorio1 {
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 5px;
+        width: 90%;
+        color: #fff;
+        position: fixed;
+        border: 2px #fff solid;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        position: fixed;
+        margin-top: 10px;
+       
+        max-height: 70%;
+        
+    }
+    
+}
+

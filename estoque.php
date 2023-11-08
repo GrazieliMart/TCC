@@ -136,6 +136,30 @@ include("bd.php");
       float: right;
       cursor: pointer;
     }
+
+    .table-responsive {
+    overflow-x: auto;
+}
+
+/* Opcional: Para melhorar a aparência, você pode ocultar a barra de rolagem horizontal até que haja rolagem */
+.table-responsive::-webkit-scrollbar {
+    width: 0.25rem;
+    height: 0.25rem;
+    visibility: hidden;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0);
+}
+
+.table-responsive:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
   </style>
 </head>
 

@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
 
     $assunto = "Almoxarifado - SAR | COTIL | UNICAMP";
-    $paginaNovaSenha = "http://localhost/tcc/novaSenha.php";
+    $paginaNovaSenha = "http://143.106.241.3/~cl201272/novaSenha.php";
     $mensagem = "Clique no link a seguir para cadastrar uma nova senha: <a href='$paginaNovaSenha'>$paginaNovaSenha</a>";
 
     if (enviarEmail($email, $assunto, $mensagem)) {

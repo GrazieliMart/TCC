@@ -44,7 +44,7 @@
                   <input required="" type="text" class="input" id="username" name="username" autocomplete="off">
                   <span class="highlight"></span>
                   <span class="bar"></span>
-                  <label for="username">E-mail</label>
+                  <label for="username">Usuário</label>
                 </div>
                 <ion-icon name="person-outline" class="iconLogin"></ion-icon>
 

@@ -339,7 +339,7 @@ function buscarTeste()
             $stmt = consultar($offset, $itensPorPagina); // Implemente a função consultarComPaginacao()
 
             // Inicie a tabela fora do loop
-
+            echo '<div class="table-responsive">';
             echo "<table id='tabela' class=' table table-secondary table-striped' >";
             echo "<thead>
                             <tr data-product-code='1'>
@@ -385,6 +385,7 @@ function buscarTeste()
 
             // <input type="submit"  formaction="excluir.php" name="op">    Encerre a tabela
             echo "</table>";
+            echo '</div>';
 
             // Crie links de paginação
             echo '<nav aria-label="Page navigation example">

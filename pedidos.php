@@ -63,12 +63,21 @@ $result = $pdo->query($query);
             display: none;
         }
 
-        .pedido {
-            max-height: 450px;
-            /* Altura máxima desejada para a tabela */
-            overflow-y: auto;
-            /* Adiciona uma barra de rolagem vertical */
-        }
+        /* Estilo base */
+.pedido {
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+/* Media query para dispositivos com largura menor que 768px (dispositivos móveis) */
+@media (max-width: 768px) {
+    .pedido {
+        max-height: 400px; /* Remove a altura máxima */
+         /* Remove a barra de rolagem vertical */
+    }
+}
+
+
     </style>
 </head>
 
@@ -80,8 +89,9 @@ $result = $pdo->query($query);
     <div class="divRelatorio1">
         <div class="titleRelatorio">
             <h1>Confira seus pedidos abaixo <?php echo $username ?></h1>
-            <br>
+                
         </div>
+        
         <div class="divTextRelatorio3">
             <div>
                 <input type="date" id="dataInicial" placeholder="Data inicial">
@@ -166,7 +176,7 @@ $result = $pdo->query($query);
                             <button type="button" id='editar'>Salvar</button>
                         <?php } ?>
                         <?php if ($level < 3) { ?>
-                            <input type="text" id="status" readonly>
+                            <input type="text" id="status1" readonly>
                         <?php } ?>
                     </form>
 

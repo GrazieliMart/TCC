@@ -35,9 +35,11 @@ include('bd.php');
     <link rel="stylesheet" href="style/styleteste7.css">
     <link rel="icon" type="image/png" href="logo/1.png">
     <style>
-        .pedido {
-            overflow-y: auto;
-            max-height: 300px;
+        .divPedidoNovo2 {
+            
+    max-height: 500px; /* Defina a altura máxima desejada */
+    overflow-y: auto; /* Adiciona a barra de rolagem vertical quando o conteúdo excede a altura máxima */
+     /* Opcional: Adicione preenchimento para melhor aparência e espaço ao redor do formulário */
 
         }
     </style>
@@ -94,7 +96,7 @@ include('bd.php');
                             <input type="number" name="quantidade[]" class="formaticTextRelatorio">
                         </div>
                     </div>
-                    <button type="button" onclick="adicionarProduto()" class="btnRelatorio1">Adicionar Produto</button><br><br>
+                    <button type="button" onclick="adicionarProduto()" class="btnRelatorio1">+</button><br><br>
 
 
 
