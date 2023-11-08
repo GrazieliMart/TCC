@@ -316,7 +316,7 @@ function buscarTeste()
 
     try {
         // Defina o número de itens por página
-        $itensPorPagina = 6;
+        $itensPorPagina = 5;
 
 
 

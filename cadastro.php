@@ -419,11 +419,21 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
     </div>
   </div>
 
+ 
+
   <footer class="footer">
-    <footer>
-      <p class="footer-text">SARS | UNICAMP | COTIL</p>
+   
+  <p class="footer-text">
+  <a href="https://www.sar.unicamp.br/" style="color: white; text-decoration: none;">SARS</a> | 
+  <a href="https://www.unicamp.br/unicamp/" style="color: white; text-decoration: none;">UNICAMP</a> | 
+  <a href="https://www.cotil.unicamp.br/" style="color: white; text-decoration: none;">COTIL</a>
+</p>
+
+      <p class="footer-text"> Copyright © 2023 Almoxarisars</p>
+     
 
     </footer>
+
 
 
 

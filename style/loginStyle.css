@@ -353,7 +353,7 @@ background: transparent;
   width: 30px; 
   height: 30px;
 }
-.loginLogo{
+.loginLogo{ 
 margin-bottom: 1px;
 margin-left: 10px;
 flex-direction: row;
