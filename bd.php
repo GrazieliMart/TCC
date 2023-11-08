@@ -316,7 +316,7 @@ function buscarTeste()
 
     try {
         // Defina o número de itens por página
-        $itensPorPagina = 4;
+        $itensPorPagina = 6;
 
 
 
@@ -411,7 +411,34 @@ function buscarTeste()
         echo 'Error: ' . $e->getMessage();
     }
 }
+function atualizarSenhaUsuario($username, $novaSenha)
+{
+    $pdo = conexaoBd();
 
+    if (empty($username) || empty($novaSenha)) {
+        die("Por favor, forneça um nome de usuário e a nova senha.");
+    }
+
+  
+    // Hash da nova senha
+    $hashed_password = password_hash($novaSenha, PASSWORD_BCRYPT);
+
+    // Atualizar a senha do usuário no banco de dados
+    $update_query = "UPDATE login SET senha_hash = :password_hash WHERE usuario = :user_username";
+    $stmt = $pdo->prepare($update_query);
+    $stmt->bindParam(":password_hash", $hashed_password);
+    $stmt->bindParam(":user_username", $username);
+
+    if ($stmt->execute()) {
+       
+        echo ' <div class="error-messageSucesso">';
+        echo "<span style='color: white;'>Senha atualizada com sucesso!</span></div>";
+    } else {
+       
+        echo ' <div class="error-messageIncorreto">';
+        echo "<span style='color: black;'>Erro! Tente Novamente</span></div>";
+    }
+}
 
 function editarTeste($id)
 {
@@ -496,11 +523,11 @@ function consultaProdutoTCC()
     try {
         $pdo = conexaoBD();
 
-        $stmt = $pdo->prepare('SELECT nome FROM produtoTCC');
+        $stmt = $pdo->prepare('SELECT nome,code FROM produtoTCC');
         $stmt->execute();
 
         while ($row = $stmt->fetch()) {
-            echo '<option value="' . $row["nome"] . '">' . $row['nome'] . '</option>';
+            echo '<option value="' . $row["code"] . '">' . $row['nome'] . '</option>';
         }
     } catch (PDOException $e) {
         echo $e->getMessage();
@@ -523,4 +550,5 @@ function consultaUsuario(){
     $pdo = null;
 
 }
+
 

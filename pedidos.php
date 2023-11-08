@@ -1,7 +1,6 @@
 <?php
 //tratar o warnning de erro https://www.totvs.com/  https://admsistemas.com.br/almoxarifado/  https://solucao.digital/?gclid=EAIaIQobChMImafKqsKf_wIVtkZIAB30Tw1pEAAYAiAAEgJLWfD_BwE
 
-
 // prova cadastro de php em banco de dados https://nicepage.com/pt/modelos-html
 ini_set('display_errors', 0);
 set_error_handler('tratarAviso');
@@ -38,44 +37,36 @@ $query = "SELECT * FROM Pedido";
 
 // Executa a consulta
 $result = $pdo->query($query);
-
 ?>
+
 <!DOCTYPE html>
 <html>
-<style>
-    .card {
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 10px;
-        margin: 10px;
-        width: calc(50% - 20px);
-
-    }
-
-
-    .card.hidden {
-        display: none;
-    }
-
-    .pedido {
-        max-height: 380px;
-        /* Altura máxima desejada para a tabela */
-        overflow-y: auto;
-        /* Adiciona uma barra de rolagem vertical */
-    }
-</style>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-</head>
-<title>Pedidos | AlmoxariSars</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<link rel="stylesheet" href="style/styleteste7.css">
-<link rel="stylesheet" href="style/stylePedido.css">
-<link rel="icon" type="image/png" href="logo/1.png">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style/styleteste7.css">
+    <link rel="stylesheet" href="style/stylePedido.css">
+    <link rel="icon" type="image/png" href="logo/1.png">
+    <style>
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            width: calc(50% - 20px);
+        }
+        .card.hidden {
+            display: none;
+        }
+        .pedido {
+            max-height: 450px;
+            /* Altura máxima desejada para a tabela */
+            overflow-y: auto;
+            /* Adiciona uma barra de rolagem vertical */
+        }
+    </style>
 </head>
 
 <body>
@@ -85,17 +76,28 @@ $result = $pdo->query($query);
 
     <div class="divRelatorio1">
         <div class="titleRelatorio">
-            <h1>Confira seus pedidos abaixo
-                <?php echo $username ?>
-            </h1>
+            <h1>Confira seus pedidos abaixo <?php echo $username ?></h1>
             <br>
-
-
-
-
         </div>
-
         <div class="divTextRelatorio3">
+            <div>
+                <input type="date" id="dataInicial" placeholder="Data inicial">
+                <input type="date" id="dataFinal" placeholder="Data final">
+                
+                <select name="cliente1" id="cliente1">
+                    <option value=""></option>
+                    <?php consultaUsuario(); ?>
+                </select>
+                <select name="status" id="status">
+                    <option value=""></option>
+                    <option value="Recebido">Recebido</option>
+                    <option value="Liberado">Liberado</option>
+                    <option value="Atendido">Atendido</option>
+                    <option value="Cancelado">Cancelado</option>
+                </select>
+                <button id="btnSearch">Pesquisar</button>
+            </div>
+
             <div class="pedido">
                 <table class="table table-striped table-hover" border="1">
                     <tr>
@@ -120,9 +122,6 @@ $result = $pdo->query($query);
                     ?>
                 </table>
             </div>
-
-
-
         </div>
         <button id="ok-button3"><a href="novoPedido.php">Novo Pedido</a> </button>
     </div>
@@ -151,14 +150,19 @@ $result = $pdo->query($query);
                         <input type="text" id="osgm" name="osgm" readonly>
                         <br>
                         <label for="status">Status:</label>
-                        <select name="status" id="status">
+                        <?php if($level==3) {?>
+                            <select name="status1" id="status1">
                             <option value="Recebido">Recebido</option>
                             <option value="Liberado">Liberado</option>
                             <option value="Atendido">Atendido</option>
                             <option value="Cancelado">Cancelado</option>
                         </select>
-                      
+                        
                         <button type="button" id='editar'>Salvar</button>
+                        <?php }?>
+                        <?php if($level<3) {?>
+                            <input type="text" id="status" readonly>
+                        <?php }?>
                     </form>
 
                     <h2>Itens do Pedido</h2>
@@ -169,18 +173,11 @@ $result = $pdo->query($query);
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
     <script>
         // Adicione um ouvinte de eventos para o duplo clique nas linhas da tabela
-        // ...
-        var screen;
-        if (window.innerWidth >= 768) { // Exemplo: Defina a largura de tela desejada para considerar como "tela grande"
-            screen = 'dblclick';
-    } else {
-        screen = 'click'
-    }
+        var screen = 'dblclick';
         $(document).on(screen, '.open-modal-on-double-click', function() {
             var pedidoId = $(this).data('pedido-id');
             console.log(pedidoId);
@@ -240,30 +237,30 @@ $result = $pdo->query($query);
 
             $('#myModal').modal('show'); // Exibe o modal
         });
-
-        // ...
     </script>
     <script>
         $(document).ready(function() {
-    $(".close").click(function() {
-        $("#myModal").modal('hide'); // Corrigido para 'hide'
-        //$(".modal-backdrop").hide();
-    });
-});
-
+            $(".close").click(function() {
+                $("#myModal").modal('hide');
+            });
+        });
     </script>
     <script>
         $(document).on('click','#editar',function() {
             var itemCodigo = $('#codigo').val();
-            var itemStatus = $('#status').val();
+            var itemStatus = $('#status1').val();
+            var itemProduto = $('#produto').val();
+            var itemQuantidade = $('#quantidade').val();
             console.log(itemCodigo,itemStatus);
             $.ajax({
-                url: 'atualizar_pedido.php', // Substitua pela URL do seu script que retorna os Itens do Pedido
+                url: 'atualizar_pedido.php',
                 method: 'POST',
                 dataType: 'json',
                 data: {
                     codigo: itemCodigo,
-                    status: itemStatus
+                    status: itemStatus,
+                    produto: itemProduto,
+                    quantidade: itemQuantidade
                 },
                 success: function(response){
                     alert(response.message);
@@ -275,16 +272,52 @@ $result = $pdo->query($query);
             });
         })
     </script>
+    <script>
+        $(document).ready(function() {
+            $('#btnSearch').click(function() {
+                var dataInicial = $('#dataInicial').val();
+                var dataFinal = $('#dataFinal').val();
+                var cliente = $('#cliente1').val();
+                var status = $('#status').val();
+                console.log()
+                // Faça uma solicitação AJAX para obter os dados filtrados com base nos critérios de pesquisa
+                $.ajax({
+                    url: 'obter_filtros.php',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {
+                        dataInicial: dataInicial,
+                        dataFinal: dataFinal,
+                        cliente: cliente,
+                        status: status
+                    },
+                    success: function(data) {
+                        // Limpe a tabela
+                        $('.table tbody').empty();
 
-
+                        // Preencha a tabela com os novos dados
+                        data.forEach(function(row) {
+                            var newRow = "<tr data-pedido-id='" + row.codigo + "' class='open-modal-on-double-click' data-toggle='modal' data-target='#myModal'>";
+                            newRow += '<td>' + row.codigo + '</td>';
+                            newRow += '<td>' + row.dataPedido + '</td>';
+                            newRow += '<td>' + row.cliente + '</td>';
+                            newRow += '<td>' + row.OSGM + '</td>';
+                            newRow += '<td>' + row.status + '</td>';
+                            newRow += '</tr>';
+                            $('.table tbody').append(newRow);
+                        });
+                    },
+                    error: function() {
+                        alert('Erro na solicitação AJAX para obter os dados filtrados.');
+                    }
+                });
+            });
+        });
+    </script>
     <footer class="footer">
         <footer>
             <p class="footer-text">SARS | UNICAMP | COTIL</p>
-
-
         </footer>
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    </footer>
 </body>
-
 </html>
