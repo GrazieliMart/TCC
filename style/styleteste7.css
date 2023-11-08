@@ -21,6 +21,12 @@ body{
     
     
 }
+.botoes-em-linha {
+    display: flex;
+    justify-content: space-between; /* Isso alinhará os botões horizontalmente e deixará espaço entre eles */
+    margin-top: 10px;
+}
+
 .center-content {
     display: flex;
     justify-content: center;
@@ -465,6 +471,76 @@ body{
     box-shadow: 0px 4px 8px rgba(7, 95, 136, 0.3);
     transition: .3s;
 }
+.btnRelatorioPlus {
+
+        background-color: #1D79A1;
+        font-size: 15px;
+        width: 30px;
+        height: 35px;
+        cursor: pointer;
+        color: #ffffff;
+        border: none;
+        border-radius: 2px;
+        padding: 6px;
+        transition: .2s;
+        box-shadow: 0px 2px 4px rgba(0, 174, 255, 0.3);
+        font-weight: normal;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 10px;
+        position: absolute;
+        left: 93%;
+        bottom: 10px;
+        transform: translateX(-50%);
+    
+
+}
+.divRelatoriouser1 {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    width: 75%;
+    color: #fff;
+    position: fixed;
+    border: 2px #fff solid;
+    left: 55%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    margin-top: 10px;
+    max-height: 70%;
+}
+
+.btnRelatorioSolicitar {
+    background-color: #1D79A1;
+    font-size: 15px;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    color: #ffffff;
+    border: none;
+    border-radius: 2px;
+    padding: 6px;
+    transition: .2s;
+    box-shadow: 0px 2px 4px rgba(0, 174, 255, 0.3);
+    font-weight: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 10px;
+    position: relative;
+    left: 50%;
+    top: 10%;
+    /* bottom: 10px; */
+    transform: translateX(-50%);
+
+
+}
+
+
+
 .btnRelatorio2 {
     background-color: #fff;
     font-size: 13px;

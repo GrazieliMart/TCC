@@ -95,10 +95,8 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
    <a href="https://www.unicamp.br/unicamp/" style="color: white; text-decoration: none;">UNICAMP</a> | 
    <a href="https://www.cotil.unicamp.br/" style="color: white; text-decoration: none;">COTIL</a>
  </p>
- 
-       <p class="footer-text"> Copyright © 2023 Almoxarisars</p>
-      
- 
+    
+ <p>Copyright © 2023 AlmoxariSars</p>
      </footer>
  
  

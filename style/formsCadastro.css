@@ -197,7 +197,17 @@ transition: .2s;
 
   }
 
-
+  .linkVoltarDiv{
+    text-decoration: none;
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    }
+    .linkVoltarDiv:hover{
+      text-decoration: underline;
+      color: #fff;
+      transition: 0.2s;
+    }
 
   #form1 {
     background: rgba(255, 255, 255, 0.5);
@@ -485,11 +495,29 @@ ul li.item-menu a:hover {
 
 
 }
+.linkVoltarDiv{
+  text-decoration: none;
+  font-size: 15px;
+  color: #fff;
+  text-align: center;
+  }
+  .linkVoltarDiv:hover{
+    text-decoration: underline;
+    color: #fff;
+    transition: 0.2s;
+  }
+  
+#ok-button1{
+  
+    margin-right: 10px;
+   
+}
 .button-container{
   margin-top: 21%;
 }
 .button-container1 {
-  
+  flex-direction: row;
+  margin-left: 10px;
   margin-top: 40%;}
   .button-container2 {
    

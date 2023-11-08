@@ -248,13 +248,16 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
                       ?>
 
                     </div>
-              </div>
+              </div>   
+           
 
-              <a href="cadastro.php" class="linkVoltar">Voltar</a>
+           
             </div>
-
+  
       </form>
-
+      <div class="linkVoltarDiv">
+<a href="cadastro.php" class="linkVoltar">Voltar</a>
+</div>
     </div>
   <?php } ?>
 
@@ -414,7 +417,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
       <?php } ?>
       <div class="divSeparador2">
         <a onclick="trocarFormulario('form3')"><button id="ok-button" aria-required="click"><i class="bi bi-rulers"></i><br>Medidas</button></a>
-        <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click"><i class="bi bi-grid"></i>Categorias</button></a>
+        <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click"><i class="bi bi-grid"></i><br>Categorias</button></a>
       </div>
     </div>
   </div>
@@ -429,8 +432,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
   <a href="https://www.cotil.unicamp.br/" style="color: white; text-decoration: none;">COTIL</a>
 </p>
 
-      <p class="footer-text"> Copyright © 2023 Almoxarisars</p>
-     
+<p>Copyright © 2023 AlmoxariSars</p>
 
     </footer>
 

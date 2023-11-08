@@ -83,7 +83,7 @@ include('bd.php');
 
                     <div id="produtos">
                         <div class="produto">
-                            <label for="produto">Produto:</label>
+                            <label for="produto">Produto:</label><br>
                             <select name="produto[]" id="produto" class="formaticTextRelatorio">
                                 <?php
 
@@ -94,16 +94,17 @@ include('bd.php');
                             <!--<input type="text" name="produto[]" class="formaticTextRelatorio">-->
                             <label for="quantidade">Quantidade:</label>
                             <input type="number" name="quantidade[]" class="formaticTextRelatorio">
+                            <button type="button" onclick="adicionarProduto()" class="btnRelatorioPlus">+</button><br><br>
                         </div>
                     </div>
-                    <button type="button" onclick="adicionarProduto()" class="btnRelatorio1">+</button><br><br>
+                    
 
 
 
                 </div>
 
-                <input class="btnRelatorio1" name="cadPedido" aria-required="click" type="submit" value="Solicitar"></input>
-
+              
+  <input class="btnRelatorioSolicitar" name="cadPedido" aria-required="click" type="submit" value="Solicitar"></input>
 
             </form>
         </div>
