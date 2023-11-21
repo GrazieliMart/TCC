@@ -44,12 +44,12 @@ function login()
                     exit();
                 } else {
                     // Credenciais inválidas (senha incorreta)
-                    echo ' <div id="error-message">';
-                    echo "<span style='color: white;'>Senha incorreta!</span>";
+                    echo ' <div class="error-message">';
+                    echo "<span style='color: white;'>Senha incorreta!</span></div>";
                 }
             } else {
-                // Usuário não encontrado
-                echo "<span style='color: white;'>Usuário não encontrado!</span>";
+                echo ' <div class="error-message">';
+                echo "<span style='color: white;'>Usuário não encontrado!</span></div>";
             }
         }
     } catch (PDOException $e) {

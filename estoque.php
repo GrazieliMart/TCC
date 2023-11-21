@@ -84,6 +84,7 @@ include("bd.php");
       width: 50%;
       max-width: 600px;
       margin: 5px auto;
+     
       padding: 20px;
       border-radius: 5px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -116,6 +117,10 @@ include("bd.php");
     background-color: #1D79A1;
     transition: 0.2s;
 }
+.tituloClose{
+  flex-direction: row;
+  display: flex;
+}
     .table {
       width: 100%;
     }
@@ -146,8 +151,19 @@ include("bd.php");
     width: 0.25rem;
     height: 0.25rem;
     visibility: hidden;
+}.close {
+    background-color: #03638C;
+    border: none;
+    border-radius: 20px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    color: #fff;
+    font-size: 13px;
+    margin-left: 130px;
+    width: 50px;
+    font-weight: normal;
+    cursor: pointer;
 }
-
 .table-responsive::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0);
 }
@@ -160,6 +176,13 @@ include("bd.php");
     background: rgba(0, 0, 0, 0.3);
 }
 
+@media (max-width: 600px) {
+.modal-content {
+   
+    width: 100%; 
+   
+}
+}
   </style>
 </head>
 
@@ -174,9 +197,10 @@ include("bd.php");
    <a href="https://www.sar.unicamp.br/" style="color: white; text-decoration: none;">SARS</a> | 
    <a href="https://www.unicamp.br/unicamp/" style="color: white; text-decoration: none;">UNICAMP</a> | 
    <a href="https://www.cotil.unicamp.br/" style="color: white; text-decoration: none;">COTIL</a>
+   
  </p>
- 
-       <p class="footer-text"> Copyright © 2023 Almoxarisars</p>
+ <p>Copyright © 2023 AlmoxariSars</p>
+
       
  
      </footer>
@@ -214,7 +238,11 @@ include("bd.php");
 
       <div class="modal" id="edit-modal">
         <div class="modal-content">
-          <h2>Editar Produto</h2>
+       <div class="tituloClose">
+          <h2>Editar Produto</h2> 
+          <button type="button" class="close" id data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button></div>
           <form id="edit" method="post" enctype="multipart/form-data">
             <input type="hidden" name="code" id="edit-code">
             <label for="edit-nome">Nome:</label>
@@ -251,7 +279,7 @@ include("bd.php");
 
 
 
-
+  
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
@@ -355,7 +383,13 @@ include("bd.php");
       });
     });
   </script>
-
+  <script>
+        $(document).ready(function() {
+            $(".close").click(function() {
+                $("#myModal").modal('hide');
+            });
+        });
+    </script>
 </body>
 
 </html>

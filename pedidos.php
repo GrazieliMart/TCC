@@ -23,6 +23,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
     $level = $_SESSION['level'];
     $logado = true;
 }
+
 // Verifica o nível de acesso do usuário e exibe os cards correspondente
 include('bd.php');
 
@@ -68,12 +69,121 @@ $result = $pdo->query($query);
     max-height: 450px;
     overflow-y: auto;
 }
+.modal-content{
+    background-color: lightsteelblue;
+    width: 100%;
+    max-width: 600px;
+    margin: 5px auto;
+    color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+}
+#editar {
+    background-color: #03638C;
+    border: none;
+    border-radius: 20px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    color: #fff;
+    font-size: 13px;
+    width: 100%;
+    font-weight: normal;
+    cursor: pointer;
+}
+#btnSearch{
+    background-color: #03638C;
+    border: none;
+    border-radius: 20px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+    width: 100%;
+}
+ .close{
+    background-color: #03638C;
+    border: none;
+    border-radius: 20px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    color: #fff;
+    font-size: 13px;
+    width: 50px;
+    font-weight: normal;
+    cursor: pointer;
+}
+.modal-content input {
+    width: 100%;
+    border: none;
+    background: #fff;
+    border-radius: 5px;
+}
+.pedido {
+    max-height: 282px;
+    overflow-y: auto;
+}
+.pedidoDiv select{
+   
+    border: none;
+    background: #fff;
+    border-radius: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+
+
+}
+.pedidoDiv input{
+   margin-right: 2px;
+   border: none;
+   background: #fff;
+   border-radius: 5px;
+
+
+}
+.form-row {
+        flex-direction: row;
+        width: 100%;
+    }
+    .filterDiv{
+        flex-direction: row;
+        display: flex;
+    }
+    .pedidoDiv label,
+.pedidoDiv input,
+.pedidoDiv select {
+    width: 90%;    margin: 5px 0; /* Adiciona um espaço entre os elementos */
+}
+
 
 /* Media query para dispositivos com largura menor que 768px (dispositivos móveis) */
 @media (max-width: 768px) {
     .pedido {
-        max-height: 400px; /* Remove a altura máxima */
-         /* Remove a barra de rolagem vertical */
+    max-height: 275px;
+    overflow-y: auto;
+}
+/* Outros estilos... */
+
+.pedidoDiv {
+    bottom: 10px;
+    display: flex; /* Torna os elementos filhos flexíveis */
+    flex-direction: column; /* Coloca os filhos em uma coluna */
+}
+
+.pedidoDiv label,
+.pedidoDiv input,
+.pedidoDiv select {
+    width: 90%;    margin: 5px 0; /* Adiciona um espaço entre os elementos */
+}
+.form-row {
+        flex-direction: column;
+    }
+    .filterDiv{
+        flex-direction: row;
+        display: flex;
     }
 }
 
@@ -93,14 +203,30 @@ $result = $pdo->query($query);
         </div>
         
         <div class="divTextRelatorio3">
-            <div>
-                <input type="date" id="dataInicial" placeholder="Data inicial">
-                <input type="date" id="dataFinal" placeholder="Data final">
+    <div class="pedidoDiv">
+        <div class="filterDiv">
 
+        <div class="form-row">
+            <div class="col">
+                <label for="dataInicial">Data Inicial:</label>
+                <input type="date" id="dataInicial" placeholder="Data inicial">
+            </div>
+            <div class="col">
+                <label for="dataFinal">Data Final:</label>
+                <input type="date" id="dataFinal" placeholder="Data final">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col">
+                <label for="cliente">User:</label>
                 <select name="cliente1" id="cliente1">
                     <option value=""></option>
                     <?php consultaUsuario(); ?>
                 </select>
+            </div>
+            <div class="col">
+                <label for="status">Status:</label>
                 <select name="status" id="status">
                     <option value=""></option>
                     <option value="Recebido">Recebido</option>
@@ -108,8 +234,15 @@ $result = $pdo->query($query);
                     <option value="Atendido">Atendido</option>
                     <option value="Cancelado">Cancelado</option>
                 </select>
-                <button id="btnSearch">Pesquisar</button>
             </div>
+        </div>
+
+        </div>
+        <button id="btnSearch">Pesquisar</button>
+    </div>
+    
+ 
+
 
             <div class="pedido">
                 <table class="table table-striped table-hover" border="1">
@@ -144,7 +277,6 @@ $result = $pdo->query($query);
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Detalhes do Pedido</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -164,7 +296,7 @@ $result = $pdo->query($query);
                         <label for="osgm">OSGM:</label>
                         <input type="text" id="osgm" name="osgm" readonly>
                         <br>
-                        <label for="status">Status:</label>
+                        <label for="status">Status:</label><br>
                         <?php if ($level == 3) { ?>
                             <select name="status1" id="status1">
                                 <option value="Recebido">Recebido</option>
@@ -172,7 +304,7 @@ $result = $pdo->query($query);
                                 <option value="Atendido">Atendido</option>
                                 <option value="Cancelado">Cancelado</option>
                             </select>
-
+                            <br>
                             <button type="button" id='editar'>Salvar</button>
                         <?php } ?>
                         <?php if ($level < 3) { ?>
@@ -346,7 +478,7 @@ $result = $pdo->query($query);
             <a href="https://www.cotil.unicamp.br/" style="color: white; text-decoration: none;">COTIL</a>
         </p>
 
-        <p class="footer-text"> Copyright © 2023 Almoxarisars</p>
+        <p>Copyright © 2023 AlmoxariSars</p>
 
 
     </footer>
