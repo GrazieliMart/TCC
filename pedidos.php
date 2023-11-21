@@ -1,7 +1,6 @@
 <?php
 //tratar o warnning de erro https://www.totvs.com/  https://admsistemas.com.br/almoxarifado/  https://solucao.digital/?gclid=EAIaIQobChMImafKqsKf_wIVtkZIAB30Tw1pEAAYAiAAEgJLWfD_BwE
 
-
 // prova cadastro de php em banco de dados https://nicepage.com/pt/modelos-html
 ini_set('display_errors', 0);
 set_error_handler('tratarAviso');
@@ -24,6 +23,7 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
     $level = $_SESSION['level'];
     $logado = true;
 }
+
 // Verifica o nível de acesso do usuário e exibe os cards correspondente
 include('bd.php');
 
@@ -38,44 +38,157 @@ $query = "SELECT * FROM Pedido";
 
 // Executa a consulta
 $result = $pdo->query($query);
-
 ?>
+
 <!DOCTYPE html>
 <html>
-<style>
-    .card {
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 10px;
-        margin: 10px;
-        width: calc(50% - 20px);
-
-    }
-
-
-    .card.hidden {
-        display: none;
-    }
-
-    .pedido {
-        max-height: 380px;
-        /* Altura máxima desejada para a tabela */
-        overflow-y: auto;
-        /* Adiciona uma barra de rolagem vertical */
-    }
-</style>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-</head>
-<title>Pedidos | AlmoxariSars</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<link rel="stylesheet" href="style/styleteste7.css">
-<link rel="stylesheet" href="style/stylePedido.css">
-<link rel="icon" type="image/png" href="logo/1.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style/styleteste7.css">
+    <link rel="stylesheet" href="style/stylePedido.css">
+    <link rel="icon" type="image/png" href="logo/1.png">
+    <style>
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            width: calc(50% - 20px);
+        }
 
+        .card.hidden {
+            display: none;
+        }
+
+        /* Estilo base */
+.pedido {
+    max-height: 450px;
+    overflow-y: auto;
+}
+.modal-content{
+    background-color: lightsteelblue;
+    width: 100%;
+    max-width: 600px;
+    margin: 5px auto;
+    color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+}
+#editar {
+    background-color: #03638C;
+    border: none;
+    border-radius: 20px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    color: #fff;
+    font-size: 13px;
+    width: 100%;
+    font-weight: normal;
+    cursor: pointer;
+}
+#btnSearch{
+    background-color: #03638C;
+    border: none;
+    border-radius: 20px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+    width: 100%;
+}
+ .close{
+    background-color: #03638C;
+    border: none;
+    border-radius: 20px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    color: #fff;
+    font-size: 13px;
+    width: 50px;
+    font-weight: normal;
+    cursor: pointer;
+}
+.modal-content input {
+    width: 100%;
+    border: none;
+    background: #fff;
+    border-radius: 5px;
+}
+.pedido {
+    max-height: 282px;
+    overflow-y: auto;
+}
+.pedidoDiv select{
+   
+    border: none;
+    background: #fff;
+    border-radius: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+
+
+}
+.pedidoDiv input{
+   margin-right: 2px;
+   border: none;
+   background: #fff;
+   border-radius: 5px;
+
+
+}
+.form-row {
+        flex-direction: row;
+        width: 100%;
+    }
+    .filterDiv{
+        flex-direction: row;
+        display: flex;
+    }
+    .pedidoDiv label,
+.pedidoDiv input,
+.pedidoDiv select {
+    width: 90%;    margin: 5px 0; /* Adiciona um espaço entre os elementos */
+}
+
+
+/* Media query para dispositivos com largura menor que 768px (dispositivos móveis) */
+@media (max-width: 768px) {
+    .pedido {
+    max-height: 275px;
+    overflow-y: auto;
+}
+/* Outros estilos... */
+
+.pedidoDiv {
+    bottom: 10px;
+    display: flex; /* Torna os elementos filhos flexíveis */
+    flex-direction: column; /* Coloca os filhos em uma coluna */
+}
+
+.pedidoDiv label,
+.pedidoDiv input,
+.pedidoDiv select {
+    width: 90%;    margin: 5px 0; /* Adiciona um espaço entre os elementos */
+}
+.form-row {
+        flex-direction: column;
+    }
+    .filterDiv{
+        flex-direction: row;
+        display: flex;
+    }
+}
+
+
+    </style>
 </head>
 
 <body>
@@ -85,17 +198,52 @@ $result = $pdo->query($query);
 
     <div class="divRelatorio1">
         <div class="titleRelatorio">
-            <h1>Confira seus pedidos abaixo
-                <?php echo $username ?>
-            </h1>
-            <br>
+            <h1>Confira seus pedidos abaixo <?php echo $username ?></h1>
+                
+        </div>
+        
+        <div class="divTextRelatorio3">
+    <div class="pedidoDiv">
+        <div class="filterDiv">
 
-
-
-
+        <div class="form-row">
+            <div class="col">
+                <label for="dataInicial">Data Inicial:</label>
+                <input type="date" id="dataInicial" placeholder="Data inicial">
+            </div>
+            <div class="col">
+                <label for="dataFinal">Data Final:</label>
+                <input type="date" id="dataFinal" placeholder="Data final">
+            </div>
         </div>
 
-        <div class="divTextRelatorio3">
+        <div class="form-row">
+            <div class="col">
+                <label for="cliente">User:</label>
+                <select name="cliente1" id="cliente1">
+                    <option value=""></option>
+                    <?php consultaUsuario(); ?>
+                </select>
+            </div>
+            <div class="col">
+                <label for="status">Status:</label>
+                <select name="status" id="status">
+                    <option value=""></option>
+                    <option value="Recebido">Recebido</option>
+                    <option value="Liberado">Liberado</option>
+                    <option value="Atendido">Atendido</option>
+                    <option value="Cancelado">Cancelado</option>
+                </select>
+            </div>
+        </div>
+
+        </div>
+        <button id="btnSearch">Pesquisar</button>
+    </div>
+    
+ 
+
+
             <div class="pedido">
                 <table class="table table-striped table-hover" border="1">
                     <tr>
@@ -106,23 +254,22 @@ $result = $pdo->query($query);
                         <th>Status</th>
                     </tr>
 
-                    <?php
-                    // Loop através dos resultados da consulta e exiba-os na tabela
-                    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<tr data-pedido-id='" . $row['codigo'] . "' class='open-modal-on-double-click' data-toggle='modal' data-target='#myModal'>";
-                        echo "<td>" . $row['codigo'] . "</td>";
-                        echo "<td>" . $row['dataPedido'] . "</td>";
-                        echo "<td>" . $row['cliente'] . "</td>";
-                        echo "<td>" . $row['OSGM'] . "</td>";
-                        echo "<td>" . $row['status'] . "</td>";
-                        echo "</tr>";
-                    }
-                    ?>
+                    <tbody id='tbody'>
+                        <?php
+                        // Loop através dos resultados da consulta e exiba-os na tabela
+                        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                            echo "<tr data-pedido-id='" . $row['codigo'] . "' class='open-modal-on-double-click' data-toggle='modal' data-target='#myModal'>";
+                            echo "<td>" . $row['codigo'] . "</td>";
+                            echo "<td>" . $row['dataPedido'] . "</td>";
+                            echo "<td>" . $row['cliente'] . "</td>";
+                            echo "<td>" . $row['OSGM'] . "</td>";
+                            echo "<td>" . $row['status'] . "</td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </tbody>
                 </table>
             </div>
-
-
-
         </div>
         <button id="ok-button3"><a href="novoPedido.php">Novo Pedido</a> </button>
     </div>
@@ -130,7 +277,6 @@ $result = $pdo->query($query);
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Detalhes do Pedido</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -150,15 +296,20 @@ $result = $pdo->query($query);
                         <label for="osgm">OSGM:</label>
                         <input type="text" id="osgm" name="osgm" readonly>
                         <br>
-                        <label for="status">Status:</label>
-                        <select name="status" id="status">
-                            <option value="Recebido">Recebido</option>
-                            <option value="Liberado">Liberado</option>
-                            <option value="Atendido">Atendido</option>
-                            <option value="Cancelado">Cancelado</option>
-                        </select>
-                      
-                        <button type="button" id='editar'>Salvar</button>
+                        <label for="status">Status:</label><br>
+                        <?php if ($level == 3) { ?>
+                            <select name="status1" id="status1">
+                                <option value="Recebido">Recebido</option>
+                                <option value="Liberado">Liberado</option>
+                                <option value="Atendido">Atendido</option>
+                                <option value="Cancelado">Cancelado</option>
+                            </select>
+                            <br>
+                            <button type="button" id='editar'>Salvar</button>
+                        <?php } ?>
+                        <?php if ($level < 3) { ?>
+                            <input type="text" id="status1" readonly>
+                        <?php } ?>
                     </form>
 
                     <h2>Itens do Pedido</h2>
@@ -169,18 +320,11 @@ $result = $pdo->query($query);
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
     <script>
         // Adicione um ouvinte de eventos para o duplo clique nas linhas da tabela
-        // ...
-        var screen;
-        if (window.innerWidth >= 768) { // Exemplo: Defina a largura de tela desejada para considerar como "tela grande"
-            screen = 'dblclick';
-    } else {
-        screen = 'click'
-    }
+        var screen = 'dblclick';
         $(document).on(screen, '.open-modal-on-double-click', function() {
             var pedidoId = $(this).data('pedido-id');
             console.log(pedidoId);
@@ -199,7 +343,7 @@ $result = $pdo->query($query);
                     $('#dataPedido').val(data.dataPedido);
                     $('#cliente').val(data.cliente);
                     $('#osgm').val(data.OSGM);
-                    $('#status').val(data.status);
+                    $('#status1').val(data.status);
                 },
                 error: function() {
                     alert('Erro na solicitação AJAX para obter os dados do Pedido.');
@@ -224,10 +368,10 @@ $result = $pdo->query($query);
                         var itemPedidoForm = `
                     <form>
                         <label for="produto">Produto:</label>
-                        <input type="text" id="produto" name="produto" value="${item.produto}" readonly>
+                        <input type="text" class="produto" name="produto" value="${item.produto}" readonly>
                         <br>
                         <label for="quantidade">Quantidade:</label>
-                        <input type="text" id="quantidade" name="quantidade" value="${item.quantidade}" readonly>
+                        <input type="text" class="quantidade" name="quantidade" value="${item.quantidade}" readonly>
                     </form>
                 `;
                         itemPedidoList.append(itemPedidoForm);
@@ -240,51 +384,106 @@ $result = $pdo->query($query);
 
             $('#myModal').modal('show'); // Exibe o modal
         });
-
-        // ...
     </script>
     <script>
         $(document).ready(function() {
-    $(".close").click(function() {
-        $("#myModal").modal('hide'); // Corrigido para 'hide'
-        //$(".modal-backdrop").hide();
-    });
-});
-
+            $(".close").click(function() {
+                $("#myModal").modal('hide');
+            });
+        });
     </script>
     <script>
-        $(document).on('click','#editar',function() {
+        $(document).on('click', '#editar', function() {
             var itemCodigo = $('#codigo').val();
-            var itemStatus = $('#status').val();
-            console.log(itemCodigo,itemStatus);
+            var itemStatus = $('#status1').val();
+
+            var produtos = $('.produto').map(function() {
+                return $(this).val();
+            }).get();
+
+            var quantidades = $('.quantidade').map(function() {
+                return $(this).val();
+            }).get();
+
+            console.log(itemCodigo, itemStatus, produtos, quantidades);
+
             $.ajax({
-                url: 'atualizar_pedido.php', // Substitua pela URL do seu script que retorna os Itens do Pedido
+                url: 'atualizar_pedido.php',
                 method: 'POST',
                 dataType: 'json',
                 data: {
                     codigo: itemCodigo,
-                    status: itemStatus
+                    status: itemStatus,
+                    produtos: produtos,
+                    quantidades: quantidades
                 },
-                success: function(response){
+                success: function(response) {
                     alert(response.message);
                     location.reload();
                 },
-                error: function(){
-                    alert('Erro na requisição AJAX');
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
                 }
             });
-        })
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#btnSearch').click(function() {
+                var dataInicial = $('#dataInicial').val();
+                var dataFinal = $('#dataFinal').val();
+                var cliente = $('#cliente1').val();
+                var status = $('#status').val();
+                console.log()
+                // Faça uma solicitação AJAX para obter os dados filtrados com base nos critérios de pesquisa
+                $.ajax({
+                    url: 'obter_filtros.php',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {
+                        dataInicial: dataInicial,
+                        dataFinal: dataFinal,
+                        cliente: cliente,
+                        status: status
+                    },
+                    success: function(data) {
+                        // Limpe a tabela
+                        $('#tbody').empty();
+
+                        // Preencha a tabela com os novos dados
+                        data.forEach(function(row) {
+                            var newRow = "<tr data-pedido-id='" + row.codigo + "' class='open-modal-on-double-click' data-toggle='modal' data-target='#myModal'>";
+                            newRow += '<td>' + row.codigo + '</td>';
+                            newRow += '<td>' + row.dataPedido + '</td>';
+                            newRow += '<td>' + row.cliente + '</td>';
+                            newRow += '<td>' + row.OSGM + '</td>';
+                            newRow += '<td>' + row.status + '</td>';
+                            newRow += '</tr>';
+                            $('#tbody').append(newRow);
+                        });
+                    },
+                    error: function() {
+                        alert('Erro na solicitação AJAX para obter os dados filtrados.');
+                    }
+                });
+            });
+        });
     </script>
 
-
     <footer class="footer">
-        <footer>
-            <p class="footer-text">SARS | UNICAMP | COTIL</p>
+
+        <p class="footer-text">
+            <a href="https://www.sar.unicamp.br/" style="color: white; text-decoration: none;">SARS</a> |
+            <a href="https://www.unicamp.br/unicamp/" style="color: white; text-decoration: none;">UNICAMP</a> |
+            <a href="https://www.cotil.unicamp.br/" style="color: white; text-decoration: none;">COTIL</a>
+        </p>
+
+        <p>Copyright © 2023 AlmoxariSars</p>
 
 
-        </footer>
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    </footer>
+
+
 </body>
 
 </html>

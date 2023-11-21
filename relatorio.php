@@ -42,27 +42,11 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
         .iframe-container {
 
-
-          
             overflow: hidden;
-            margin-top: 30px;
-            zoom: 130%;
-            margin-right: 90px;
-
-
-            /* 16:9 aspect ratio */
-         
+            width: 90%;
+            height: 101%;
             position: relative;
 
-            width: 138%;
-            height: 125%;
-           
-           
-          
-
-
-          
-          
         }
 
 
@@ -82,28 +66,16 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
 
   ?>
-<br>
-<br>
-<br>
-<br>
-
 <div class="divRelatorio12">
   
     <div class="titleRelatorio1">
       <h1>Relatório</h1>
     </div>
-    <br>
-    <br>
-    <br>
-
-
-
-  
+ 
 
 <div class="iframe-container">
-    <iframe title="relatorio" src="https://app.powerbi.com/reportEmbed?reportId=6662da05-e53d-4b46-9e69-1f693bb3d0f1&autoAuth=true&ctid=d3acd233-2d54-401d-8cc3-d86d8614b7c5" frameborder="0" allowFullScreen="true"
-      
-      style="width: 1000px; height: 700px;"></iframe>
+<iframe title="relatorio" src="https://app.powerbi.com/reportEmbed?reportId=6662da05-e53d-4b46-9e69-1f693bb3d0f1&autoAuth=true&ctid=d3acd233-2d54-401d-8cc3-d86d8614b7c5&filterPaneEnabled=false&navContentPaneEnabled=false" frameborder="0" allowFullScreen="true" style="width: 100%; height: 100%; background: transparent;"></iframe>
+
       <!-- ele "tem" que ficar desse jeito p manter filtro e página escondido.  esse aqui muda diretamente no tamanho de exibição, os outros sao tentativas-->
 </div>
 </div>
@@ -116,10 +88,17 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
 
 
 
-  <footer class="footer">
-      <p class="footer-text">SARS | UNICAMP | COTIL</p>
-
-    </footer>
+<footer class="footer">
+   
+   <p class="footer-text">
+   <a href="https://www.sar.unicamp.br/" style="color: white; text-decoration: none;">SARS</a> | 
+   <a href="https://www.unicamp.br/unicamp/" style="color: white; text-decoration: none;">UNICAMP</a> | 
+   <a href="https://www.cotil.unicamp.br/" style="color: white; text-decoration: none;">COTIL</a>
+ </p>
+    
+ <p>Copyright © 2023 AlmoxariSars</p>
+     </footer>
+ 
  
 
  

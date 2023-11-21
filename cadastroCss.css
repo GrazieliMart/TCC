@@ -1,0 +1,29 @@
+body{
+    background-color: aliceblue;
+}
+
+.form{
+    background-color: rgba(255, 255, 255, 0.527);
+    border: solid 2px #fff;
+    border-radius: 20px;
+    width: 350px;
+    justify-content: center;
+    margin-left: 700px;
+    margin-top: 250px;
+}
+.styleform{
+    margin-left: 50px;
+}
+.inputform{
+    border: solid 2px rgba(192, 192, 192, 0.541);
+    transition: 0.3s;
+    border-radius: 5px;
+
+}
+.inputform:hover{
+    border: solid 2px rgb(0, 119, 255);
+    transition: 0.3s;
+    border-radius: 5px;
+
+}
+.inputform:on

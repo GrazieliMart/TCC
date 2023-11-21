@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Formulário de Cadastro de Pedido</title>
+   
 </head>
+
 <body>
-    <h2>Cadastro de Pedido</h2>
+   <div class='pedido'>
+   <h2>Cadastro de Pedido</h2>
     <form method="POST">
         <label for="codigo">Código:</label>
         <input type="number" name="codigo" required><br><br>
@@ -34,6 +38,7 @@
 
         <input type="submit" value="Salvar Pedido">
     </form>
+   </div>
 
     <script>
         function adicionarProduto() {
@@ -43,6 +48,7 @@
         }
     </script>
 </body>
+
 </html>
 
 <?php
@@ -52,32 +58,30 @@ try {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo = conexaoBd(); // Certifique-se de que a função de conexão está retornando uma instância PDO.
-// Recuperar dados do formulário
-$codigo = $_POST['codigo'];
-$solicitante = $_POST['solicitante'];
-$osgm = $_POST['osgm'];
-$obs = $_POST['obs'];
-$data = $_POST['data'];
-$produtos = $_POST['produto'];
-$quantidades = $_POST['quantidade'];
+        // Recuperar dados do formulário
+        $codigo = $_POST['codigo'];
+        $solicitante = $_POST['solicitante'];
+        $osgm = $_POST['osgm'];
+        $obs = $_POST['obs'];
+        $data = $_POST['data'];
+        $produtos = $_POST['produto'];
+        $quantidades = $_POST['quantidade'];
 
-// Inserir o pedido na tabela "Pedidos"
-$sql_pedido = "INSERT INTO Pedido (codigo, cliente, dataPedido, OSGM, observacoes) VALUES (?, ?, ?, ?, ?)";
-$stmt_pedido = $pdo->prepare($sql_pedido);
-$stmt_pedido->execute([$codigo, $solicitante, $data, $osgm, $obs]);
-// Inserir os produtos na tabela "ItemPedido" com o pedido_id correspondente
-$sql_produto = "INSERT INTO ItemPedido (codigoPedido, codigoItem, quantidade) VALUES (?, ?, ?)";
-$stmt_produto = $pdo->prepare($sql_produto);
+        // Inserir o pedido na tabela "Pedidos"
+        $sql_pedido = "INSERT INTO Pedido (codigo, cliente, dataPedido, OSGM, observacoes) VALUES (?, ?, ?, ?, ?)";
+        $stmt_pedido = $pdo->prepare($sql_pedido);
+        $stmt_pedido->execute([$codigo, $solicitante, $data, $osgm, $obs]);
+        // Inserir os produtos na tabela "ItemPedido" com o pedido_id correspondente
+        $sql_produto = "INSERT INTO ItemPedido (codigoPedido, codigoItem, quantidade) VALUES (?, ?, ?)";
+        $stmt_produto = $pdo->prepare($sql_produto);
 
-for ($i = 0; $i < count($produtos); $i++) {
-    echo $produto = $produtos[$i];
-    echo $quantidade = $quantidades[$i];
-    $stmt_produto->execute([$codigo, $produto, $quantidade]);
-}
+        for ($i = 0; $i < count($produtos); $i++) {
+            echo $produto = $produtos[$i];
+            echo $quantidade = $quantidades[$i];
+            $stmt_produto->execute([$codigo, $produto, $quantidade]);
+        }
 
-echo "Pedido cadastrado com sucesso!";
-
-
+        echo "Pedido cadastrado com sucesso!";
     } else {
         echo 'erro';
     }

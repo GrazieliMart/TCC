@@ -44,12 +44,12 @@ function login()
                     exit();
                 } else {
                     // Credenciais inválidas (senha incorreta)
-                    echo ' <div id="error-message">';
-                    echo "<span style='color: white;'>Senha incorreta!</span>";
+                    echo ' <div class="error-message">';
+                    echo "<span style='color: white;'>Senha incorreta!</span></div>";
                 }
             } else {
-                // Usuário não encontrado
-                echo "<span style='color: white;'>Usuário não encontrado!</span>";
+                echo ' <div class="error-message">';
+                echo "<span style='color: white;'>Usuário não encontrado!</span></div>";
             }
         }
     } catch (PDOException $e) {
@@ -316,7 +316,7 @@ function buscarTeste()
 
     try {
         // Defina o número de itens por página
-        $itensPorPagina = 4;
+        $itensPorPagina = 5;
 
 
 
@@ -339,7 +339,7 @@ function buscarTeste()
             $stmt = consultar($offset, $itensPorPagina); // Implemente a função consultarComPaginacao()
 
             // Inicie a tabela fora do loop
-
+            echo '<div class="table-responsive">';
             echo "<table id='tabela' class=' table table-secondary table-striped' >";
             echo "<thead>
                             <tr data-product-code='1'>
@@ -385,6 +385,7 @@ function buscarTeste()
 
             // <input type="submit"  formaction="excluir.php" name="op">    Encerre a tabela
             echo "</table>";
+            echo '</div>';
 
             // Crie links de paginação
             echo '<nav aria-label="Page navigation example">
@@ -411,7 +412,34 @@ function buscarTeste()
         echo 'Error: ' . $e->getMessage();
     }
 }
+function atualizarSenhaUsuario($username, $novaSenha)
+{
+    $pdo = conexaoBd();
 
+    if (empty($username) || empty($novaSenha)) {
+        die("Por favor, forneça um nome de usuário e a nova senha.");
+    }
+
+  
+    // Hash da nova senha
+    $hashed_password = password_hash($novaSenha, PASSWORD_BCRYPT);
+
+    // Atualizar a senha do usuário no banco de dados
+    $update_query = "UPDATE login SET senha_hash = :password_hash WHERE usuario = :user_username";
+    $stmt = $pdo->prepare($update_query);
+    $stmt->bindParam(":password_hash", $hashed_password);
+    $stmt->bindParam(":user_username", $username);
+
+    if ($stmt->execute()) {
+       
+        echo ' <div class="error-messageSucesso">';
+        echo "<span style='color: white;'>Senha atualizada com sucesso!</span></div>";
+    } else {
+       
+        echo ' <div class="error-messageIncorreto">';
+        echo "<span style='color: black;'>Erro! Tente Novamente</span></div>";
+    }
+}
 
 function editarTeste($id)
 {
@@ -496,11 +524,11 @@ function consultaProdutoTCC()
     try {
         $pdo = conexaoBD();
 
-        $stmt = $pdo->prepare('SELECT nome FROM produtoTCC');
+        $stmt = $pdo->prepare('SELECT nome,code FROM produtoTCC');
         $stmt->execute();
 
         while ($row = $stmt->fetch()) {
-            echo '<option value="' . $row["nome"] . '">' . $row['nome'] . '</option>';
+            echo '<option value="' . $row["code"] . '">' . $row['nome'] . '</option>';
         }
     } catch (PDOException $e) {
         echo $e->getMessage();
@@ -523,4 +551,5 @@ function consultaUsuario(){
     $pdo = null;
 
 }
+
 

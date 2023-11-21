@@ -84,6 +84,7 @@ include("bd.php");
       width: 50%;
       max-width: 600px;
       margin: 5px auto;
+     
       padding: 20px;
       border-radius: 5px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -116,6 +117,10 @@ include("bd.php");
     background-color: #1D79A1;
     transition: 0.2s;
 }
+.tituloClose{
+  flex-direction: row;
+  display: flex;
+}
     .table {
       width: 100%;
     }
@@ -136,6 +141,48 @@ include("bd.php");
       float: right;
       cursor: pointer;
     }
+
+    .table-responsive {
+    overflow-x: auto;
+}
+
+/* Opcional: Para melhorar a aparência, você pode ocultar a barra de rolagem horizontal até que haja rolagem */
+.table-responsive::-webkit-scrollbar {
+    width: 0.25rem;
+    height: 0.25rem;
+    visibility: hidden;
+}.close {
+    background-color: #03638C;
+    border: none;
+    border-radius: 20px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    color: #fff;
+    font-size: 13px;
+    margin-left: 130px;
+    width: 50px;
+    font-weight: normal;
+    cursor: pointer;
+}
+.table-responsive::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0);
+}
+
+.table-responsive:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 600px) {
+.modal-content {
+   
+    width: 100%; 
+   
+}
+}
   </style>
 </head>
 
@@ -143,12 +190,22 @@ include("bd.php");
   <?php
   include 'menuLateral1.php';
   ?>
-  <footer class="footer">
 
+<footer class="footer">
+   
+   <p class="footer-text">
+   <a href="https://www.sar.unicamp.br/" style="color: white; text-decoration: none;">SARS</a> | 
+   <a href="https://www.unicamp.br/unicamp/" style="color: white; text-decoration: none;">UNICAMP</a> | 
+   <a href="https://www.cotil.unicamp.br/" style="color: white; text-decoration: none;">COTIL</a>
+   
+ </p>
+ <p>Copyright © 2023 AlmoxariSars</p>
 
-    <p class="footer-text">SARS | UNICAMP | COTIL</p>
-
-  </footer>
+      
+ 
+     </footer>
+ 
+ 
   <div class="divRelatorio1">
     <div class="titleRelatorio">
       <h1>Estoque</h1>
@@ -181,7 +238,11 @@ include("bd.php");
 
       <div class="modal" id="edit-modal">
         <div class="modal-content">
-          <h2>Editar Produto</h2>
+       <div class="tituloClose">
+          <h2>Editar Produto</h2> 
+          <button type="button" class="close" id data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button></div>
           <form id="edit" method="post" enctype="multipart/form-data">
             <input type="hidden" name="code" id="edit-code">
             <label for="edit-nome">Nome:</label>
@@ -218,7 +279,7 @@ include("bd.php");
 
 
 
-
+  
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
@@ -322,7 +383,13 @@ include("bd.php");
       });
     });
   </script>
-
+  <script>
+        $(document).ready(function() {
+            $(".close").click(function() {
+                $("#myModal").modal('hide');
+            });
+        });
+    </script>
 </body>
 
 </html>

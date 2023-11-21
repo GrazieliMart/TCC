@@ -248,13 +248,16 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
                       ?>
 
                     </div>
-              </div>
+              </div>   
+           
 
-              <a href="cadastro.php" class="linkVoltar">Voltar</a>
+           
             </div>
-
+  
       </form>
-
+      <div class="linkVoltarDiv">
+<a href="cadastro.php" class="linkVoltar">Voltar</a>
+</div>
     </div>
   <?php } ?>
 
@@ -414,16 +417,25 @@ if (isset($_SESSION['username']) && null !== $_SESSION['level']) {
       <?php } ?>
       <div class="divSeparador2">
         <a onclick="trocarFormulario('form3')"><button id="ok-button" aria-required="click"><i class="bi bi-rulers"></i><br>Medidas</button></a>
-        <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click"><i class="bi bi-grid"></i>Categorias</button></a>
+        <a onclick="trocarFormulario('form4')"><button id="ok-button" aria-required="click"><i class="bi bi-grid"></i><br>Categorias</button></a>
       </div>
     </div>
   </div>
 
+ 
+
   <footer class="footer">
-    <footer>
-      <p class="footer-text">SARS | UNICAMP | COTIL</p>
+   
+  <p class="footer-text">
+  <a href="https://www.sar.unicamp.br/" style="color: white; text-decoration: none;">SARS</a> | 
+  <a href="https://www.unicamp.br/unicamp/" style="color: white; text-decoration: none;">UNICAMP</a> | 
+  <a href="https://www.cotil.unicamp.br/" style="color: white; text-decoration: none;">COTIL</a>
+</p>
+
+<p>Copyright © 2023 AlmoxariSars</p>
 
     </footer>
+
 
 
 
