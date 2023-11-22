@@ -30,7 +30,7 @@ Este é um projeto de almoxarifado que visa atender às necessidades do nosso cl
 - **CSS**: Utilizado para estilizar a página.
 - **Bootstrap**: Um framework CSS que é utilizado para melhorar o design e a usabilidade da aplicação.
 - **Power BI**: Utilizado para gerar relatórios e análises de dados.
-- **SaR (Secretaria de Administração Regional)**: Parceria com a SaR para identificar as necessidades do cliente e aprimorar a gestão do almoxarifado.
+- **SAR (Secretaria de Administração Regional)**: Parceria com a SAR para identificar as necessidades do cliente e aprimorar a gestão do almoxarifado.
 
 ## Banco de Dados MySQL
 
