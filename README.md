@@ -2,7 +2,7 @@
 <h2>Rep destinado ao TCC do COTIL </h2>
 # Projeto de Almoxarifado em Parceria com a SaR
 
-Este é um projeto de almoxarifado que visa atender às necessidades do nosso cliente por meio de uma parceria com a Secretaria de Administração Regional (SaR). Em colaboração com a SaR, identificamos e desenvolvemos o sistema para gerenciar eficientemente o estoque de produtos de um almoxarifado. O projeto oferece uma variedade de funcionalidades, incluindo:
+Este é um projeto de almoxarifado que visa atender às necessidades do nosso cliente por meio de uma parceria com a Secretaria de Administração Regional (SAR). Em colaboração com a SAR, identificamos e desenvolvemos o sistema para gerenciar eficientemente o estoque de produtos de um almoxarifado. O projeto oferece uma variedade de funcionalidades, incluindo:
 
 **Cadastro de Produtos**: Facilitando o registro de novos produtos no estoque, com campos para informações detalhadas, como nome, categoria, unidade de medida, quantidade em estoque, e outros.
 
@@ -34,7 +34,7 @@ Este é um projeto de almoxarifado que visa atender às necessidades do nosso cl
 
 ## Banco de Dados MySQL
 
-Este projeto utiliza o MySQL como banco de dados para armazenar informações relevantes. Para executar o projeto em sua máquina local, você precisará configurar um servidor MySQL e criar as tabelas necessárias para o funcionamento do sistema. Certifique-se de ter um servidor MySQL instalado e configurado. 
+Este projeto utiliza o MySQL como banco de dados para armazenar informações relevantes. Para executar o projeto em sua máquina local, você precisará configurar um servidor MySQL e criar as tabelas necessárias para o funcionamento do sistema. Certifique-se de ter um servidor MySQL instalado e configurado. Execute o arquivo tabelas.sql para a criação das tabelas. 
 
 ## Como Rodar Localmente
 
