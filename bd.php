@@ -3,9 +3,9 @@ function conexaoBd()
 {
     try {
         // conexão PDO    // IP, nomeBD, usuario, senha   
-        $db = 'mysql:host=143.106.241.3;dbname=cl201272;charset=utf8';
-        $user = 'cl201272';
-        $passwd = '******';
+        $db = 'mysql:host=';
+        $user = '';
+        $passwd = '';
         $pdo = new PDO($db, $user, $passwd);
 
         // ativar o depurador de erros para gerar exceptions em caso de erros
